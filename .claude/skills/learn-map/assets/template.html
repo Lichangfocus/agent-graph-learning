@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>知识探险</title>
+<style>
+  :root {
+    --night-1: #1a2140; --night-2: #253055;
+    --paper: #fdf8ee; --ink: #3a3350; --ink-soft: #6f688a;
+    --gold: #ffd166; --locked: #4a5378; --good: #58c98b; --ai: #d78cff;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    background: radial-gradient(120% 100% at 50% 0%, var(--night-2) 0%, var(--night-1) 70%);
+    color: #f2ecdd; min-height: 100vh; -webkit-font-smoothing: antialiased;
+  }
+  button { font-family: inherit; cursor: pointer; }
+  button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  header {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 18px 24px 6px; max-width: 1100px; margin: 0 auto; flex-wrap: wrap;
+  }
+  .journey-tag { font-size: 12px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; }
+  header h1 { font-size: 26px; margin: 4px 0 0; font-weight: 700; letter-spacing: 1px; }
+  .head-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .progress-pill {
+    display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,.07);
+    border-radius: 999px; padding: 8px 16px; font-size: 14px; white-space: nowrap;
+  }
+  .progress-track { width: 80px; height: 8px; border-radius: 4px; background: rgba(255,255,255,.15); overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 4px; background: var(--gold); width: 0; transition: width .6s ease; }
+  .ghost-btn {
+    background: none; border: 1px solid rgba(255,255,255,.25); color: #cfc8e8;
+    border-radius: 999px; padding: 8px 14px; font-size: 13px;
+  }
+  .ghost-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; font-size: 12px; color: #bdb5d6; padding: 10px 16px 0; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .edge-demo { width: 26px; height: 0; border-top: 2px solid #8b93b8; display: inline-block; }
+  .edge-demo.soft { border-top-style: dashed; }
+  .edge-demo.cross { border-color: var(--gold); border-top-style: dashed; }
+  .map-wrap { max-width: 1100px; margin: 8px auto 30px; padding: 0 16px; }
+  .map {
+    position: relative; width: 100%; aspect-ratio: 3 / 2; border-radius: 24px;
+    background: radial-gradient(circle at 20% 30%, rgba(157,140,255,.08), transparent 40%),
+      radial-gradient(circle at 75% 65%, rgba(69,196,176,.08), transparent 45%), rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.08); overflow: hidden;
+  }
+  .map svg.edges { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .stars { position: absolute; inset: 0; pointer-events: none; }
+  .node {
+    position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column;
+    align-items: center; gap: 6px; background: none; border: none; padding: 6px; color: inherit; width: 110px;
+  }
+  .node .bubble {
+    width: 62px; height: 62px; border-radius: 50%; display: grid; place-items: center; font-size: 26px;
+    border: 3px solid var(--c, #888); background: var(--night-1);
+    transition: transform .2s ease, box-shadow .3s ease; position: relative;
+  }
+  .node .label { font-size: 13px; font-weight: 600; text-align: center; line-height: 1.3; text-shadow: 0 2px 6px rgba(0,0,0,.6); }
+  .node .sub { font-size: 10px; color: #a79fc4; letter-spacing: 1px; }
+  .node.lit .bubble { background: var(--c); box-shadow: 0 0 22px var(--c), 0 0 44px rgba(255,209,102,.25); }
+  .node.lit .bubble::after {
+    content: "✓"; position: absolute; right: -4px; top: -4px; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--good); color: #fff; font-size: 12px; display: grid; place-items: center; border: 2px solid var(--night-1);
+  }
+  .node.open:hover .bubble, .node.open:focus-visible .bubble { transform: scale(1.12); }
+  .node.locked { opacity: .45; }
+  .node.locked .bubble { border-color: var(--locked); filter: grayscale(.7); }
+  .node.locked .bubble::after { content: "🔒"; position: absolute; right: -6px; top: -6px; font-size: 14px; filter: none; }
+  @media (prefers-reduced-motion: no-preference) {
+    .node.open .bubble { animation: breathe 2.2s ease-in-out infinite; }
+    @keyframes breathe {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255,209,102,.0); }
+      50% { box-shadow: 0 0 0 9px rgba(255,209,102,.16); }
+    }
+  }
+  .hint-bar { text-align: center; font-size: 14px; color: #cfc8e8; padding: 10px 16px 26px; }
+  .hint-bar b { color: var(--gold); font-weight: 600; }
+  .overlay {
+    position: fixed; inset: 0; background: rgba(16,20,40,.75); display: none;
+    align-items: center; justify-content: center; padding: 18px; z-index: 50;
+  }
+  .overlay.show { display: flex; }
+  .card {
+    width: min(720px, 100%); max-height: 92vh; overflow-y: auto; background: var(--paper); color: var(--ink);
+    border-radius: 26px; padding: 28px 30px 22px; box-shadow: 0 24px 80px rgba(0,0,0,.5);
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .card-head .kicker {
+    font-size: 12px; letter-spacing: 2px; color: #fff; background: var(--c, #45c4b0);
+    border-radius: 999px; padding: 4px 12px; display: inline-block; margin-right: 6px;
+  }
+  .card-head h2 { margin: 10px 0 0; font-size: 26px; line-height: 1.25; text-wrap: balance; }
+  .close-x { border: none; background: #efe7d5; color: var(--ink-soft); width: 36px; height: 36px; border-radius: 50%; font-size: 16px; flex: none; }
+  .screen { display: flex; flex-direction: column; gap: 14px; }
+  .screen h3 { margin: 0; font-size: 15px; letter-spacing: 2px; color: var(--ink-soft); }
+  .screen p { margin: 0; font-size: 18px; line-height: 1.75; max-width: 34em; }
+  .screen p b { color: #b3541e; }
+  .stage { background: #fff; border: 1px solid #eee2c8; border-radius: 18px; padding: 16px; display: flex; justify-content: center; overflow-x: auto; }
+  .try-list { display: flex; flex-direction: column; gap: 10px; }
+  .try-item {
+    display: flex; gap: 12px; align-items: flex-start; background: #fff; border: 1px solid #eee2c8;
+    border-radius: 14px; padding: 12px 14px; font-size: 16px; line-height: 1.6;
+  }
+  .try-item .n {
+    flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--gold); color: #6b4a00;
+    font-weight: 700; font-size: 14px; display: grid; place-items: center; margin-top: 2px;
+  }
+  .quiz-q { font-size: 19px; font-weight: 600; line-height: 1.6; margin: 0; }
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .opt {
+    text-align: left; font-size: 17px; line-height: 1.5; background: #fff; border: 2px solid #e8dcbf;
+    border-radius: 14px; padding: 13px 16px; transition: border-color .15s ease, background .15s ease;
+  }
+  .opt:hover { border-color: var(--gold); }
+  .opt.right { border-color: var(--good); background: #ecfaf1; }
+  .opt.wrong { border-color: #e88; background: #fdf0f0; }
+  .quiz-fb { font-size: 16px; line-height: 1.6; min-height: 1.6em; margin: 0; color: var(--ink-soft); }
+  .quiz-fb.good { color: #1e7d4f; }
+  .card-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px dashed #e0d3ae; padding-top: 14px; }
+  .dots { display: flex; gap: 7px; }
+  .dots i { width: 9px; height: 9px; border-radius: 50%; background: #ddd0aa; }
+  .dots i.on { background: var(--c, #45c4b0); }
+  .nav-btn { border: none; border-radius: 999px; padding: 12px 26px; font-size: 16px; font-weight: 600; }
+  .nav-btn.back { background: #efe7d5; color: var(--ink-soft); }
+  .nav-btn.next { background: var(--ink); color: #fff; }
+  .nav-btn.light-up { background: var(--gold); color: #6b4a00; }
+  .nav-btn:disabled { opacity: .4; cursor: default; }
+  .ask-ai { background: none; border: 1px dashed #cbb1e8; color: #8646b8; border-radius: 999px; padding: 8px 14px; font-size: 13px; }
+  .celebrate { text-align: center; padding: 10px 0 4px; }
+  .celebrate .big { font-size: 54px; }
+  .celebrate h4 { font-size: 22px; margin: 8px 0 4px; }
+  .celebrate p { color: var(--ink-soft); font-size: 15px; margin: 0; }
+  .drawer {
+    position: fixed; top: 0; right: 0; bottom: 0; width: min(430px, 94vw); background: #fffdf7; color: var(--ink);
+    z-index: 60; transform: translateX(105%); transition: transform .3s ease;
+    box-shadow: -18px 0 50px rgba(0,0,0,.35); display: flex; flex-direction: column;
+  }
+  @media (prefers-reduced-motion: reduce) { .drawer { transition: none; } }
+  .drawer.show { transform: translateX(0); }
+  .drawer-head { padding: 20px 22px 14px; border-bottom: 1px solid #ece2c6; display: flex; justify-content: space-between; align-items: center; }
+  .drawer-head h2 { font-size: 18px; margin: 0; }
+  .drawer-body { overflow-y: auto; padding: 16px 22px 28px; display: flex; flex-direction: column; gap: 14px; }
+  .p-item { border: 1px solid #ece2c6; border-radius: 14px; padding: 12px 14px; }
+  .p-item .row1 { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; }
+  .p-item .meta { font-size: 12px; color: var(--ink-soft); margin-top: 3px; }
+  .p-item ul { margin: 8px 0 0; padding-left: 20px; font-size: 13px; line-height: 1.7; color: #55506b; }
+  .p-item li.done { color: #1e7d4f; }
+  .p-item li.done::marker { content: "✓ "; }
+  .state-chip { margin-left: auto; font-size: 11px; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+  .state-chip.lit { background: #ecfaf1; color: #1e7d4f; }
+  .state-chip.open { background: #fff6dd; color: #8a6400; }
+  .state-chip.locked { background: #eee; color: #888; }
+  .drawer-note { font-size: 12px; color: var(--ink-soft); line-height: 1.7; background: #f7f1e2; border-radius: 12px; padding: 12px 14px; }
+  .row-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  .small-btn { background: none; border: 1px solid #d8c9a2; color: var(--ink-soft); border-radius: 999px; padding: 7px 16px; font-size: 13px; }
+  .toast {
+    position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%); background: #2c2545; color: #ffe9b0;
+    border-radius: 999px; padding: 10px 22px; font-size: 14px; z-index: 80; opacity: 0; transition: opacity .3s ease; pointer-events: none;
+  }
+  .toast.show { opacity: 1; }
+  @media (max-width: 720px) {
+    .map { aspect-ratio: auto; height: 560px; }
+    .node { width: 92px; }
+    .node .bubble { width: 52px; height: 52px; font-size: 22px; }
+    .node .label { font-size: 11.5px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="journey-tag" id="journey-tag"></div>
+    <h1 id="journey-title"></h1>
+  </div>
+  <div class="head-right">
+    <div class="progress-pill">
+      <span>已点亮 <b id="prog-num">0</b>/<span id="prog-total">0</span></span>
+      <span class="progress-track"><span class="progress-fill" id="prog-fill"></span></span>
+    </div>
+    <button class="ghost-btn" id="records-open">学习档案</button>
+  </div>
+</header>
+
+<div class="legend" id="legend"></div>
+
+<div class="map-wrap">
+  <div class="map" id="map">
+    <svg class="stars" viewBox="0 0 1200 800" preserveAspectRatio="none" aria-hidden="true"></svg>
+    <svg class="edges" viewBox="0 0 1200 800" preserveAspectRatio="none" aria-hidden="true"></svg>
+  </div>
+</div>
+<p class="hint-bar" id="hint-bar">点一点<b>发光的圆圈</b>，开始探险！锁住的地方，要先点亮前面的知识点哦。</p>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true">
+  <div class="card" id="card"></div>
+</div>
+
+<div class="drawer" id="drawer" role="dialog" aria-label="学习档案">
+  <div class="drawer-head">
+    <h2>学习档案</h2>
+    <button class="close-x" id="records-close">✕</button>
+  </div>
+  <div class="drawer-body" id="drawer-body"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// 生成器注入数据：把下一行的 DATA 占位符（连同 null）整体替换为站点 JSON
+const SITE = /*__DATA__*/null;
+
+if (!SITE) {
+  document.body.innerHTML = '<p style="padding:40px;font-size:18px">模板尚未注入数据（DATA 占位符未替换）。</p>';
+  throw new Error('no data');
+}
+
+/* ---------- 领域配色（自动分配） ---------- */
+const PALETTE = ['#45c4b0', '#ff9a5c', '#9d8cff', '#ffd166', '#6db9ff', '#ff8fab'];
+const domains = [...new Set(SITE.nodes.map(n => n.domain || '通用'))];
+const domainColor = Object.fromEntries(domains.map((d, i) => [d, PALETTE[i % PALETTE.length]]));
+
+/* ---------- 自动布局：按最长路径分层，从左到右 ---------- */
+const byId = Object.fromEntries(SITE.nodes.map(n => [n.id, n]));
+const preds = {};
+SITE.edges.forEach(e => { (preds[e.to] = preds[e.to] || []).push(e.from); });
+const layerMemo = {};
+function layerOf(id, seen) {
+  if (id in layerMemo) return layerMemo[id];
+  seen = seen || new Set();
+  if (seen.has(id)) return 0;
+  seen.add(id);
+  const ps = preds[id] || [];
+  const v = ps.length ? 1 + Math.max(...ps.map(p => layerOf(p, seen))) : 0;
+  layerMemo[id] = v;
+  return v;
+}
+SITE.nodes.forEach(n => layerOf(n.id));
+const maxLayer = Math.max(...Object.values(layerMemo));
+const cols = {};
+SITE.nodes.forEach(n => { (cols[layerMemo[n.id]] = cols[layerMemo[n.id]] || []).push(n); });
+Object.entries(cols).forEach(([L, arr]) => {
+  const x = maxLayer ? 110 + (980 * L / maxLayer) : 600;
+  arr.forEach((n, i) => {
+    n.x = x + ((i % 2) ? 26 : -26) * (arr.length > 1 ? 1 : 0);
+    n.y = arr.length === 1 ? 400 : 120 + (560 * i / (arr.length - 1));
+  });
+});
+
+/* ---------- 持久化 ---------- */
+const KEY = 'learnmap-' + SITE.id;
+let lit = new Set();
+try {
+  const saved = JSON.parse(localStorage.getItem(KEY) || 'null');
+  if (saved && Array.isArray(saved.lit)) lit = new Set(saved.lit.filter(i => byId[i]));
+} catch (e) {}
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify({ lit: [...lit], savedAt: new Date().toISOString() })); } catch (e) {}
+}
+
+function stateOf(node) {
+  if (lit.has(node.id)) return 'lit';
+  const hard = SITE.edges.filter(e => e.to === node.id && e.type === 'hard').map(e => e.from);
+  return hard.every(p => lit.has(p)) ? 'open' : 'locked';
+}
+
+/* ---------- 渲染 ---------- */
+document.title = SITE.title;
+document.getElementById('journey-tag').textContent = SITE.tag || '知识探险 · LEARN MAP';
+document.getElementById('journey-title').textContent = SITE.title;
+document.getElementById('legend').innerHTML =
+  domains.map(d => `<span><i class="dot" style="background:${domainColor[d]}"></i>${d}</span>`).join('') +
+  '<span><i class="edge-demo"></i>必须先学</span><span><i class="edge-demo soft"></i>学过更好</span><span><i class="edge-demo cross"></i>跨领域连接</span>';
+
+const map = document.getElementById('map');
+const edgeSvg = map.querySelector('.edges');
+const starSvg = map.querySelector('.stars');
+(function stars() {
+  let s = '';
+  for (let i = 0; i < 14; i++) {
+    const x = (i * 337 + 83) % 1200, y = (i * 211 + 57) % 800;
+    s += `<circle cx="${x}" cy="${y}" r="${i % 3 === 0 ? 2.5 : 1.5}" fill="#fff" opacity="${0.12 + (i % 4) * 0.07}"/>`;
+  }
+  starSvg.innerHTML = s;
+})();
+
+function render() {
+  let paths = '';
+  for (const e of SITE.edges) {
+    const a = byId[e.from], b = byId[e.to];
+    if (!a || !b) continue;
+    const bothLit = lit.has(a.id) && lit.has(b.id);
+    const color = e.type === 'cross' ? 'var(--gold)' : (bothLit ? '#e9dfae' : '#5d668f');
+    const dash = e.type === 'hard' ? '' : 'stroke-dasharray="7 7"';
+    const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2 - 40;
+    paths += `<path d="M${a.x} ${a.y} Q ${mx} ${my} ${b.x} ${b.y}" stroke="${color}" stroke-width="${bothLit ? 3 : 2}" fill="none" ${dash} opacity="${bothLit ? .9 : .5}"/>`;
+  }
+  edgeSvg.innerHTML = paths;
+
+  map.querySelectorAll('.node').forEach(n => n.remove());
+  for (const node of SITE.nodes) {
+    const st = stateOf(node);
+    const btn = document.createElement('button');
+    btn.className = `node ${st}`;
+    btn.style.left = (node.x / 1200 * 100) + '%';
+    btn.style.top = (node.y / 800 * 100) + '%';
+    btn.style.setProperty('--c', domainColor[node.domain || '通用']);
+    btn.innerHTML = `<span class="bubble">${node.icon}</span><span class="label">${node.name}</span>
+      <span class="sub">${node.domain || ''}${node.age ? ' · ' + node.age : ''}</span>`;
+    if (st !== 'locked') btn.addEventListener('click', () => openCard(node.id));
+    else btn.addEventListener('click', () => toast('先点亮前面的知识点，这里就会解锁哦 🔒'));
+    map.appendChild(btn);
+  }
+  const n = lit.size, total = SITE.nodes.length;
+  document.getElementById('prog-num').textContent = n;
+  document.getElementById('prog-total').textContent = total;
+  document.getElementById('prog-fill').style.width = (n / total * 100) + '%';
+  renderDrawer();
+}
+
+let toastTimer;
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+/* ---------- 卡片 ---------- */
+const overlay = document.getElementById('overlay');
+const cardEl = document.getElementById('card');
+let cur = { id: null, idx: 0, answered: {} };
+function openCard(id) {
+  cur = { id, idx: 0, answered: {} };
+  overlay.classList.add('show');
+  drawCard();
+}
+function closeCard() { overlay.classList.remove('show'); }
+overlay.addEventListener('click', e => { if (e.target === overlay) closeCard(); });
+
+function drawCard() {
+  const node = byId[cur.id];
+  const screens = node.screens;
+  const s = screens[cur.idx];
+  const alreadyLit = lit.has(cur.id);
+  const color = domainColor[node.domain || '通用'];
+  let inner = `<div class="card-head" style="--c:${color}">
+    <div><span class="kicker">${node.domain || '知识点'}${node.age ? ' · ' + node.age : ''}</span>
+      <h2>${node.icon} ${node.name}</h2></div>
+    <button class="close-x" id="card-close" aria-label="关闭">✕</button></div>`;
+
+  if (s.quiz) {
+    const done = cur.answered[cur.idx];
+    inner += `<div class="screen"><h3>我来回答 ✋</h3><p class="quiz-q">${s.quiz.q}</p>
+      <div class="options">${s.quiz.opts.map((o, i) =>
+        `<button class="opt${done != null ? (o.ok ? ' right' : (done === i ? ' wrong' : '')) : ''}" data-i="${i}" ${done != null ? 'disabled' : ''}>${o.t}</button>`).join('')}</div>
+      <p class="quiz-fb${done != null && s.quiz.opts[done].ok ? ' good' : ''}">${
+        done == null ? '选一个你觉得对的答案' : (s.quiz.opts[done].ok ? '🎉 ' + s.quiz.fb : (s.quiz.hint || '再想一想～'))}</p></div>`;
+  } else {
+    inner += `<div class="screen"><h3>${s.h || ''}</h3>${s.body}</div>`;
+  }
+
+  const isLast = cur.idx === screens.length - 1;
+  const allQuizDone = screens.every((sc, i) => !sc.quiz || (cur.answered[i] != null && sc.quiz.opts[cur.answered[i]].ok));
+  const blocked = s.quiz && !(cur.answered[cur.idx] != null && s.quiz.opts[cur.answered[cur.idx]].ok);
+
+  inner += `<div class="card-foot" style="--c:${color}">
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="nav-btn back" id="btn-back" ${cur.idx === 0 ? 'disabled' : ''}>上一页</button>
+      <button class="ask-ai" id="btn-ask" title="复制一句提问，去问任何 AI">🤖 问 AI</button>
+    </div>
+    <div class="dots">${screens.map((_, i) => `<i class="${i === cur.idx ? 'on' : ''}"></i>`).join('')}</div>
+    ${isLast
+      ? (alreadyLit ? `<button class="nav-btn back" id="btn-close2">完成复习</button>`
+        : `<button class="nav-btn light-up" id="btn-light" ${allQuizDone ? '' : 'disabled'}>✨ 点亮它！</button>`)
+      : `<button class="nav-btn next" id="btn-next" ${blocked ? 'disabled' : ''}>下一页</button>`}</div>`;
+
+  cardEl.innerHTML = inner;
+  cardEl.style.setProperty('--c', color);
+  document.getElementById('card-close').onclick = closeCard;
+  const g = id => document.getElementById(id);
+  if (g('btn-back')) g('btn-back').onclick = () => { cur.idx--; drawCard(); };
+  if (g('btn-next')) g('btn-next').onclick = () => { cur.idx++; drawCard(); };
+  if (g('btn-close2')) g('btn-close2').onclick = closeCard;
+  if (g('btn-light')) g('btn-light').onclick = () => lightUp(cur.id);
+  g('btn-ask').onclick = () => {
+    const litNames = SITE.nodes.filter(n => lit.has(n.id)).map(n => n.name).slice(0, 8).join('、');
+    const q = `我是一个${node.age || ''}的孩子，正在学「${node.name}」（${(node.desc || '').slice(0, 80)}）。我已经学会了：${litNames || '还没学别的'}。请用我能懂的话，再给我讲讲这个知识点，多用我已经会的东西打比方。`;
+    navigator.clipboard.writeText(q).then(() => toast('提问已复制，去粘贴给任何 AI 吧 🤖'));
+  };
+  cardEl.querySelectorAll('.opt:not([disabled])').forEach(b => {
+    b.onclick = () => { cur.answered[cur.idx] = +b.dataset.i; drawCard(); };
+  });
+}
+
+function lightUp(id) {
+  const beforeOpen = new Set(SITE.nodes.filter(n => stateOf(n) !== 'locked').map(n => n.id));
+  lit.add(id);
+  save();
+  const node = byId[id];
+  const unlocked = SITE.nodes.filter(n => !lit.has(n.id) && !beforeOpen.has(n.id) && stateOf(n) === 'open').map(n => n.name);
+  cardEl.innerHTML = `<div class="celebrate"><div class="big">✨${node.icon}✨</div>
+    <h4>「${node.name}」点亮了！</h4>
+    <p>${unlocked.length ? '地图上有新的地方亮起来了：' + unlocked.join('、') : '继续去点亮别的星星吧！'}</p></div>
+    <div class="card-foot" style="justify-content:center">
+      <button class="nav-btn light-up" id="btn-map">回到地图看看 🗺️</button></div>`;
+  document.getElementById('btn-map').onclick = () => { closeCard(); render(); };
+  render();
+}
+
+/* ---------- 学习档案（含导出/导入） ---------- */
+const drawer = document.getElementById('drawer');
+document.getElementById('records-open').onclick = () => { drawer.classList.add('show'); renderDrawer(); };
+document.getElementById('records-close').onclick = () => drawer.classList.remove('show');
+
+function renderDrawer() {
+  const stName = { lit: '已掌握', open: '进行中', locked: '未解锁' };
+  let html = `<div class="drawer-note">${SITE.about || '每个知识点都有可观察的掌握证据；进度自动保存在这台设备的浏览器里。'}</div>
+    <div class="row-btns">
+      <button class="small-btn" id="btn-export">导出进度</button>
+      <button class="small-btn" id="btn-import">导入进度</button>
+      <button class="small-btn" id="btn-reset">重置进度</button>
+      <input type="file" id="import-file" accept="application/json" hidden>
+    </div>`;
+  for (const node of SITE.nodes) {
+    const st = stateOf(node);
+    html += `<div class="p-item"><div class="row1">${node.icon} ${node.name}
+      <span class="state-chip ${st}">${stName[st]}</span></div>
+      <div class="meta">${node.domain || ''}${node.age ? ' · ' + node.age : ''}</div>
+      <ul>${(node.evidence || []).map(ev => `<li class="${st === 'lit' ? 'done' : ''}">${ev}</li>`).join('')}</ul></div>`;
+  }
+  document.getElementById('drawer-body').innerHTML = html;
+  document.getElementById('btn-export').onclick = () => {
+    const blob = new Blob([JSON.stringify({ site: SITE.id, lit: [...lit], exportedAt: new Date().toISOString() }, null, 1)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = SITE.id + '-progress.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  };
+  const fileInput = document.getElementById('import-file');
+  document.getElementById('btn-import').onclick = () => fileInput.click();
+  fileInput.onchange = () => {
+    const f = fileInput.files[0];
+    if (!f) return;
+    f.text().then(t => {
+      try {
+        const d = JSON.parse(t);
+        if (d.site !== SITE.id) { toast('这份进度属于另一张地图'); return; }
+        lit = new Set((d.lit || []).filter(i => byId[i]));
+        save(); render(); toast('进度已导入 ✓');
+      } catch (e) { toast('文件无法解析'); }
+    });
+  };
+  document.getElementById('btn-reset').onclick = () => {
+    if (!confirm('确定要清空这张地图的全部进度吗？')) return;
+    lit = new Set(); save(); render();
+  };
+}
+
+render();
+</script>
+</body>
+</html>

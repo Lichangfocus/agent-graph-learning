@@ -1,0 +1,414 @@
+{
+ "id": "sound-journey",
+ "title": "声音之旅 🎵",
+ "tag": "主题探险线 · SOUND JOURNEY",
+ "about": "这张地图的知识点与先修关系改编自开源图谱 Marble os-taxonomy（对标美国 Common Core、NGSS 与英国国家课标），内容为中文重构。进度自动保存在本设备浏览器中，可在下方导出/导入。",
+ "nodes": [
+  {
+   "id": "vocab",
+   "icon": "💬",
+   "name": "光与声的词汇",
+   "domain": "科学",
+   "age": "6-8岁",
+   "ageStart": 6,
+   "desc": "会用'振动、音量、音高'这些词准确描述听到的声音",
+   "evidence": [
+    "能正确使用'振动、音量、音高'来描述声音",
+    "观察时会用准确的词说出听到的现象"
+   ],
+   "screens": [
+    {
+     "h": "词语是工具",
+     "body": "<p>探险家出发前要先认识地图上的记号，我们先认识三个描述声音的<b>词语工具</b>：</p><div class=\"try-list\"><div class=\"try-item\"><span class=\"n\">1</span><b>振动</b>——物体快速地来回抖动</div><div class=\"try-item\"><span class=\"n\">2</span><b>音量</b>——声音的大和小</div><div class=\"try-item\"><span class=\"n\">3</span><b>音高</b>——声音的高和低（小鸟叫是高音，大狗汪汪是低音）</div></div>"
+    },
+    {
+     "quiz": {
+      "q": "描述'声音的高和低'，应该用哪个词？",
+      "opts": [
+       {
+        "t": "音高",
+        "ok": true
+       },
+       {
+        "t": "音量"
+       },
+       {
+        "t": "颜色"
+       }
+      ],
+      "fb": "对！音高说的是高低，音量说的是大小——这两个最容易混，你已经分清了。",
+      "hint": "大小和高低，是两件不同的事哦"
+     }
+    }
+   ]
+  },
+  {
+   "id": "vibration",
+   "icon": "🎸",
+   "name": "振动与声音",
+   "domain": "科学",
+   "age": "6-9岁",
+   "ageStart": 6,
+   "desc": "理解振动的物体会发出声音，声音也能让物体振动",
+   "evidence": [
+    "能说出：声音是物体快速来回振动产生的",
+    "能举出 3 个振动发声的例子（鼓面、琴弦、喉咙）",
+    "能演示声音也能让物体振动（米粒在鼓面上跳）"
+   ],
+   "screens": [
+    {
+     "h": "是什么",
+     "body": "<p>把手放在喉咙上，说一句\"你好\"——感觉到了吗？喉咙在<b>轻轻地抖</b>。</p><p>所有的声音，都来自<b>振动</b>：物体快速地来回抖动，声音就出来了。</p><div class=\"stage\"><svg viewBox=\"0 0 360 130\" width=\"100%\" style=\"max-width:400px\" role=\"img\" aria-label=\"振动的琴弦\"><rect x=\"20\" y=\"20\" width=\"14\" height=\"90\" rx=\"4\" fill=\"#c98b4e\"/><rect x=\"326\" y=\"20\" width=\"14\" height=\"90\" rx=\"4\" fill=\"#c98b4e\"/><path d=\"M34 65 Q 180 25 326 65\" stroke=\"#8a76d8\" stroke-width=\"3\" fill=\"none\" opacity=\".45\"><animate attributeName=\"d\" dur=\"0.35s\" repeatCount=\"indefinite\" values=\"M34 65 Q 180 25 326 65; M34 65 Q 180 105 326 65; M34 65 Q 180 25 326 65\"/></path><line x1=\"34\" y1=\"65\" x2=\"326\" y2=\"65\" stroke=\"#5b4a9e\" stroke-width=\"3.5\"/><text x=\"180\" y=\"122\" text-anchor=\"middle\" font-size=\"13\" fill=\"#8a8298\">琴弦快速地来回抖动 → 嗡嗡嗡～</text></svg></div>"
+    },
+    {
+     "h": "找一找",
+     "body": "<p>这些东西发声的时候，都在振动：</p><div class=\"try-list\"><div class=\"try-item\"><span class=\"n\">1</span>🥁 鼓——敲一下，鼓面在弹跳</div><div class=\"try-item\"><span class=\"n\">2</span>🎸 吉他——拨一下，琴弦嗡嗡地抖</div><div class=\"try-item\"><span class=\"n\">3</span>🗣️ 你自己——说话时，喉咙里的声带在振动</div></div>"
+    },
+    {
+     "h": "动手试一试",
+     "body": "<p>更神奇的是：<b>声音也能让别的东西振动起来！</b></p><div class=\"try-list\"><div class=\"try-item\"><span class=\"n\">1</span>把一根橡皮筋绷在杯口，拨动它——看着它抖，听到它响</div><div class=\"try-item\"><span class=\"n\">2</span>在鼓面上撒一点米粒，对着鼓大喊一声——米粒会跳舞！</div></div><p style=\"font-size:15px;color:var(--ink-soft)\">是你的声音（空气的振动）传到了鼓面上。</p>"
+    },
+    {
+     "quiz": {
+      "q": "拨动橡皮筋时，为什么会有声音？",
+      "opts": [
+       {
+        "t": "因为橡皮筋在快速地来回振动",
+        "ok": true
+       },
+       {
+        "t": "因为橡皮筋变长了"
+       },
+       {
+        "t": "因为手碰到橡皮筋会发光"
+       }
+      ],
+      "fb": "对啦！橡皮筋来回抖动，把振动传到空气里，就成了我们听到的声音。",
+      "hint": "想想你摸喉咙时感觉到的抖动"
+     }
+    },
+    {
+     "quiz": {
+      "q": "对着撒了米粒的鼓面大喊，米粒为什么会跳？",
+      "opts": [
+       {
+        "t": "米粒被吓到了"
+       },
+       {
+        "t": "喊声让鼓面振动，鼓面把米粒弹起来",
+        "ok": true
+       },
+       {
+        "t": "因为风把它吹跑了"
+       }
+      ],
+      "fb": "没错！声音是振动，它能从你的喉咙出发，穿过空气，让鼓面也抖起来。",
+      "hint": "声音是一种什么？它能传过去吗？"
+     }
+    }
+   ]
+  },
+  {
+   "id": "pattern",
+   "icon": "🔍",
+   "name": "找规律",
+   "domain": "学会学习",
+   "age": "7-8岁",
+   "ageStart": 7,
+   "desc": "在不同现象中发现'每次都这样'的关系——所有学科通用的能力",
+   "evidence": [
+    "能在不同现象中发现'重复出现的关系'",
+    "能用自己的话把规律说出来",
+    "能把一个地方发现的规律用到新地方"
+   ],
+   "screens": [
+    {
+     "h": "一种超能力",
+     "body": "<p>你有没有发现，你在这张地图上一直在做同一件事——<b>找规律</b>！</p><p>\"用力敲 → 声音更响\"，\"琴弦短 → 声音更高\"……找到\"每次都这样\"的关系，就是找到了规律。</p><p>科学家、数学家、侦探，用的都是这个超能力。它不属于哪一门课，<b>它属于所有的课</b>。</p>"
+    },
+    {
+     "quiz": {
+      "q": "下面哪一句是'规律'？",
+      "opts": [
+       {
+        "t": "我昨天敲了一次鼓"
+       },
+       {
+        "t": "每次用力敲，声音都会更响",
+        "ok": true
+       },
+       {
+        "t": "我们家的鼓是红色的"
+       }
+      ],
+      "fb": "对！规律说的是'每次都会这样'的关系，不是只发生一次的事情。",
+      "hint": "规律的关键词是'每次'"
+     }
+    }
+   ]
+  },
+  {
+   "id": "volume",
+   "icon": "🥁",
+   "name": "音量与振动",
+   "domain": "科学",
+   "age": "8-9岁",
+   "ageStart": 8,
+   "desc": "发现规律：振动越大，声音越响",
+   "evidence": [
+    "能说出规律：振动越大，声音越响",
+    "能用不同的力气敲击来演示音量变化",
+    "能解释音量就是声音的大小"
+   ],
+   "screens": [
+    {
+     "h": "是什么",
+     "body": "<p><b>音量</b>，就是声音的大小。</p><p>秘密在这里：<b>振动越大，声音越响</b>。轻轻敲鼓，鼓面轻轻抖，声音小小的；用力敲鼓，鼓面大大地弹，声音就轰隆隆。</p><div class=\"stage\"><svg viewBox=\"0 0 400 130\" width=\"100%\" style=\"max-width:420px\" role=\"img\" aria-label=\"声波对比图\"><path d=\"M10 40 q 20 -12 40 0 t 40 0 t 40 0 t 40 0\" transform=\"translate(110,0)\" stroke=\"#45c4b0\" stroke-width=\"3\" fill=\"none\"/><text x=\"10\" y=\"45\" font-size=\"13\" fill=\"#6f688a\">轻轻敲：小振动 = 小声</text><path d=\"M10 40 q 20 -34 40 0 t 40 0 t 40 0 t 40 0\" transform=\"translate(110,60)\" stroke=\"#e2734b\" stroke-width=\"3\" fill=\"none\"/><text x=\"10\" y=\"105\" font-size=\"13\" fill=\"#6f688a\">用力敲：大振动 = 大声</text></svg></div>"
+    },
+    {
+     "h": "动手试一试",
+     "body": "<div class=\"try-list\"><div class=\"try-item\"><span class=\"n\">1</span>轻轻拍一下桌子，再用力拍一下——听听差别</div><div class=\"try-item\"><span class=\"n\">2</span>看橡皮筋：轻拨的时候抖动小，重拨的时候抖动大</div><div class=\"try-item\"><span class=\"n\">3</span>说悄悄话 vs 大声喊——摸摸喉咙，抖动一样吗？</div></div>"
+    },
+    {
+     "quiz": {
+      "q": "为什么用力敲鼓，声音更大？",
+      "opts": [
+       {
+        "t": "因为鼓生气了"
+       },
+       {
+        "t": "因为用力敲，鼓面的振动更大，声音就更响",
+        "ok": true
+       },
+       {
+        "t": "因为手变大了"
+       }
+      ],
+      "fb": "你发现了一条规律：振动的大小决定声音的大小！",
+      "hint": "回想橡皮筋：轻拨和重拨，抖动一样大吗？"
+     }
+    }
+   ]
+  },
+  {
+   "id": "pitch",
+   "icon": "🎼",
+   "name": "音高的秘密",
+   "domain": "科学",
+   "age": "8-9岁",
+   "ageStart": 8,
+   "desc": "发现规律：越短、越细、越紧的东西，振动越快，声音越高",
+   "evidence": [
+    "能说出规律：越短/越细/越紧的东西，声音越高",
+    "能用乐器或身边物品演示音高变化",
+    "能解释音高由振动快慢决定"
+   ],
+   "screens": [
+    {
+     "h": "是什么",
+     "body": "<p><b>音高</b>，就是声音的高和低。小鸟叫是高音，大狗汪汪是低音。</p><p>秘密是：<b>越短、越细、越紧的东西，振动越快，声音越高</b>。</p><div class=\"stage\"><svg viewBox=\"0 0 400 130\" width=\"100%\" style=\"max-width:420px\" role=\"img\" aria-label=\"音高对比图\"><path d=\"M10 40 q 40 -26 80 0 t 80 0\" transform=\"translate(110,0)\" stroke=\"#45c4b0\" stroke-width=\"3\" fill=\"none\"/><text x=\"10\" y=\"45\" font-size=\"13\" fill=\"#6f688a\">长琴弦：振动慢 = 低音</text><path d=\"M10 40 q 12 -26 24 0 t 24 0 t 24 0 t 24 0 t 24 0 t 24 0 t 24 -0.1\" transform=\"translate(110,60)\" stroke=\"#e2734b\" stroke-width=\"3\" fill=\"none\"/><text x=\"10\" y=\"105\" font-size=\"13\" fill=\"#6f688a\">短琴弦：振动快 = 高音</text></svg></div>"
+    },
+    {
+     "h": "动手试一试",
+     "body": "<div class=\"try-list\"><div class=\"try-item\"><span class=\"n\">1</span>把尺子压在桌边，伸出一长段弹一下，再伸出一短段弹一下——哪个声音高？</div><div class=\"try-item\"><span class=\"n\">2</span>往玻璃杯里倒不同高度的水，用勺子敲一敲，做一个水杯琴！</div></div>"
+    },
+    {
+     "quiz": {
+      "q": "为什么短的琴弦比长的琴弦声音更高？",
+      "opts": [
+       {
+        "t": "短的琴弦振动得更快，所以声音更高",
+        "ok": true
+       },
+       {
+        "t": "短的琴弦更贵"
+       },
+       {
+        "t": "长的琴弦声音要走更远的路"
+       }
+      ],
+      "fb": "完全正确！振动快 = 音高高，振动慢 = 音高低。",
+      "hint": "音高的秘密和振动的'快慢'有关"
+     }
+    }
+   ]
+  },
+  {
+   "id": "chart",
+   "icon": "📊",
+   "name": "用条形图记录",
+   "domain": "数学",
+   "age": "8-9岁",
+   "ageStart": 8,
+   "desc": "把实验结果画成条形图，让规律看得见——数学帮科学的忙",
+   "evidence": [
+    "能把实验结果画成条形图",
+    "能从图里一眼读出'哪个最大、哪个最小'",
+    "能用图表向别人说明发现的规律"
+   ],
+   "screens": [
+    {
+     "h": "让规律看得见",
+     "body": "<p>把实验结果<b>画成条形图</b>，规律就会自己跳出来！</p><p>下面是'敲鼓的力气'和'声音大小'的实验记录：</p><div class=\"stage\"><svg viewBox=\"0 0 400 160\" width=\"100%\" style=\"max-width:400px\" role=\"img\" aria-label=\"敲鼓力度与音量的条形图\"><line x1=\"50\" y1=\"130\" x2=\"370\" y2=\"130\" stroke=\"#d8ccab\" stroke-width=\"2\"/><rect x=\"70\" y=\"100\" width=\"56\" height=\"30\" rx=\"6\" fill=\"#a8d8cf\"/><text x=\"98\" y=\"148\" text-anchor=\"middle\" font-size=\"13\" fill=\"#6f688a\">轻轻敲</text><rect x=\"166\" y=\"68\" width=\"56\" height=\"62\" rx=\"6\" fill=\"#67c3b2\"/><text x=\"194\" y=\"148\" text-anchor=\"middle\" font-size=\"13\" fill=\"#6f688a\">中等力</text><rect x=\"262\" y=\"30\" width=\"56\" height=\"100\" rx=\"6\" fill=\"#2e9d8a\"/><text x=\"290\" y=\"148\" text-anchor=\"middle\" font-size=\"13\" fill=\"#6f688a\">用力敲</text></svg></div><p style=\"font-size:15px;color:var(--ink-soft)\">看，柱子像楼梯一样升上去——这就是你发现的那条规律。这是数学在帮科学的忙！</p>"
+    },
+    {
+     "quiz": {
+      "q": "从这张条形图里，一眼就能看出什么？",
+      "opts": [
+       {
+        "t": "敲得越用力，声音越大",
+        "ok": true
+       },
+       {
+        "t": "鼓的颜色"
+       },
+       {
+        "t": "今天星期几"
+       }
+      ],
+      "fb": "这就是图表的魔法：把很多次实验变成一眼能看懂的图形。",
+      "hint": "看看柱子的高矮变化"
+     }
+    }
+   ]
+  },
+  {
+   "id": "travel",
+   "icon": "🌊",
+   "name": "声音的旅行",
+   "domain": "科学",
+   "age": "8-9岁",
+   "ageStart": 8,
+   "desc": "知道声音要靠物体（空气、水、固体）传播",
+   "evidence": [
+    "知道声音要靠物体（空气、水、桌子）来传播",
+    "能演示声音穿过固体（耳朵贴桌面听敲击声）",
+    "能说出振动是一个传一个地传过去的"
+   ],
+   "screens": [
+    {
+     "h": "是什么",
+     "body": "<p>声音是个旅行家，但它<b>不能自己飞</b>——它要靠\"接力\"：一个东西的振动，传给旁边的东西。</p><p>空气、水、桌子，都可以当它的道路。振动就这样一个传一个，跑到你的耳朵里。</p>"
+    },
+    {
+     "h": "动手试一试",
+     "body": "<div class=\"try-list\"><div class=\"try-item\"><span class=\"n\">1</span>把耳朵贴在桌面上，请家人在桌子另一头轻轻敲——声音穿过桌子来找你了！</div><div class=\"try-item\"><span class=\"n\">2</span>用两个纸杯和一根棉线做一个'土电话'，试试隔着房间说悄悄话</div></div>"
+    },
+    {
+     "quiz": {
+      "q": "耳朵贴着桌面时，敲桌子的声音是怎么到达耳朵的？",
+      "opts": [
+       {
+        "t": "声音从桌子里跳出来再飞进耳朵"
+       },
+       {
+        "t": "振动沿着桌子一路传过来，直接传进耳朵",
+        "ok": true
+       },
+       {
+        "t": "桌子会说话"
+       }
+      ],
+      "fb": "对！固体也能传声，而且传得又快又好。",
+      "hint": "想想'接力'——振动是怎么一个传一个的？"
+     }
+    }
+   ]
+  },
+  {
+   "id": "fade",
+   "icon": "🤫",
+   "name": "声音会变小",
+   "domain": "科学",
+   "age": "8-9岁",
+   "ageStart": 8,
+   "desc": "理解离声源越远声音越小：振动散开变弱了",
+   "evidence": [
+    "知道离声源越远，声音越小",
+    "能解释振动散开后变弱了"
+   ],
+   "screens": [
+    {
+     "h": "是什么",
+     "body": "<p>朋友在旁边说话听得清清楚楚，在操场那头喊你就要竖起耳朵——<b>离得越远，声音越小</b>。</p><p>因为振动往四面八方散开，越走越分散，到你耳朵里的就只剩一点点了。</p>"
+    },
+    {
+     "quiz": {
+      "q": "为什么远处的声音听起来更小？",
+      "opts": [
+       {
+        "t": "因为声音累了"
+       },
+       {
+        "t": "因为振动散开了，传到耳朵里的变少了",
+        "ok": true
+       },
+       {
+        "t": "因为耳朵关门了"
+       }
+      ],
+      "fb": "答对了！声音之旅的主线，你已经全部点亮啦！🎉",
+      "hint": "振动散开之后，每个方向分到的还多吗？"
+     }
+    }
+   ]
+  }
+ ],
+ "edges": [
+  {
+   "from": "vocab",
+   "to": "vibration",
+   "type": "hard"
+  },
+  {
+   "from": "vocab",
+   "to": "volume",
+   "type": "soft"
+  },
+  {
+   "from": "vocab",
+   "to": "pitch",
+   "type": "soft"
+  },
+  {
+   "from": "vibration",
+   "to": "volume",
+   "type": "hard"
+  },
+  {
+   "from": "vibration",
+   "to": "pitch",
+   "type": "hard"
+  },
+  {
+   "from": "vibration",
+   "to": "travel",
+   "type": "hard"
+  },
+  {
+   "from": "travel",
+   "to": "fade",
+   "type": "hard"
+  },
+  {
+   "from": "pattern",
+   "to": "volume",
+   "type": "cross"
+  },
+  {
+   "from": "pattern",
+   "to": "pitch",
+   "type": "cross"
+  },
+  {
+   "from": "volume",
+   "to": "chart",
+   "type": "cross"
+  },
+  {
+   "from": "pitch",
+   "to": "chart",
+   "type": "cross"
+  }
+ ]
+}
