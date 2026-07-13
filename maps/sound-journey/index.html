@@ -133,6 +133,10 @@
   .nav-btn.light-up { background: var(--gold); color: #6b4a00; }
   .nav-btn:disabled { opacity: .4; cursor: default; }
   .ask-ai { background: none; border: 1px dashed #cbb1e8; color: #8646b8; border-radius: 999px; padding: 8px 14px; font-size: 13px; }
+  .canon { background: #f6f1ff; border: 1px solid #ddcef5; border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+  .canon .c-term { font-weight: 700; font-size: 16px; color: #4a3a75; }
+  .canon .c-formal { font-size: 15px; line-height: 1.75; color: #4a4363; }
+  .canon .c-src { font-size: 12px; color: #8a7fb0; line-height: 1.6; }
   .celebrate { text-align: center; padding: 10px 0 4px; }
   .celebrate .big { font-size: 54px; }
   .celebrate h4 { font-size: 22px; margin: 8px 0 4px; }
@@ -257,7 +261,13 @@ const SITE = {
       "hint": "大小和高低，是两件不同的事哦"
      }
     }
-   ]
+   ],
+   "canon": {
+    "term": "声与光的科学词汇（Light & Sound Vocabulary）",
+    "formal": "正确读写并使用描述声音行为的术语——振动（vibration）、音量（volume）、音高（pitch）等，并在描述观察结果时准确运用这些词汇。",
+    "source": "Marble os-taxonomy · Light & Sound Vocabulary（对标英国国家课标 Year 4 'Sound' 单元词汇要求）",
+    "textbook": "英国 Year 4（8-9 岁）科学 · Sound 单元"
+   }
   },
   {
    "id": "vibration",
@@ -323,7 +333,13 @@ const SITE = {
       "hint": "声音是一种什么？它能传过去吗？"
      }
     }
-   ]
+   ],
+   "canon": {
+    "term": "声音的产生（Vibrations & Sound）",
+    "formal": "识别声音是如何产生的，并将某些声音与振动联系起来（identify how sounds are made, associating some of them with something vibrating）；计划并开展调查，为'振动的材料能发出声音、声音能使材料振动'提供证据（NGSS：Plan and conduct investigations to provide evidence that vibrating materials can make sound and that sound can make materials vibrate）。",
+    "source": "NGSS 1-PS4-1；英国国家课标 2013 · Y4.Sci.Snd.1",
+    "textbook": "美国 Grade 1 / 英国 Year 4；中国对应内容在人教版物理八年级上册第二章'声现象'"
+   }
   },
   {
    "id": "pattern",
@@ -362,7 +378,13 @@ const SITE = {
       "hint": "规律的关键词是'每次'"
      }
     }
-   ]
+   ],
+   "canon": {
+    "term": "找规律 / 重复推理中的规律性（Regularity in Repeated Reasoning）",
+    "formal": "在重复的推理中寻找并表达规律性（Look for and express regularity in repeated reasoning）——跨情境识别结构与模式，是可迁移的通用学习能力。",
+    "source": "美国共同核心数学实践标准 CCSS MP8；Marble os-taxonomy · Spotting Patterns",
+    "textbook": "CCSS 数学实践标准（贯穿 K-12，不属于单一年级）"
+   }
   },
   {
    "id": "volume",
@@ -405,7 +427,13 @@ const SITE = {
       "hint": "回想橡皮筋：轻拨和重拨，抖动一样大吗？"
      }
     }
-   ]
+   ],
+   "canon": {
+    "term": "音量与振动强度（Volume & Vibrations）",
+    "formal": "找出声音的音量与产生它的振动强度之间的规律（find patterns between the volume of a sound and the strength of the vibrations that produced it）。",
+    "source": "英国国家课标 2013 · Y4.Sci.Snd.4",
+    "textbook": "英国 Year 4 科学 · Sound 单元"
+   }
   },
   {
    "id": "pitch",
@@ -448,7 +476,13 @@ const SITE = {
       "hint": "音高的秘密和振动的'快慢'有关"
      }
     }
-   ]
+   ],
+   "canon": {
+    "term": "音高与发声体特征（Pitch of Sounds）",
+    "formal": "找出声音的音高与发声物体特征之间的规律（find patterns between the pitch of a sound and features of the object that produced it）。",
+    "source": "英国国家课标 2013 · Y4.Sci.Snd.3",
+    "textbook": "英国 Year 4 科学 · Sound 单元"
+   }
   },
   {
    "id": "chart",
@@ -487,7 +521,13 @@ const SITE = {
       "hint": "看看柱子的高矮变化"
      }
     }
-   ]
+   ],
+   "canon": {
+    "term": "带刻度的条形图（Scaled Bar Graphs）",
+    "formal": "绘制带刻度的象形图和条形图来表示多类别数据集，并利用条形图中的信息解决一步和两步的'多多少/少多少'问题（Draw a scaled picture graph and a scaled bar graph to represent a data set with several categories）。",
+    "source": "美国共同核心数学标准 CCSS 3.MD.B.3",
+    "textbook": "美国 Grade 3 数学 · Measurement & Data"
+   }
   },
   {
    "id": "travel",
@@ -530,7 +570,13 @@ const SITE = {
       "hint": "想想'接力'——振动是怎么一个传一个的？"
      }
     }
-   ]
+   ],
+   "canon": {
+    "term": "声音的传播（Sound Travels Through a Medium）",
+    "formal": "认识到声音的振动通过介质传播到耳朵（recognise that vibrations from sounds travel through a medium to the ear）。",
+    "source": "英国国家课标 2013 · Y4.Sci.Snd.2",
+    "textbook": "英国 Year 4 科学 · Sound 单元；中国对应人教版物理八上'声音的传播'"
+   }
   },
   {
    "id": "fade",
@@ -568,7 +614,13 @@ const SITE = {
       "hint": "振动散开之后，每个方向分到的还多吗？"
      }
     }
-   ]
+   ],
+   "canon": {
+    "term": "声音随距离衰减（Sound Fading with Distance）",
+    "formal": "认识到离声源越远，声音越微弱（recognise that sounds get fainter as the distance from the sound source increases）。",
+    "source": "英国国家课标 2013 · Y4.Sci.Snd.5",
+    "textbook": "英国 Year 4 科学 · Sound 单元"
+   }
   }
  ],
  "edges": [
@@ -627,7 +679,8 @@ const SITE = {
    "to": "chart",
    "type": "cross"
   }
- ]
+ ],
+ "reorder": "教科书把这些内容拆在不同年级和学科里：英国课标把声学放在 Year 4 科学课、条形图放在数学课；中国教材更是把'声现象'推迟到初中物理（人教版八年级上册第二章）。这张地图按理解关系重排：先发词汇工具，再抓住'振动'这个本质，然后把音量、音高变成两次'找规律'的练习——顺便点亮'找规律'这个跨学科通用能力，并请数学的条形图来把规律画出来。先本质、后现象、跨学科搭桥，这就是与教科书顺序的不同。"
 };
 
 if (!SITE) {
@@ -752,7 +805,7 @@ const overlay = document.getElementById('overlay');
 const cardEl = document.getElementById('card');
 let cur = { id: null, idx: 0, answered: {} };
 function openCard(id) {
-  cur = { id, idx: 0, answered: {} };
+  cur = { id, idx: 0, answered: {}, canonOpen: false };
   overlay.classList.add('show');
   drawCard();
 }
@@ -769,6 +822,17 @@ function drawCard() {
     <div><span class="kicker">${node.domain || '知识点'}${node.age ? ' · ' + node.age : ''}</span>
       <h2>${node.icon} ${node.name}</h2></div>
     <button class="close-x" id="card-close" aria-label="关闭">✕</button></div>`;
+
+  if (node.canon) {
+    inner += `<button class="ask-ai" id="btn-canon" style="align-self:flex-start">${cur.canonOpen ? '▾ 收起课本原文' : '📖 课本上怎么说'}</button>`;
+    if (cur.canonOpen) {
+      inner += `<div class="canon">
+        <div class="c-term">${node.canon.term}</div>
+        <div class="c-formal">${node.canon.formal}</div>
+        ${node.canon.textbook ? `<div class="c-src">课本位置：${node.canon.textbook}</div>` : ''}
+        <div class="c-src">出处：${node.canon.source}</div></div>`;
+    }
+  }
 
   if (s.quiz) {
     const done = cur.answered[cur.idx];
@@ -804,6 +868,7 @@ function drawCard() {
   if (g('btn-next')) g('btn-next').onclick = () => { cur.idx++; drawCard(); };
   if (g('btn-close2')) g('btn-close2').onclick = closeCard;
   if (g('btn-light')) g('btn-light').onclick = () => lightUp(cur.id);
+  if (g('btn-canon')) g('btn-canon').onclick = () => { cur.canonOpen = !cur.canonOpen; drawCard(); };
   g('btn-ask').onclick = () => {
     const litNames = SITE.nodes.filter(n => lit.has(n.id)).map(n => n.name).slice(0, 8).join('、');
     const q = `我是一个${node.age || ''}的孩子，正在学「${node.name}」（${(node.desc || '').slice(0, 80)}）。我已经学会了：${litNames || '还没学别的'}。请用我能懂的话，再给我讲讲这个知识点，多用我已经会的东西打比方。`;
@@ -837,6 +902,7 @@ document.getElementById('records-close').onclick = () => drawer.classList.remove
 function renderDrawer() {
   const stName = { lit: '已掌握', open: '进行中', locked: '未解锁' };
   let html = `<div class="drawer-note">${SITE.about || '每个知识点都有可观察的掌握证据；进度自动保存在这台设备的浏览器里。'}</div>
+    ${SITE.reorder ? `<div class="drawer-note">🔀 <b>为什么是这个顺序</b>：${SITE.reorder}</div>` : ''}
     <div class="row-btns">
       <button class="small-btn" id="btn-export">导出进度</button>
       <button class="small-btn" id="btn-import">导入进度</button>
@@ -848,6 +914,7 @@ function renderDrawer() {
     html += `<div class="p-item"><div class="row1">${node.icon} ${node.name}
       <span class="state-chip ${st}">${stName[st]}</span></div>
       <div class="meta">${node.domain || ''}${node.age ? ' · ' + node.age : ''}</div>
+      ${node.canon ? `<div class="meta">📖 ${node.canon.term} · ${node.canon.source}</div>` : ''}
       <ul>${(node.evidence || []).map(ev => `<li class="${st === 'lit' ? 'done' : ''}">${ev}</li>`).join('')}</ul></div>`;
   }
   document.getElementById('drawer-body').innerHTML = html;

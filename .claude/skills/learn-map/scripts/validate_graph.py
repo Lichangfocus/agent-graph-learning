@@ -16,6 +16,8 @@ def main(path):
         print(f"ERROR: JSON 无法解析: {e}")
         return 1
 
+    if not site.get('reorder'):
+        warnings.append("缺少 site.reorder（顺序重构声明——这张图和教科书顺序差在哪、为什么）")
     for field in ('id', 'title', 'nodes', 'edges'):
         if field not in site:
             errors.append(f"缺少顶层字段: {field}")
@@ -33,6 +35,13 @@ def main(path):
                 errors.append(f"节点 {n.get('id','?')} 缺少字段 {field}")
         if not n.get('evidence'):
             warnings.append(f"节点 {n.get('id')} 没有掌握证据 evidence")
+        c = n.get('canon')
+        if not c:
+            warnings.append(f"节点 {n.get('id')} 缺少原始知识层 canon（课本原文/出处）")
+        else:
+            for cf in ('term', 'formal', 'source'):
+                if not c.get(cf):
+                    warnings.append(f"节点 {n.get('id')} 的 canon 缺少 {cf}")
         quizzes = [s for s in n.get('screens', []) if 'quiz' in s]
         if not quizzes:
             errors.append(f"节点 {n.get('id')} 没有任何 quiz 屏（无法做掌握确认）")

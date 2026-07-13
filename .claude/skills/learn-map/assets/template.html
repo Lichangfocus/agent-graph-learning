@@ -133,6 +133,10 @@
   .nav-btn.light-up { background: var(--gold); color: #6b4a00; }
   .nav-btn:disabled { opacity: .4; cursor: default; }
   .ask-ai { background: none; border: 1px dashed #cbb1e8; color: #8646b8; border-radius: 999px; padding: 8px 14px; font-size: 13px; }
+  .canon { background: #f6f1ff; border: 1px solid #ddcef5; border-radius: 14px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+  .canon .c-term { font-weight: 700; font-size: 16px; color: #4a3a75; }
+  .canon .c-formal { font-size: 15px; line-height: 1.75; color: #4a4363; }
+  .canon .c-src { font-size: 12px; color: #8a7fb0; line-height: 1.6; }
   .celebrate { text-align: center; padding: 10px 0 4px; }
   .celebrate .big { font-size: 54px; }
   .celebrate h4 { font-size: 22px; margin: 8px 0 4px; }
@@ -339,7 +343,7 @@ const overlay = document.getElementById('overlay');
 const cardEl = document.getElementById('card');
 let cur = { id: null, idx: 0, answered: {} };
 function openCard(id) {
-  cur = { id, idx: 0, answered: {} };
+  cur = { id, idx: 0, answered: {}, canonOpen: false };
   overlay.classList.add('show');
   drawCard();
 }
@@ -356,6 +360,17 @@ function drawCard() {
     <div><span class="kicker">${node.domain || '知识点'}${node.age ? ' · ' + node.age : ''}</span>
       <h2>${node.icon} ${node.name}</h2></div>
     <button class="close-x" id="card-close" aria-label="关闭">✕</button></div>`;
+
+  if (node.canon) {
+    inner += `<button class="ask-ai" id="btn-canon" style="align-self:flex-start">${cur.canonOpen ? '▾ 收起课本原文' : '📖 课本上怎么说'}</button>`;
+    if (cur.canonOpen) {
+      inner += `<div class="canon">
+        <div class="c-term">${node.canon.term}</div>
+        <div class="c-formal">${node.canon.formal}</div>
+        ${node.canon.textbook ? `<div class="c-src">课本位置：${node.canon.textbook}</div>` : ''}
+        <div class="c-src">出处：${node.canon.source}</div></div>`;
+    }
+  }
 
   if (s.quiz) {
     const done = cur.answered[cur.idx];
@@ -391,6 +406,7 @@ function drawCard() {
   if (g('btn-next')) g('btn-next').onclick = () => { cur.idx++; drawCard(); };
   if (g('btn-close2')) g('btn-close2').onclick = closeCard;
   if (g('btn-light')) g('btn-light').onclick = () => lightUp(cur.id);
+  if (g('btn-canon')) g('btn-canon').onclick = () => { cur.canonOpen = !cur.canonOpen; drawCard(); };
   g('btn-ask').onclick = () => {
     const litNames = SITE.nodes.filter(n => lit.has(n.id)).map(n => n.name).slice(0, 8).join('、');
     const q = `我是一个${node.age || ''}的孩子，正在学「${node.name}」（${(node.desc || '').slice(0, 80)}）。我已经学会了：${litNames || '还没学别的'}。请用我能懂的话，再给我讲讲这个知识点，多用我已经会的东西打比方。`;
@@ -424,6 +440,7 @@ document.getElementById('records-close').onclick = () => drawer.classList.remove
 function renderDrawer() {
   const stName = { lit: '已掌握', open: '进行中', locked: '未解锁' };
   let html = `<div class="drawer-note">${SITE.about || '每个知识点都有可观察的掌握证据；进度自动保存在这台设备的浏览器里。'}</div>
+    ${SITE.reorder ? `<div class="drawer-note">🔀 <b>为什么是这个顺序</b>：${SITE.reorder}</div>` : ''}
     <div class="row-btns">
       <button class="small-btn" id="btn-export">导出进度</button>
       <button class="small-btn" id="btn-import">导入进度</button>
@@ -435,6 +452,7 @@ function renderDrawer() {
     html += `<div class="p-item"><div class="row1">${node.icon} ${node.name}
       <span class="state-chip ${st}">${stName[st]}</span></div>
       <div class="meta">${node.domain || ''}${node.age ? ' · ' + node.age : ''}</div>
+      ${node.canon ? `<div class="meta">📖 ${node.canon.term} · ${node.canon.source}</div>` : ''}
       <ul>${(node.evidence || []).map(ev => `<li class="${st === 'lit' ? 'done' : ''}">${ev}</li>`).join('')}</ul></div>`;
   }
   document.getElementById('drawer-body').innerHTML = html;
