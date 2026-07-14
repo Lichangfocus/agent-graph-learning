@@ -1,5 +1,5 @@
 {
-  "_说明": "账户与云同步配置。按 docs/account-setup.md 创建 Supabase 项目后，把下面两个值换成你项目的 Project URL 和 anon public key（anon key 是公开安全的，行级安全策略保护数据）。保持 null 则账户功能隐藏、一切走本地存储。",
-  "supabaseUrl": null,
-  "supabaseAnonKey": null
+  "_说明": "账户与云同步配置（Supabase）。anon key 是公开安全的，行级安全策略保护数据。清空为 null 则账户功能隐藏、走本地存储。",
+  "supabaseUrl": "https://vdjeqfulhnlcgmbrfjcm.supabase.co",
+  "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkamVxZnVsaG5sY2dtYnJmamNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQwMTc4NDYsImV4cCI6MjA5OTU5Mzg0Nn0.dZF1V4MPWNinB7cusSCulU0C9vsJzvEAGqp_nieZyvU"
 }
