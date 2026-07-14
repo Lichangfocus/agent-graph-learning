@@ -30,15 +30,13 @@ create policy "users manage own rows" on public.map_progress
 
 行级安全策略（RLS）保证每个用户只能读写自己的行——所以前端用 anon key 是安全的。
 
-## 第 3 步：配置登录跳转地址
+## 第 3 步：关闭邮箱确认（关键）
 
-项目 → Authentication → URL Configuration：
-- **Site URL**：`https://lichangfocus.github.io/agent-graph-learning/`
-- **Redirect URLs** 追加：
-  - `https://lichangfocus.github.io/agent-graph-learning/**`
-  - `http://localhost:8000/**`（本地测试用，端口按需）
+登录用**邮箱 + 密码，注册即用**——不走邮箱验证链接（Supabase 自带邮件服务限流严重、投递不可靠，是常见坑）。
 
-Email 登录（Magic Link）默认已启用，无需额外设置。
+项目 → Authentication → Sign In / Providers → Email，把 **Confirm email（确认邮箱）** 开关**关掉**并保存。这样用户输入邮箱密码即注册即登录，全程不发任何邮件。
+
+（可选）如果将来想要邮箱验证或找回密码，再配一个真实 SMTP（如 Resend），并把该开关打开。
 
 ## 第 4 步：填配置并发布
 
@@ -55,6 +53,6 @@ commit + push。Pages 生效后，打开任意地图 → 右上角出现"☁️ 
 
 ## 数据与隐私
 
-- 云端只存：邮箱（Supabase Auth）、每张地图的点亮列表和课程名——没有其它任何数据
+- 云端只存：邮箱和密码哈希（Supabase Auth 管理）、每张地图的点亮列表和课程名——没有其它任何数据
 - 本地 localStorage 始终是第一存储，云端是同步层；登录时两边**合并**（取并集），不会丢进度
 - 免费额度（50000 月活跃用户 / 500MB 数据库）对个人和小规模分享远远够用

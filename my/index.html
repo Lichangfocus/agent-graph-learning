@@ -70,18 +70,28 @@ async function findConfig() {
 function view(html) { $('main').innerHTML = html; }
 
 function loginView(msg) {
-  view(`<div class="panel"><h2>邮箱登录</h2>
-    <p class="sub" style="margin-bottom:12px">输入邮箱，我们发一条登录链接（无需密码）。</p>
-    <input id="email" type="email" placeholder="you@example.com">
+  view(`<div class="panel"><h2>登录 / 注册</h2>
+    <p class="sub" style="margin-bottom:12px">用邮箱和密码登录；没注册过会自动创建账户，换设备凭同样的邮箱密码继续。</p>
+    <input id="email" type="email" placeholder="邮箱" autocomplete="username">
+    <input id="pw" type="password" placeholder="密码（至少 6 位）" autocomplete="current-password" style="margin-top:10px">
     <p class="msg" id="msg">${msg || ''}</p>
-    <div class="row"><button class="btn" id="send">发送登录链接</button></div></div>`);
-  $('send').onclick = async () => {
+    <div class="row"><button class="btn" id="send">登录 / 注册</button></div></div>`);
+  const submit = async () => {
     const email = $('email').value.trim();
+    const pw = $('pw').value;
     if (!email.includes('@')) { $('msg').textContent = '请输入有效邮箱'; return; }
-    $('msg').textContent = '发送中……';
-    const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: location.href.split('#')[0] } });
-    $('msg').textContent = error ? '发送失败：' + error.message : '已发送！去邮箱点击链接，会自动回到这里。';
+    if (pw.length < 6) { $('msg').textContent = '密码至少 6 位'; return; }
+    $('msg').textContent = '处理中……';
+    let r = await sb.auth.signInWithPassword({ email, password: pw });
+    if (r.error) {
+      const r2 = await sb.auth.signUp({ email, password: pw });
+      if (r2.error) { const em = r2.error.message || ''; $('msg').textContent = /registered|already/i.test(em) ? '这个邮箱已注册，但密码不对。' : em; return; }
+      if (!r2.data.session) { $('msg').textContent = '账户已创建，但服务端仍要求邮箱确认——请管理员关闭邮箱确认。'; return; }
+    }
+    // onAuthStateChange 会切到 coursesView
   };
+  $('send').onclick = submit;
+  $('pw').addEventListener('keydown', e => { if (e.key === 'Enter') submit(); });
 }
 
 async function coursesView() {

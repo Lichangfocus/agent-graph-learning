@@ -1016,7 +1016,16 @@ const Account = (() => {
   }
   return {
     init,
-    sendLink: email => sb.auth.signInWithOtp({ email, options: { emailRedirectTo: location.href.split('#')[0] } }),
+    async signInOrSignUp(email, password) {
+      const r = await sb.auth.signInWithPassword({ email, password });
+      if (!r.error) return { ok: true };
+      const r2 = await sb.auth.signUp({ email, password });
+      if (!r2.error && r2.data && r2.data.session) return { ok: true, created: true };
+      if (!r2.error && r2.data && !r2.data.session) return { ok: false, msg: '账户已创建，但服务端仍要求邮箱确认——请管理员关闭邮箱确认后重试。' };
+      const em = (r2.error && r2.error.message) || '';
+      if (/registered|already/i.test(em)) return { ok: false, msg: '这个邮箱已注册，但密码不对。' };
+      return { ok: false, msg: em || (r.error && r.error.message) || '登录失败' };
+    },
     signOut: () => sb.auth.signOut(),
     async pull(mapId) {
       if (!user) return null;
@@ -1073,12 +1082,14 @@ function drawAcct() {
     <div class="card-head"><div><span class="kicker" style="background:#8646b8">账户</span>
       <h2>☁️ 邮箱登录</h2></div>
       <button class="close-x" id="acct-close">✕</button></div>
-    <p style="font-size:14px;color:var(--ink-soft)">输入邮箱，我们发一条登录链接（无需密码）。登录后学习进度会保存到你的账户，换设备也能继续。</p>
-    <input id="acct-email" type="email" placeholder="you@example.com"
+    <p style="font-size:14px;color:var(--ink-soft)">用邮箱和密码登录；没注册过会自动为你创建账户。登录后学习进度保存到账户，换设备凭同样的邮箱密码继续。</p>
+    <input id="acct-email" type="email" placeholder="邮箱" autocomplete="username"
+      style="font-size:16px;padding:12px 14px;border-radius:12px;border:2px solid #e8dcbf;width:100%">
+    <input id="acct-pw" type="password" placeholder="密码（至少 6 位）" autocomplete="current-password"
       style="font-size:16px;padding:12px 14px;border-radius:12px;border:2px solid #e8dcbf;width:100%">
     <p id="acct-msg" style="font-size:13px;color:var(--ink-soft);min-height:1.2em;margin:0"></p>
     <div class="card-foot" style="justify-content:flex-end">
-      <button class="nav-btn light-up" id="acct-send">发送登录链接</button>
+      <button class="nav-btn light-up" id="acct-send">登录 / 注册</button>
     </div>`;
   document.getElementById('acct-close').onclick = () => acctOverlay.classList.remove('show');
   const out = document.getElementById('acct-out');
@@ -1086,14 +1097,21 @@ function drawAcct() {
   const syncBtn = document.getElementById('acct-sync');
   if (syncBtn) syncBtn.onclick = () => { cloudSyncNow(); toast('已同步 ☁️'); };
   const send = document.getElementById('acct-send');
-  if (send) send.onclick = async () => {
-    const email = document.getElementById('acct-email').value.trim();
-    const msg = document.getElementById('acct-msg');
-    if (!email.includes('@')) { msg.textContent = '请输入有效邮箱'; return; }
-    msg.textContent = '发送中……';
-    const { error } = await Account.sendLink(email);
-    msg.textContent = error ? ('发送失败：' + error.message) : '已发送！去邮箱点击链接，会自动回到这个页面。';
-  };
+  if (send) {
+    const submit = async () => {
+      const email = document.getElementById('acct-email').value.trim();
+      const pw = document.getElementById('acct-pw').value;
+      const msg = document.getElementById('acct-msg');
+      if (!email.includes('@')) { msg.textContent = '请输入有效邮箱'; return; }
+      if (pw.length < 6) { msg.textContent = '密码至少 6 位'; return; }
+      msg.textContent = '处理中……';
+      const r = await Account.signInOrSignUp(email, pw);
+      if (r.ok) { acctOverlay.classList.remove('show'); toast(r.created ? '账户已创建，已登录 ☁️' : '已登录 ☁️'); }
+      else msg.textContent = r.msg;
+    };
+    send.onclick = submit;
+    document.getElementById('acct-pw').addEventListener('keydown', e => { if (e.key === 'Enter') submit(); });
+  }
 }
 Account.init(u => { onAuthChange(u); if (acctOverlay.classList.contains('show')) drawAcct(); }).then(ok => {
   if (!ok) return;
