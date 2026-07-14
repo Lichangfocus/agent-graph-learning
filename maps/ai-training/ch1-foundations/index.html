@@ -1035,6 +1035,25 @@ const SITE = {
    "to": "gpu",
    "type": "soft"
   }
+ ],
+ "sources": [
+  {
+   "name": "Goodfellow, Bengio & Courville,《Deep Learning》(2016)",
+   "type": "教科书",
+   "url": "https://www.deeplearningbook.org",
+   "note": "机器学习基础与优化各节点"
+  },
+  {
+   "name": "Rumelhart, Hinton & Williams, 1986, Learning representations by back-propagating errors",
+   "type": "论文",
+   "note": "反向传播"
+  },
+  {
+   "name": "Kingma & Ba, 2015, Adam",
+   "type": "论文",
+   "url": "https://arxiv.org/abs/1412.6980",
+   "note": "优化器"
+  }
  ]
 };
 
@@ -1258,6 +1277,7 @@ function renderDrawer() {
   const stName = { lit: '已掌握', open: '进行中', locked: '未解锁' };
   let html = `<div class="drawer-note">${SITE.about || '每个知识点都有可观察的掌握证据；进度自动保存在这台设备的浏览器里。'}</div>
     ${SITE.reorder ? `<div class="drawer-note">🔀 <b>为什么是这个顺序</b>：${SITE.reorder}</div>` : ''}
+    ${SITE.sources && SITE.sources.length ? `<div class="drawer-note">📚 <b>本图权威材料</b><br>${SITE.sources.map(s => `· ${s.url ? `<a href="${s.url}" target="_blank" rel="noopener">${s.name}</a>` : s.name}（${s.type}${s.note ? '，' + s.note : ''}）`).join('<br>')}</div>` : ''}
     <div class="row-btns">
       <button class="small-btn" id="btn-export">导出进度</button>
       <button class="small-btn" id="btn-import">导入进度</button>

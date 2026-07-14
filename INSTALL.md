@@ -18,7 +18,7 @@ curl -fsSL "$BASE/assets/template.html"        -o .claude/skills/learn-map/asset
 
 ## 第 2 步：通读 SKILL.md
 
-完整阅读 `.claude/skills/learn-map/SKILL.md`。后续一切生成都以它为准，重点：双层知识结构（canon 原始知识层必填、出处必须真实）、五步管线（对焦→构图→校验→内容→组装）、构图规则（DAG、不做传递闭包、只有硬边锁解锁、reorder 顺序重构声明必填）、校验必须 PASS、8 条易学性内容规范、模板注入只替换第一处占位符。
+完整阅读 `.claude/skills/learn-map/SKILL.md`。后续一切生成都以它为准，重点：**先采集权威材料再动笔**（第 1 步查 references/source-registry.md 选源、写 materials.md，canon 只能引用材料清单，新源回流目录）、双层知识结构（canon 必填且出处真实）、六步管线（对焦→采材→构图→校验→内容→组装）、构图规则（DAG、不做传递闭包、硬边锁解锁、reorder 必填、sources 必填）、校验必须 PASS、8 条易学性内容规范、模板注入只替换第一处占位符。
 
 ## 第 3 步：新用户引导流程
 

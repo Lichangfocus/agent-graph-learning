@@ -680,7 +680,32 @@ const SITE = {
    "type": "cross"
   }
  ],
- "reorder": "教科书把这些内容拆在不同年级和学科里：英国课标把声学放在 Year 4 科学课、条形图放在数学课；中国教材更是把'声现象'推迟到初中物理（人教版八年级上册第二章）。这张地图按理解关系重排：先发词汇工具，再抓住'振动'这个本质，然后把音量、音高变成两次'找规律'的练习——顺便点亮'找规律'这个跨学科通用能力，并请数学的条形图来把规律画出来。先本质、后现象、跨学科搭桥，这就是与教科书顺序的不同。"
+ "reorder": "教科书把这些内容拆在不同年级和学科里：英国课标把声学放在 Year 4 科学课、条形图放在数学课；中国教材更是把'声现象'推迟到初中物理（人教版八年级上册第二章）。这张地图按理解关系重排：先发词汇工具，再抓住'振动'这个本质，然后把音量、音高变成两次'找规律'的练习——顺便点亮'找规律'这个跨学科通用能力，并请数学的条形图来把规律画出来。先本质、后现象、跨学科搭桥，这就是与教科书顺序的不同。",
+ "sources": [
+  {
+   "name": "Marble os-taxonomy",
+   "type": "开放图谱",
+   "url": "https://github.com/withmarbleapp/os-taxonomy",
+   "note": "知识点与先修结构"
+  },
+  {
+   "name": "NGSS 新一代科学标准",
+   "type": "课标",
+   "url": "https://www.nextgenscience.org",
+   "note": "1-PS4-1 声音的产生"
+  },
+  {
+   "name": "英国国家课标 2013（Year 4 Sound）",
+   "type": "课标",
+   "url": "https://www.gov.uk/government/collections/national-curriculum",
+   "note": "声学主线 Snd.1-5"
+  },
+  {
+   "name": "美国共同核心数学标准 CCSS",
+   "type": "课标",
+   "note": "3.MD.B.3 条形图；数学实践标准 MP8"
+  }
+ ]
 };
 
 if (!SITE) {
@@ -903,6 +928,7 @@ function renderDrawer() {
   const stName = { lit: '已掌握', open: '进行中', locked: '未解锁' };
   let html = `<div class="drawer-note">${SITE.about || '每个知识点都有可观察的掌握证据；进度自动保存在这台设备的浏览器里。'}</div>
     ${SITE.reorder ? `<div class="drawer-note">🔀 <b>为什么是这个顺序</b>：${SITE.reorder}</div>` : ''}
+    ${SITE.sources && SITE.sources.length ? `<div class="drawer-note">📚 <b>本图权威材料</b><br>${SITE.sources.map(s => `· ${s.url ? `<a href="${s.url}" target="_blank" rel="noopener">${s.name}</a>` : s.name}（${s.type}${s.note ? '，' + s.note : ''}）`).join('<br>')}</div>` : ''}
     <div class="row-btns">
       <button class="small-btn" id="btn-export">导出进度</button>
       <button class="small-btn" id="btn-import">导入进度</button>

@@ -814,5 +814,24 @@
    "to": "gpu",
    "type": "soft"
   }
+ ],
+ "sources": [
+  {
+   "name": "Goodfellow, Bengio & Courville,《Deep Learning》(2016)",
+   "type": "教科书",
+   "url": "https://www.deeplearningbook.org",
+   "note": "机器学习基础与优化各节点"
+  },
+  {
+   "name": "Rumelhart, Hinton & Williams, 1986, Learning representations by back-propagating errors",
+   "type": "论文",
+   "note": "反向传播"
+  },
+  {
+   "name": "Kingma & Ba, 2015, Adam",
+   "type": "论文",
+   "url": "https://arxiv.org/abs/1412.6980",
+   "note": "优化器"
+  }
  ]
 }

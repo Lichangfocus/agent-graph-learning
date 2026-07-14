@@ -897,6 +897,37 @@ const SITE = {
    "to": "why",
    "type": "hard"
   }
+ ],
+ "sources": [
+  {
+   "name": "Vaswani et al., 2017, Attention Is All You Need",
+   "type": "论文",
+   "url": "https://arxiv.org/abs/1706.03762",
+   "note": "自注意力/多头/整体架构"
+  },
+  {
+   "name": "Bahdanau, Cho & Bengio, 2015, Neural Machine Translation by Jointly Learning to Align and Translate",
+   "type": "论文",
+   "url": "https://arxiv.org/abs/1409.0473",
+   "note": "注意力的起源"
+  },
+  {
+   "name": "Mikolov et al., 2013, Efficient Estimation of Word Representations",
+   "type": "论文",
+   "url": "https://arxiv.org/abs/1301.3781",
+   "note": "词向量"
+  },
+  {
+   "name": "Sennrich, Haddow & Birch, 2016, Subword Units (BPE)",
+   "type": "论文",
+   "url": "https://arxiv.org/abs/1508.07909",
+   "note": "Token 化"
+  },
+  {
+   "name": "Radford et al., 2018, Improving Language Understanding by Generative Pre-Training (GPT)",
+   "type": "论文",
+   "note": "自回归 Decoder"
+  }
  ]
 };
 
@@ -1120,6 +1151,7 @@ function renderDrawer() {
   const stName = { lit: '已掌握', open: '进行中', locked: '未解锁' };
   let html = `<div class="drawer-note">${SITE.about || '每个知识点都有可观察的掌握证据；进度自动保存在这台设备的浏览器里。'}</div>
     ${SITE.reorder ? `<div class="drawer-note">🔀 <b>为什么是这个顺序</b>：${SITE.reorder}</div>` : ''}
+    ${SITE.sources && SITE.sources.length ? `<div class="drawer-note">📚 <b>本图权威材料</b><br>${SITE.sources.map(s => `· ${s.url ? `<a href="${s.url}" target="_blank" rel="noopener">${s.name}</a>` : s.name}（${s.type}${s.note ? '，' + s.note : ''}）`).join('<br>')}</div>` : ''}
     <div class="row-btns">
       <button class="small-btn" id="btn-export">导出进度</button>
       <button class="small-btn" id="btn-import">导入进度</button>

@@ -7,7 +7,7 @@
 请帮我生成一个知识地图学习站点，按以下步骤严格执行：
 
 1. 克隆仓库 `https://github.com/Lichangfocus/agent-graph-learning`（已克隆则 pull 最新）。
-2. 仔细阅读 `.claude/skills/learn-map/SKILL.md`，它定义了完整的生成管线：对焦 → 构建图谱 → 校验 → 写图文卡 → 组装站点。**逐步遵守，特别是：构图规则（DAG、不做传递闭包、硬边才锁解锁）、canon 原始知识层与 reorder 顺序声明必填且出处真实、第 2 步必须用 `scripts/validate_graph.py` 校验到 PASS、第 3 步的 8 条易学性内容规范、第 4 步模板注入只替换第一处占位符。**
+2. 仔细阅读 `.claude/skills/learn-map/SKILL.md`，它定义了完整的生成管线：对焦 → **采集权威材料** → 构建图谱 → 校验 → 写图文卡 → 组装站点。**逐步遵守，特别是：第 1 步先查 `references/source-registry.md` 选权威源并写 materials.md（canon 只能引用材料清单，新源要回流进目录）、构图规则（DAG、不做传递闭包、硬边才锁解锁）、canon 与 reorder、sources 必填且出处真实、校验必须 PASS、8 条易学性内容规范、模板注入只替换第一处占位符。**
 3. 我的主题是：【主题】；学习者是：【学习者年龄/水平，比如"8 岁孩子"或"成人入门"】。如果还需要对焦（切入角度、已有基础），先问我。
 4. 产出写到仓库的 `maps/<主题英文slug>/` 目录（site.json + index.html），本地用浏览器打开 index.html 验证：起点可点开、答题后能点亮、刷新后进度还在。
 5. 验证通过后 commit 并 push 到 main 分支，然后告诉我在线地址：`https://lichangfocus.github.io/agent-graph-learning/maps/<主题英文slug>/`（GitHub Pages 已开启，push 后约 1-2 分钟生效）。

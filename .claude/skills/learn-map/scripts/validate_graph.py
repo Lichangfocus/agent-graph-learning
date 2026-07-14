@@ -16,6 +16,8 @@ def main(path):
         print(f"ERROR: JSON 无法解析: {e}")
         return 1
 
+    if not site.get('sources'):
+        warnings.append("缺少 site.sources（权威材料清单——本图内容基于哪些教材/论文）")
     if not site.get('reorder'):
         warnings.append("缺少 site.reorder（顺序重构声明——这张图和教科书顺序差在哪、为什么）")
     for field in ('id', 'title', 'nodes', 'edges'):

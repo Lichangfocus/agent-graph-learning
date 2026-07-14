@@ -676,5 +676,36 @@
    "to": "why",
    "type": "hard"
   }
+ ],
+ "sources": [
+  {
+   "name": "Vaswani et al., 2017, Attention Is All You Need",
+   "type": "论文",
+   "url": "https://arxiv.org/abs/1706.03762",
+   "note": "自注意力/多头/整体架构"
+  },
+  {
+   "name": "Bahdanau, Cho & Bengio, 2015, Neural Machine Translation by Jointly Learning to Align and Translate",
+   "type": "论文",
+   "url": "https://arxiv.org/abs/1409.0473",
+   "note": "注意力的起源"
+  },
+  {
+   "name": "Mikolov et al., 2013, Efficient Estimation of Word Representations",
+   "type": "论文",
+   "url": "https://arxiv.org/abs/1301.3781",
+   "note": "词向量"
+  },
+  {
+   "name": "Sennrich, Haddow & Birch, 2016, Subword Units (BPE)",
+   "type": "论文",
+   "url": "https://arxiv.org/abs/1508.07909",
+   "note": "Token 化"
+  },
+  {
+   "name": "Radford et al., 2018, Improving Language Understanding by Generative Pre-Training (GPT)",
+   "type": "论文",
+   "note": "自回归 Decoder"
+  }
  ]
 }
