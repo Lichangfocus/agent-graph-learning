@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>我的学习中心</title>
+<style>
+  :root { --night-1:#1a2140; --night-2:#253055; --gold:#ffd166; --good:#58c98b; --soft:#a79fc4; }
+  * { box-sizing: border-box; }
+  body {
+    margin:0; font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+    background: radial-gradient(120% 100% at 50% 0%, var(--night-2) 0%, var(--night-1) 70%);
+    color:#f2ecdd; min-height:100vh; -webkit-font-smoothing:antialiased;
+  }
+  .wrap { max-width:760px; margin:0 auto; padding:44px 20px 60px; }
+  .tag { font-size:12px; letter-spacing:3px; color:var(--gold); text-transform:uppercase; }
+  h1 { font-size:30px; margin:8px 0 8px; }
+  p.sub { color:#cfc8e8; font-size:14.5px; line-height:1.8; margin:0 0 26px; max-width:38em; }
+  button { font-family:inherit; cursor:pointer; }
+  button:focus-visible { outline:3px solid var(--gold); outline-offset:2px; }
+  .panel { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12); border-radius:18px; padding:22px; margin-bottom:18px; }
+  .panel h2 { margin:0 0 10px; font-size:18px; }
+  input[type=email] {
+    font-size:16px; padding:12px 14px; border-radius:12px; width:100%;
+    border:1px solid rgba(255,255,255,.25); background:rgba(0,0,0,.25); color:#fff;
+  }
+  .btn { border:none; border-radius:999px; padding:11px 24px; font-size:15px; font-weight:600; background:var(--gold); color:#5c4300; }
+  .btn.ghost { background:none; border:1px solid rgba(255,255,255,.3); color:#cfc8e8; }
+  .msg { font-size:13px; color:var(--soft); min-height:1.2em; margin:8px 0 0; }
+  .row { display:flex; gap:10px; align-items:center; margin-top:12px; flex-wrap:wrap; }
+  .course {
+    display:flex; gap:14px; align-items:center; background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.1); border-radius:16px; padding:16px 18px; margin-bottom:12px;
+  }
+  .course .info { flex:1; min-width:0; }
+  .course .title { font-size:16px; font-weight:700; margin:0 0 4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .course .meta { font-size:12px; color:var(--soft); }
+  .bar { width:110px; height:7px; border-radius:4px; background:rgba(255,255,255,.14); overflow:hidden; flex:none; }
+  .bar i { display:block; height:100%; background:var(--gold); }
+  .mini { border:none; background:none; color:var(--soft); font-size:13px; padding:6px 8px; }
+  .mini:hover { color:var(--gold); }
+  a.open-btn { text-decoration:none; color:#5c4300; background:var(--gold); border-radius:999px; padding:8px 16px; font-size:13px; font-weight:700; flex:none; }
+  .empty { color:var(--soft); font-size:14px; line-height:1.8; }
+  .foot { margin-top:26px; font-size:12.5px; color:#8b83ab; line-height:1.8; }
+  .foot a { color:#cbb2ff; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="tag">AGENT 图谱学习法</div>
+  <h1>我的学习中心 ☁️</h1>
+  <p class="sub">登录后，你在任何一张知识地图上的学习进度都会汇聚到这里：查看全部课程、继续学习、重命名或删除记录。</p>
+  <div id="main"><div class="panel"><p class="empty">正在检查账户配置……</p></div></div>
+  <p class="foot">进度数据仅存于你自己的账户（Supabase 行级安全策略保证只有你能读写自己的数据）。项目主页：<a href="https://github.com/Lichangfocus/agent-graph-learning">Agent 图谱学习法</a></p>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+let sb = null, user = null;
+
+async function findConfig() {
+  for (const p of ['../account-config.json', 'account-config.json', '../../account-config.json']) {
+    try {
+      const r = await fetch(p, { cache: 'no-store' });
+      if (r.ok) { const c = await r.json(); if (c && c.supabaseUrl && c.supabaseAnonKey) return c; }
+    } catch (e) {}
+  }
+  return null;
+}
+
+function view(html) { $('main').innerHTML = html; }
+
+function loginView(msg) {
+  view(`<div class="panel"><h2>邮箱登录</h2>
+    <p class="sub" style="margin-bottom:12px">输入邮箱，我们发一条登录链接（无需密码）。</p>
+    <input id="email" type="email" placeholder="you@example.com">
+    <p class="msg" id="msg">${msg || ''}</p>
+    <div class="row"><button class="btn" id="send">发送登录链接</button></div></div>`);
+  $('send').onclick = async () => {
+    const email = $('email').value.trim();
+    if (!email.includes('@')) { $('msg').textContent = '请输入有效邮箱'; return; }
+    $('msg').textContent = '发送中……';
+    const { error } = await sb.auth.signInWithOtp({ email, options: { emailRedirectTo: location.href.split('#')[0] } });
+    $('msg').textContent = error ? '发送失败：' + error.message : '已发送！去邮箱点击链接，会自动回到这里。';
+  };
+}
+
+async function coursesView() {
+  view(`<div class="panel"><h2>账户</h2>
+    <div class="row"><span style="font-size:14px">${user.email}</span>
+      <button class="btn ghost" id="out">退出登录</button></div></div>
+    <div id="list"><p class="empty">加载课程中……</p></div>`);
+  $('out').onclick = async () => { await sb.auth.signOut(); loginView(); };
+  let rows = [];
+  try {
+    const { data } = await sb.from('map_progress').select('map_id,title,url,lit,total,updated_at').order('updated_at', { ascending: false });
+    rows = data || [];
+  } catch (e) {}
+  if (!rows.length) {
+    $('list').innerHTML = `<div class="panel"><p class="empty">还没有课程记录。去任何一张知识地图上登录并点亮一个知识点，它就会出现在这里。<br>比如：<a style="color:#cbb2ff" href="../maps/ai-training/">AI 大模型训练</a> · <a style="color:#cbb2ff" href="../maps/sound-journey/">声音之旅</a></p></div>`;
+    return;
+  }
+  $('list').innerHTML = rows.map(r => {
+    const n = Array.isArray(r.lit) ? r.lit.length : 0;
+    const pct = r.total ? Math.min(100, n / r.total * 100) : 0;
+    const when = (r.updated_at || '').slice(0, 10);
+    return `<div class="course" data-id="${r.map_id}">
+      <div class="info">
+        <p class="title">${r.title || r.map_id}</p>
+        <span class="meta">${n}${r.total ? '/' + r.total : ''} 已点亮 · 最近学习 ${when}</span>
+      </div>
+      <span class="bar"><i style="width:${pct}%"></i></span>
+      ${r.url ? `<a class="open-btn" href="${r.url}">继续学习</a>` : ''}
+      <button class="mini act-rename" title="重命名">✏️</button>
+      <button class="mini act-del" title="删除记录">🗑️</button>
+    </div>`;
+  }).join('');
+  $('list').querySelectorAll('.act-del').forEach(b => b.onclick = async () => {
+    const el = b.closest('.course');
+    if (!confirm('删除这门课程的云端进度记录？（本地浏览器里的进度不受影响）')) return;
+    try { await sb.from('map_progress').delete().eq('map_id', el.dataset.id); } catch (e) {}
+    coursesView();
+  });
+  $('list').querySelectorAll('.act-rename').forEach(b => b.onclick = async () => {
+    const el = b.closest('.course');
+    const cur = el.querySelector('.title').textContent;
+    const name = prompt('课程名称：', cur);
+    if (!name || name === cur) return;
+    try { await sb.from('map_progress').update({ title: name }).eq('map_id', el.dataset.id); } catch (e) {}
+    coursesView();
+  });
+}
+
+(async () => {
+  const cfg = await findConfig();
+  if (!cfg) {
+    view(`<div class="panel"><h2>账户功能未启用</h2>
+      <p class="empty">仓库根目录的 <b>account-config.json</b> 还没有填入 Supabase 配置。配置方法见 <a style="color:#cbb2ff" href="https://github.com/Lichangfocus/agent-graph-learning/blob/main/docs/account-setup.md">docs/account-setup.md</a>（约 5 分钟）。<br>未启用账户时，各地图的进度仍保存在本地浏览器，可用"学习档案 → 导出/导入"迁移。</p></div>`);
+    return;
+  }
+  await new Promise((res, rej) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
+    s.onload = res; s.onerror = rej;
+    document.head.appendChild(s);
+  });
+  sb = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+  const { data } = await sb.auth.getSession();
+  user = data.session ? data.session.user : null;
+  sb.auth.onAuthStateChange((_e, session) => {
+    user = session ? session.user : null;
+    user ? coursesView() : loginView();
+  });
+  user ? coursesView() : loginView();
+})();
+</script>
+</body>
+</html>

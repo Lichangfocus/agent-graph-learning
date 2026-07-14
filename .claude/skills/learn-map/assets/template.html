@@ -189,6 +189,7 @@
       <span>已点亮 <b id="prog-num">0</b>/<span id="prog-total">0</span></span>
       <span class="progress-track"><span class="progress-fill" id="prog-fill"></span></span>
     </div>
+    <button class="ghost-btn" id="acct-btn" hidden>☁️ 登录</button>
     <button class="ghost-btn" id="records-open">学习档案</button>
   </div>
 </header>
@@ -205,6 +206,10 @@
 
 <div class="overlay" id="overlay" role="dialog" aria-modal="true">
   <div class="card" id="card"></div>
+</div>
+
+<div class="overlay" id="acct-overlay" role="dialog" aria-modal="true">
+  <div class="card" id="acct-card" style="width:min(440px,100%)"></div>
 </div>
 
 <div class="drawer" id="drawer" role="dialog" aria-label="学习档案">
@@ -486,6 +491,133 @@ function renderDrawer() {
 }
 
 render();
+
+/* ===== 账户与云同步（Supabase，可选；未配置时完全静默） ===== */
+const Account = (() => {
+  let sb = null, user = null;
+  async function findConfig() {
+    for (const p of ['account-config.json', '../account-config.json', '../../account-config.json', '../../../account-config.json']) {
+      try {
+        const r = await fetch(p, { cache: 'no-store' });
+        if (r.ok) {
+          const c = await r.json();
+          if (c && c.supabaseUrl && c.supabaseAnonKey) return c;
+        }
+      } catch (e) {}
+    }
+    return null;
+  }
+  async function init(onChange) {
+    try {
+      const cfg = await findConfig();
+      if (!cfg) return false;
+      await new Promise((res, rej) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
+        s.onload = res; s.onerror = rej;
+        document.head.appendChild(s);
+      });
+      sb = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+      const { data } = await sb.auth.getSession();
+      user = data.session ? data.session.user : null;
+      sb.auth.onAuthStateChange((_e, session) => {
+        user = session ? session.user : null;
+        onChange && onChange(user);
+      });
+      return true;
+    } catch (e) { return false; }
+  }
+  return {
+    init,
+    sendLink: email => sb.auth.signInWithOtp({ email, options: { emailRedirectTo: location.href.split('#')[0] } }),
+    signOut: () => sb.auth.signOut(),
+    async pull(mapId) {
+      if (!user) return null;
+      try {
+        const { data } = await sb.from('map_progress').select('lit').eq('map_id', mapId).maybeSingle();
+        return data ? data.lit : null;
+      } catch (e) { return null; }
+    },
+    async push(mapId, litArr, title, total) {
+      if (!user) return;
+      try {
+        await sb.from('map_progress').upsert({
+          user_id: user.id, map_id: mapId, title: title || '', url: location.href.split('#')[0],
+          lit: litArr, total: total || 0, updated_at: new Date().toISOString()
+        }, { onConflict: 'user_id,map_id' });
+      } catch (e) {}
+    },
+    get user() { return user; }
+  };
+})();
+
+const acctBtn = document.getElementById('acct-btn');
+const acctOverlay = document.getElementById('acct-overlay');
+const acctCard = document.getElementById('acct-card');
+acctOverlay.addEventListener('click', e => { if (e.target === acctOverlay) acctOverlay.classList.remove('show'); });
+
+function cloudSyncNow() {
+  Account.push(SITE.id, [...lit], SITE.title, SITE.nodes.length);
+}
+async function onAuthChange(u) {
+  acctBtn.textContent = u ? ('☁️ ' + (u.email || '').split('@')[0]) : '☁️ 登录';
+  if (u) {
+    const cloud = await Account.pull(SITE.id);
+    if (Array.isArray(cloud)) {
+      const before = lit.size;
+      cloud.forEach(i => { if (byId[i]) lit.add(i); });
+      if (lit.size !== before) { save(); render(); toast('已从云端合并学习进度 ☁️'); }
+    }
+    cloudSyncNow();
+  }
+}
+function drawAcct() {
+  const u = Account.user;
+  acctCard.innerHTML = u ? `
+    <div class="card-head"><div><span class="kicker" style="background:#8646b8">账户</span>
+      <h2>☁️ 已登录</h2></div>
+      <button class="close-x" id="acct-close">✕</button></div>
+    <p style="font-size:15px">${u.email}</p>
+    <p style="font-size:14px;color:var(--ink-soft)">这张地图的进度会自动同步到你的账户；在"学习中心"可以查看和管理所有课程。</p>
+    <div class="card-foot" style="justify-content:space-between">
+      <button class="nav-btn back" id="acct-out">退出登录</button>
+      <button class="nav-btn light-up" id="acct-sync">立即同步</button>
+    </div>` : `
+    <div class="card-head"><div><span class="kicker" style="background:#8646b8">账户</span>
+      <h2>☁️ 邮箱登录</h2></div>
+      <button class="close-x" id="acct-close">✕</button></div>
+    <p style="font-size:14px;color:var(--ink-soft)">输入邮箱，我们发一条登录链接（无需密码）。登录后学习进度会保存到你的账户，换设备也能继续。</p>
+    <input id="acct-email" type="email" placeholder="you@example.com"
+      style="font-size:16px;padding:12px 14px;border-radius:12px;border:2px solid #e8dcbf;width:100%">
+    <p id="acct-msg" style="font-size:13px;color:var(--ink-soft);min-height:1.2em;margin:0"></p>
+    <div class="card-foot" style="justify-content:flex-end">
+      <button class="nav-btn light-up" id="acct-send">发送登录链接</button>
+    </div>`;
+  document.getElementById('acct-close').onclick = () => acctOverlay.classList.remove('show');
+  const out = document.getElementById('acct-out');
+  if (out) out.onclick = async () => { await Account.signOut(); drawAcct(); };
+  const syncBtn = document.getElementById('acct-sync');
+  if (syncBtn) syncBtn.onclick = () => { cloudSyncNow(); toast('已同步 ☁️'); };
+  const send = document.getElementById('acct-send');
+  if (send) send.onclick = async () => {
+    const email = document.getElementById('acct-email').value.trim();
+    const msg = document.getElementById('acct-msg');
+    if (!email.includes('@')) { msg.textContent = '请输入有效邮箱'; return; }
+    msg.textContent = '发送中……';
+    const { error } = await Account.sendLink(email);
+    msg.textContent = error ? ('发送失败：' + error.message) : '已发送！去邮箱点击链接，会自动回到这个页面。';
+  };
+}
+Account.init(u => { onAuthChange(u); if (acctOverlay.classList.contains('show')) drawAcct(); }).then(ok => {
+  if (!ok) return;
+  acctBtn.hidden = false;
+  acctBtn.onclick = () => { drawAcct(); acctOverlay.classList.add('show'); };
+  onAuthChange(Account.user);
+});
+
+/* 点亮后自动云同步 */
+const _origLightUp = lightUp;
+lightUp = function(id) { _origLightUp(id); cloudSyncNow(); };
 </script>
 </body>
 </html>
