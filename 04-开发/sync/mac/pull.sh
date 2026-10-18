@@ -74,5 +74,5 @@ sync_repo "$SCHOLAR_HOME/learn-data" main no
 # 同步脚本自身随框架仓库更新
 SRC="$SCHOLAR_HOME/agent-graph-learning/04-开发/sync/mac/pull.sh"
 if [ -f "$SRC" ] && ! cmp -s "$SRC" "$SYNC_DIR/pull.sh"; then cp "$SRC" "$SYNC_DIR/pull.sh.new" && chmod +x "$SYNC_DIR/pull.sh.new" && mv "$SYNC_DIR/pull.sh.new" "$SYNC_DIR/pull.sh" && log "pull.sh 已自更新"; fi
-log "—— 结束（status=$STATUS）"
+log "—— 结束（status=${STATUS}）"
 exit $STATUS
