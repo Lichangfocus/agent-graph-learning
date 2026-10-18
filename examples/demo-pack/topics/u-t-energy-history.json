@@ -1,0 +1,8 @@
+{
+  "id": "u-t-energy-history",
+  "domain": "history",
+  "name": "能量视角下的文明史（示例自建 topic）",
+  "desc": "从 Atlas 里挑出与能量有关的节点组成一个视角；节点不复制。",
+  "members": [{"id": "s2"}, {"id": "s9"}, {"id": "fossil-energy"}, {"id": "thermodynamics"}, {"id": "u-steam-engine"}],
+  "created": "2026-10-18T08:20:00+08:00"
+}

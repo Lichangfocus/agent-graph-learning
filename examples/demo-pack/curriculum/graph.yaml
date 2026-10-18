@@ -1,0 +1,13 @@
+id: demo-course
+title: 示例课程 · 图像的力量
+status: draft
+updated: 2026-10-18
+reorder: 示例：只有一个公开单元，用来演示单元页与课程图。
+sources_ref: units/demo-hokusai/source.md
+domains:
+  - {id: arts, name: 艺术与视觉}
+nodes:
+  - {id: demo-hokusai, icon: "🌊", name: 北斋的浪, domain: arts, module: M1, week: 1, desc: "构图与色彩如何传达力量与尺度"}
+  - {id: demo-next, icon: "🗻", name: 下一课（待建）, domain: arts, module: M1, week: 2, desc: "示例：未建单元显示为 planned"}
+edges:
+  - {from: demo-hokusai, to: demo-next, type: soft, why: "示例边：先看北斋，再看下一课。"}

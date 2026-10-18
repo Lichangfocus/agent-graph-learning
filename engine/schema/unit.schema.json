@@ -1,0 +1,769 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "frontmatter": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "module": {
+          "type": "string",
+          "minLength": 1
+        },
+        "estTimeMinutes": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "maximum": 9007199254740991
+        },
+        "sources": {
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "module",
+        "estTimeMinutes",
+        "sources"
+      ],
+      "additionalProperties": false
+    },
+    "sections": {
+      "type": "object",
+      "properties": {
+        "hookQuestion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "coreNarrative": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "keyConcepts": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "term": {
+                "type": "string",
+                "minLength": 1
+              },
+              "explanation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "analogy": {
+                "type": "string"
+              },
+              "analogyLimit": {
+                "type": "string"
+              },
+              "canon": {
+                "type": "object",
+                "properties": {
+                  "formal": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "source": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "textbook": {
+                    "type": "string"
+                  },
+                  "quote": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "formal",
+                  "source",
+                  "quote"
+                ],
+                "additionalProperties": false
+              },
+              "relatedArtworks": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "term",
+              "explanation"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "masteryEvidence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "artworks": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "creator": {
+                "type": "string"
+              },
+              "year": {
+                "type": "string"
+              },
+              "sourceUrl": {
+                "type": "string",
+                "format": "uri"
+              },
+              "license": {
+                "type": "string",
+                "minLength": 1
+              },
+              "localAsset": {
+                "type": "string"
+              },
+              "caption": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "sourceUrl",
+              "license"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "storyboard": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "title": {
+                "type": "string"
+              },
+              "images": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "narration": {
+                "type": "string",
+                "minLength": 1
+              },
+              "durationSec": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "transition": {
+                "default": "cut",
+                "type": "string",
+                "enum": [
+                  "cut",
+                  "fade",
+                  "pan",
+                  "zoom"
+                ]
+              },
+              "subtitles": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "startSec": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "endSec": {
+                      "type": "number",
+                      "exclusiveMinimum": 0
+                    },
+                    "text": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "startSec",
+                    "endSec",
+                    "text"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "id",
+              "images",
+              "narration",
+              "durationSec",
+              "transition"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "interactive": {
+          "type": "object",
+          "properties": {
+            "imageComparisons": {
+              "default": [],
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "leftArtworkId": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "rightArtworkId": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "prompt": {
+                    "type": "string"
+                  },
+                  "labelLeft": {
+                    "type": "string"
+                  },
+                  "labelRight": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "leftArtworkId",
+                  "rightArtworkId"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "zoomAnnotates": {
+              "default": [],
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "artworkId": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "hotspots": {
+                    "default": [],
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "xPct": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 100
+                        },
+                        "yPct": {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 100
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "xPct",
+                        "yPct",
+                        "title",
+                        "description"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "id",
+                  "artworkId",
+                  "hotspots"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "timeline": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "title": {
+                  "type": "string"
+                },
+                "items": {
+                  "minItems": 1,
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "date": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "label": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "description": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "date",
+                      "label"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "items"
+              ],
+              "additionalProperties": false
+            },
+            "predictReveals": {
+              "default": [],
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "prompt": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "answer": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "explanation": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "prompt",
+                  "answer"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "luminanceExplorers": {
+              "default": [],
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "imageUrl": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sunCenter": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "sunRadiusFracOfWidth": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1
+                  },
+                  "skyRingRadiusMultipliers": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "fixationPoint": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      }
+                    ],
+                    "items": false,
+                    "minItems": 2,
+                    "maxItems": 2
+                  },
+                  "measuredLstar": {
+                    "type": "object",
+                    "properties": {
+                      "sun": {
+                        "type": "number"
+                      },
+                      "skyMean": {
+                        "type": "number"
+                      },
+                      "skySd": {
+                        "type": "number"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "id",
+                  "imageUrl"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "frequencyToggles": {
+              "default": [],
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "combinedImage": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "labels": {
+                    "minItems": 3,
+                    "maxItems": 3,
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "required": [
+                  "id",
+                  "combinedImage"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "functionMaps": {
+              "default": [],
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "instruction": {
+                    "type": "string"
+                  },
+                  "bins": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "label": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "description": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "label"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "works": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "artworkId": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "label": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "artworkId"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "scholarViews": {
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "artworkId": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "primary": {
+                          "minItems": 1,
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "also": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        },
+                        "claimType": {
+                          "type": "string",
+                          "enum": [
+                            "fact",
+                            "consensus",
+                            "disputed",
+                            "ai-inferred"
+                          ]
+                        },
+                        "summary": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "source": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "artworkId",
+                        "primary",
+                        "claimType",
+                        "summary"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "reflectPrompt": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "bins",
+                  "works",
+                  "scholarViews"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "imageComparisons",
+            "zoomAnnotates",
+            "predictReveals",
+            "luminanceExplorers",
+            "frequencyToggles",
+            "functionMaps"
+          ],
+          "additionalProperties": false
+        },
+        "checkYourself": {
+          "minItems": 1,
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "question": {
+                "type": "string",
+                "minLength": 1
+              },
+              "choices": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "answer": {
+                "type": "string",
+                "minLength": 1
+              },
+              "explanation": {
+                "type": "string"
+              },
+              "options": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "correct": {
+                      "type": "boolean"
+                    },
+                    "why": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "text"
+                  ],
+                  "additionalProperties": false
+                },
+                "contains": {
+                  "required": [
+                    "correct"
+                  ],
+                  "properties": {
+                    "correct": {
+                      "const": true
+                    }
+                  }
+                },
+                "minContains": 1,
+                "maxContains": 1
+              },
+              "hint": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "question",
+              "answer"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "aiAndFutureLife": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "hookQuestion",
+        "coreNarrative",
+        "keyConcepts",
+        "artworks",
+        "storyboard",
+        "interactive",
+        "checkYourself",
+        "aiAndFutureLife"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "frontmatter",
+    "sections"
+  ],
+  "additionalProperties": false
+}

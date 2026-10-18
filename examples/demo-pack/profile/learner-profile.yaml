@@ -1,0 +1,13 @@
+# 示例学习者画像（虚构）。真实画像只放私有数据包。
+schema_version: 0.1
+id: learner-profile-demo
+learner:
+  display_name: 示例学习者
+  language: zh-CN
+known_domains:
+  - {domain: 软件产品, confidence: high}
+  - {domain: 历史, confidence: low}
+analogy_sources_ranked: [产品, 日常生活]
+explanation_preferences:
+  - {id: framework_first, rule: 先给框架和位置再讲内容}
+  - {id: reduce_to_known, rule: 还原为已懂的通用逻辑；类比写失效点}

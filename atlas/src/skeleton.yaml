@@ -1,0 +1,73 @@
+# Atlas v0.1 骨架：领域 → topic → 节点 + 跨领域边。人类文明通史 11 个节点由 history-stages.json 生成。
+# 许可：CC BY-SA 4.0（见 atlas/LICENSE）。边的 claim_type 默认「AI推断」，待 focus 审。
+domains:
+  - {id: natural, name: 自然科学, icon: "🔭", color: "#38bdf8"}
+  - {id: life, name: 生命科学, icon: "🧬", color: "#34d399"}
+  - {id: math, name: 数学与逻辑, icon: "➗", color: "#a78bfa"}
+  - {id: tech, name: 工程与技术, icon: "⚙️", color: "#f59e0b"}
+  - {id: social, name: 社会科学, icon: "🏛️", color: "#f472b6"}
+  - {id: history, name: 历史, icon: "📜", color: "#fbbf24"}
+  - {id: philosophy, name: 哲学与宗教, icon: "💭", color: "#c084fc"}
+  - {id: arts, name: 艺术与人文, icon: "🎨", color: "#fb7185"}
+  - {id: language, name: 语言, icon: "🔤", color: "#22d3ee"}
+  - {id: ai, name: 人工智能, icon: "🤖", color: "#60a5fa"}
+topics:
+  - {id: t-physics, domain: natural, name: 物理}
+  - {id: t-earth, domain: natural, name: 地球科学}
+  - {id: t-biology, domain: life, name: 生物学与进化}
+  - {id: t-medicine, domain: life, name: 医学与公共卫生}
+  - {id: t-logic, domain: math, name: 数学方法}
+  - {id: t-energy, domain: tech, name: 能源}
+  - {id: t-computing, domain: tech, name: 计算机与信息}
+  - {id: t-economics, domain: social, name: 经济学}
+  - {id: t-politics, domain: social, name: 政治学}
+  - {id: t-civ, domain: history, name: 人类文明通史, desc: "从人属出现到 AI 时代的 11 次大变革（能量 / 信息 / 组织 三条驱动力）"}
+  - {id: t-history-of-science, domain: history, name: 科技史}
+  - {id: t-axial, domain: philosophy, name: 轴心哲学与世界宗教}
+  - {id: t-visual-arts, domain: arts, name: 视觉艺术}
+  - {id: t-writing, domain: language, name: 语言与文字}
+  - {id: t-ml, domain: ai, name: 机器学习与大模型}
+  - {id: t-ai-governance, domain: ai, name: AI 治理}
+nodes:
+  - {id: thermodynamics, topic: t-physics, kind: concept, name: 热力学与能量转换, summary: "能量守恒、熵增；热机把热变成功的极限。"}
+  - {id: climate-geography, topic: t-earth, kind: concept, name: 地理与气候, summary: "全新世稳定气候、大陆轴向与河流如何塑造人类定居。"}
+  - {id: domestication-genetics, topic: t-biology, kind: concept, name: 驯化与遗传, summary: "人工选择如何在几千年里改变作物与牲畜的基因。"}
+  - {id: evolution, topic: t-biology, kind: concept, name: 自然选择与进化, summary: "变异 + 遗传 + 选择 = 适应；人类也是这个过程的产物。"}
+  - {id: epidemics-population, topic: t-medicine, kind: concept, name: 传染病与人口, summary: "人畜共患病、瘟疫与人口规模之间的相互作用。"}
+  - {id: scientific-method, topic: t-logic, kind: concept, name: 科学方法, summary: "假设、实验、数学化、公开发表与纠错。"}
+  - {id: fossil-energy, topic: t-energy, kind: concept, name: 化石能源, summary: "煤、石油、天然气：把亿万年的太阳能一次性释放。"}
+  - {id: computer, topic: t-computing, kind: concept, name: 计算机, summary: "可编程的通用信息处理机器：从晶体管到互联网。"}
+  - {id: printing-media, topic: t-computing, kind: concept, name: 印刷与信息媒介, summary: "雕版、活字、古登堡：信息复制成本骤降带来的连锁反应。"}
+  - {id: money-markets, topic: t-economics, kind: concept, name: 市场与货币, summary: "交换、价格、货币与信用如何协调陌生人的分工。"}
+  - {id: nation-state, topic: t-politics, kind: concept, name: 民族国家理论, summary: "主权、民族与「想象的共同体」。"}
+  - {id: axial-philosophies, topic: t-axial, kind: concept, name: 轴心哲学流派, summary: "儒、道、佛、希腊哲学、希伯来先知：各自在回答什么问题。"}
+  - {id: world-religions, topic: t-axial, kind: concept, name: 世界宗教起源, summary: "佛教、基督教、伊斯兰教如何从地方信仰变成普世宗教。"}
+  - {id: seeing-construction, topic: t-visual-arts, kind: concept, name: 看见是一种建构, summary: "眼睛与大脑如何「建构」我们看到的图像。"}
+  - {id: writing-systems, topic: t-writing, kind: concept, name: 文字系统, summary: "从记账符号到楔形文字、甲骨文、字母：文字如何改变记忆与管理。"}
+  - {id: deep-learning, topic: t-ml, kind: concept, name: 深度学习, summary: "用多层神经网络从数据中学习表示。"}
+  - {id: transformer, topic: t-ml, kind: concept, name: Transformer, summary: "基于注意力机制的模型结构，大模型的底座（2017）。"}
+  - {id: ai-governance, topic: t-ai-governance, kind: concept, name: AI 治理, summary: "安全、责任、版权与就业：社会如何为 AI 立规则。"}
+edges:
+  - {src: evolution, dst: domestication-genetics, kind: prereq, note: "先懂自然选择，才能理解人工选择（驯化）。"}
+  - {src: deep-learning, dst: transformer, kind: prereq, note: "Transformer 是一种深度学习结构。"}
+  - {src: computer, dst: deep-learning, kind: prereq, note: "深度学习依赖算力与数据。"}
+  - {src: s2, dst: domestication-genetics, kind: related, note: "农业革命的生物学本质是驯化。"}
+  - {src: s2, dst: epidemics-population, kind: causes, note: "定居与家畜让人畜共患病增加。", claim_type: 学界共识}
+  - {src: climate-geography, dst: s2, kind: causes, note: "全新世约 11,700 年前转暖且稳定，让农业变得划算。", claim_type: 主流解释}
+  - {src: s1, dst: evolution, kind: related, note: "人属与智人的出现是进化史的一段。"}
+  - {src: s3, dst: writing-systems, kind: related, note: "楔形文字、圣书字、甲骨文都出现在这一阶段。"}
+  - {src: s4, dst: axial-philosophies, kind: related, note: "轴心时代就是这些哲学流派诞生的时代。"}
+  - {src: s4, dst: world-religions, kind: leads_to, note: "轴心思想为后来的普世宗教铺了路。"}
+  - {src: s5, dst: money-markets, kind: related, note: "帝国与丝路网络扩大了交换与货币的范围。"}
+  - {src: s6, dst: printing-media, kind: related, note: "宋代雕版与活字印刷。"}
+  - {src: s6, dst: money-markets, kind: related, note: "宋代商业革命与交子。"}
+  - {src: s7, dst: epidemics-population, kind: causes, note: "哥伦布交换把旧大陆病菌带到美洲。", claim_type: 学界共识}
+  - {src: printing-media, dst: s8, kind: causes, note: "印刷让科学成果可以公开发表、复核。", claim_type: 主流解释}
+  - {src: s8, dst: scientific-method, kind: related, note: "科学革命确立了系统纠错的求知方法。"}
+  - {src: s9, dst: thermodynamics, kind: related, note: "蒸汽机推动了热力学的建立。"}
+  - {src: s9, dst: fossil-energy, kind: related, note: "工业革命的本质是转向化石能源。"}
+  - {src: s9, dst: nation-state, kind: related, note: "民族国家成为组织大众的默认方式。"}
+  - {src: s10, dst: computer, kind: related, note: "晶体管（1947）与计算机、互联网。"}
+  - {src: s11, dst: transformer, kind: related, note: "Transformer（2017）是本轮 AI 的技术底座。"}
+  - {src: s11, dst: ai-governance, kind: leads_to, note: "AI 普及迫使社会重新立规则。"}
+  - {src: s3, dst: seeing-construction, kind: related, note: "早期纪念性艺术与图像功能。"}

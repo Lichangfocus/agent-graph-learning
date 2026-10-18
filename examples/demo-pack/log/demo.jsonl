@@ -1,0 +1,3 @@
+{"ts":"2026-10-18T08:00:00+08:00","node":"s1","action":"open"}
+{"ts":"2026-10-18T08:05:00+08:00","node":"s1","action":"quiz","payload":{"correct":3,"total":3}}
+{"ts":"2026-10-18T08:10:00+08:00","node":"s2","action":"play","payload":{"progress":0.6}}
