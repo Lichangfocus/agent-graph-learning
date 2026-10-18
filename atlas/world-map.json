@@ -1,173 +1,266 @@
 {
  "schema": "learn.atlas.v1",
- "version": "0.1.0",
+ "version": "0.2.0",
  "updated": "2026-10-18",
  "license": "CC BY-SA 4.0",
  "claim_note": "节点内容中事实与解释分开标注；跨领域边默认 claim_type=AI推断，待 focus 审。",
  "domains": [
   {
-   "id": "natural",
+   "id": "d-nat",
    "name": "自然科学",
    "icon": "🔭",
    "color": "#38bdf8"
   },
   {
-   "id": "life",
+   "id": "d-life",
    "name": "生命科学",
    "icon": "🧬",
    "color": "#34d399"
   },
   {
-   "id": "math",
+   "id": "d-math",
    "name": "数学与逻辑",
-   "icon": "➗",
+   "icon": "∑",
    "color": "#a78bfa"
   },
   {
-   "id": "tech",
+   "id": "d-eng",
    "name": "工程与技术",
    "icon": "⚙️",
    "color": "#f59e0b"
   },
   {
-   "id": "social",
+   "id": "d-soc",
    "name": "社会科学",
-   "icon": "🏛️",
-   "color": "#f472b6"
+   "icon": "🏙️",
+   "color": "#fb7185"
   },
   {
-   "id": "history",
+   "id": "d-hist",
    "name": "历史",
    "icon": "📜",
    "color": "#fbbf24"
   },
   {
-   "id": "philosophy",
+   "id": "d-phil",
    "name": "哲学与宗教",
-   "icon": "💭",
+   "icon": "☯️",
    "color": "#c084fc"
   },
   {
-   "id": "arts",
+   "id": "d-arts",
    "name": "艺术与人文",
    "icon": "🎨",
-   "color": "#fb7185"
+   "color": "#f472b6"
   },
   {
-   "id": "language",
+   "id": "d-lang",
    "name": "语言",
-   "icon": "🔤",
-   "color": "#22d3ee"
+   "icon": "🗣️",
+   "color": "#2dd4bf"
   },
   {
-   "id": "ai",
-   "name": "人工智能",
+   "id": "d-ai",
+   "name": "AI",
    "icon": "🤖",
    "color": "#60a5fa"
   }
  ],
  "topics": [
   {
-   "id": "t-physics",
-   "domain": "natural",
-   "name": "物理",
+   "id": "t-phys",
+   "domain": "d-nat",
+   "name": "物理学",
    "members": [
     {
-     "id": "thermodynamics"
+     "id": "n-thermo"
+    }
+   ]
+  },
+  {
+   "id": "t-chem",
+   "domain": "d-nat",
+   "name": "化学",
+   "members": [
+    {
+     "id": "n-nitrogen"
+    }
+   ]
+  },
+  {
+   "id": "t-astro",
+   "domain": "d-nat",
+   "name": "天文学",
+   "members": [
+    {
+     "id": "n-cosmos"
     }
    ]
   },
   {
    "id": "t-earth",
-   "domain": "natural",
+   "domain": "d-nat",
    "name": "地球科学",
    "members": [
     {
-     "id": "climate-geography"
+     "id": "n-climate"
     }
    ]
   },
   {
-   "id": "t-biology",
-   "domain": "life",
-   "name": "生物学与进化",
+   "id": "t-bio",
+   "domain": "d-life",
+   "name": "生物学",
    "members": [
     {
-     "id": "domestication-genetics"
-    },
-    {
-     "id": "evolution"
+     "id": "n-domestic"
     }
    ]
   },
   {
-   "id": "t-medicine",
-   "domain": "life",
-   "name": "医学与公共卫生",
+   "id": "t-evo",
+   "domain": "d-life",
+   "name": "进化论",
    "members": [
     {
-     "id": "epidemics-population"
+     "id": "n-human-evo"
+    }
+   ]
+  },
+  {
+   "id": "t-med",
+   "domain": "d-life",
+   "name": "医学与流行病",
+   "members": [
+    {
+     "id": "n-epidemic"
+    }
+   ]
+  },
+  {
+   "id": "t-geom",
+   "domain": "d-math",
+   "name": "几何与证明",
+   "members": [
+    {
+     "id": "n-axiom"
     }
    ]
   },
   {
    "id": "t-logic",
-   "domain": "math",
-   "name": "数学方法",
+   "domain": "d-math",
+   "name": "逻辑与计算理论",
    "members": [
     {
-     "id": "scientific-method"
+     "id": "n-computability"
+    }
+   ]
+  },
+  {
+   "id": "t-stat",
+   "domain": "d-math",
+   "name": "概率与统计",
+   "members": [
+    {
+     "id": "n-prob"
     }
    ]
   },
   {
    "id": "t-energy",
-   "domain": "tech",
+   "domain": "d-eng",
    "name": "能源",
    "members": [
     {
-     "id": "fossil-energy"
-    }
-   ]
-  },
-  {
-   "id": "t-computing",
-   "domain": "tech",
-   "name": "计算机与信息",
-   "members": [
-    {
-     "id": "computer"
+     "id": "n-fossil"
     },
     {
-     "id": "printing-media"
+     "id": "n-grid"
     }
    ]
   },
   {
-   "id": "t-economics",
-   "domain": "social",
+   "id": "t-cs",
+   "domain": "d-eng",
+   "name": "计算机",
+   "members": [
+    {
+     "id": "n-computer"
+    }
+   ]
+  },
+  {
+   "id": "t-media",
+   "domain": "d-eng",
+   "name": "信息媒介",
+   "members": [
+    {
+     "id": "n-print"
+    }
+   ]
+  },
+  {
+   "id": "t-mat",
+   "domain": "d-eng",
+   "name": "材料与冶金",
+   "members": [
+    {
+     "id": "n-metal"
+    }
+   ]
+  },
+  {
+   "id": "t-econ",
+   "domain": "d-soc",
    "name": "经济学",
    "members": [
     {
-     "id": "money-markets"
+     "id": "n-money"
+    },
+    {
+     "id": "n-growth"
     }
    ]
   },
   {
-   "id": "t-politics",
-   "domain": "social",
+   "id": "t-pol",
+   "domain": "d-soc",
    "name": "政治学",
    "members": [
     {
-     "id": "nation-state"
+     "id": "n-state"
+    },
+    {
+     "id": "n-nation"
+    }
+   ]
+  },
+  {
+   "id": "t-sociology",
+   "domain": "d-soc",
+   "name": "社会学",
+   "members": [
+    {
+     "id": "n-bureau"
+    }
+   ]
+  },
+  {
+   "id": "t-psy",
+   "domain": "d-soc",
+   "name": "心理学",
+   "members": [
+    {
+     "id": "n-cogn"
     }
    ]
   },
   {
    "id": "t-civ",
-   "domain": "history",
+   "domain": "d-hist",
    "name": "人类文明通史",
-   "desc": "从人属出现到 AI 时代的 11 次大变革（能量 / 信息 / 组织 三条驱动力）",
+   "desc": "从历史演化与变革看人类文明如何一步步走到现在：11 次大变革，三条驱动力（能量 / 信息 / 组织）+ 观念。",
    "members": [
     {
      "id": "s1"
@@ -205,265 +298,544 @@
    ]
   },
   {
-   "id": "t-history-of-science",
-   "domain": "history",
-   "name": "科技史",
-   "members": []
-  },
-  {
-   "id": "t-axial",
-   "domain": "philosophy",
-   "name": "轴心哲学与世界宗教",
+   "id": "t-china",
+   "domain": "d-hist",
+   "name": "中国史",
    "members": [
     {
-     "id": "axial-philosophies"
-    },
-    {
-     "id": "world-religions"
+     "id": "n-keju"
     }
    ]
   },
   {
-   "id": "t-visual-arts",
-   "domain": "arts",
+   "id": "t-scihist",
+   "domain": "d-hist",
+   "name": "科技史",
+   "members": [
+    {
+     "id": "n-needham"
+    }
+   ]
+  },
+  {
+   "id": "t-axialphil",
+   "domain": "d-phil",
+   "name": "轴心哲学",
+   "members": [
+    {
+     "id": "n-axial-schools"
+    }
+   ]
+  },
+  {
+   "id": "t-religion",
+   "domain": "d-phil",
+   "name": "世界宗教",
+   "members": [
+    {
+     "id": "n-world-religions"
+    }
+   ]
+  },
+  {
+   "id": "t-epist",
+   "domain": "d-phil",
+   "name": "科学哲学",
+   "members": [
+    {
+     "id": "n-sci-method"
+    }
+   ]
+  },
+  {
+   "id": "t-ethics",
+   "domain": "d-phil",
+   "name": "伦理学",
+   "members": [
+    {
+     "id": "n-rights"
+    }
+   ]
+  },
+  {
+   "id": "t-visual",
+   "domain": "d-arts",
    "name": "视觉艺术",
    "members": [
     {
-     "id": "seeing-construction"
+     "id": "n-cave-art"
+    }
+   ]
+  },
+  {
+   "id": "t-lit",
+   "domain": "d-arts",
+   "name": "文学",
+   "members": [
+    {
+     "id": "n-epic"
+    }
+   ]
+  },
+  {
+   "id": "t-music",
+   "domain": "d-arts",
+   "name": "音乐",
+   "members": [
+    {
+     "id": "n-early-music"
+    }
+   ]
+  },
+  {
+   "id": "t-linguistics",
+   "domain": "d-lang",
+   "name": "语言学",
+   "members": [
+    {
+     "id": "n-lang-origin"
     }
    ]
   },
   {
    "id": "t-writing",
-   "domain": "language",
-   "name": "语言与文字",
+   "domain": "d-lang",
+   "name": "文字",
    "members": [
     {
-     "id": "writing-systems"
+     "id": "n-writing"
     }
    ]
   },
   {
    "id": "t-ml",
-   "domain": "ai",
-   "name": "机器学习与大模型",
+   "domain": "d-ai",
+   "name": "机器学习",
    "members": [
     {
-     "id": "deep-learning"
+     "id": "n-deeplearning"
     },
     {
-     "id": "transformer"
+     "id": "n-transformer"
     }
    ]
   },
   {
-   "id": "t-ai-governance",
-   "domain": "ai",
+   "id": "t-agents",
+   "domain": "d-ai",
+   "name": "大模型与智能体",
+   "members": [
+    {
+     "id": "n-agents"
+    }
+   ]
+  },
+  {
+   "id": "t-aigov",
+   "domain": "d-ai",
    "name": "AI 治理",
    "members": [
     {
-     "id": "ai-governance"
+     "id": "n-aigov"
     }
    ]
   }
  ],
  "nodes": [
   {
-   "id": "thermodynamics",
+   "id": "n-thermo",
    "kind": "concept",
    "name": "热力学与能量转换",
-   "summary": "能量守恒、熵增；热机把热变成功的极限。",
+   "summary": "能量守恒、熵与热机效率：为什么蒸汽机能把热变成功、又有上限。",
    "status": "stub",
-   "domain": "natural",
+   "domain": "d-nat",
    "topics": [
-    "t-physics"
+    "t-phys"
    ]
   },
   {
-   "id": "climate-geography",
+   "id": "n-nitrogen",
+   "kind": "concept",
+   "name": "固氮与合成氨",
+   "summary": "哈伯–博施法把空气中的氮变成化肥，支撑了 20 世纪的人口增长。",
+   "status": "stub",
+   "domain": "d-nat",
+   "topics": [
+    "t-chem"
+   ]
+  },
+  {
+   "id": "n-cosmos",
+   "kind": "concept",
+   "name": "宇宙与日心说",
+   "summary": "从地心到日心：观测数据与数学模型如何改写宇宙图景。",
+   "status": "stub",
+   "domain": "d-nat",
+   "topics": [
+    "t-astro"
+   ]
+  },
+  {
+   "id": "n-climate",
    "kind": "concept",
    "name": "地理与气候",
-   "summary": "全新世稳定气候、大陆轴向与河流如何塑造人类定居。",
+   "summary": "全新世稳定气候、大陆轴向与地形如何约束文明。",
    "status": "stub",
-   "domain": "natural",
+   "domain": "d-nat",
    "topics": [
     "t-earth"
    ]
   },
   {
-   "id": "domestication-genetics",
+   "id": "n-domestic",
    "kind": "concept",
    "name": "驯化与遗传",
-   "summary": "人工选择如何在几千年里改变作物与牲畜的基因。",
+   "summary": "人工选择如何把野生动植物改造成作物与家畜。",
    "status": "stub",
-   "domain": "life",
+   "domain": "d-life",
    "topics": [
-    "t-biology"
+    "t-bio"
    ]
   },
   {
-   "id": "evolution",
+   "id": "n-human-evo",
    "kind": "concept",
-   "name": "自然选择与进化",
-   "summary": "变异 + 遗传 + 选择 = 适应；人类也是这个过程的产物。",
+   "name": "人类演化",
+   "summary": "人属、智人、走出非洲与古人类混血。",
    "status": "stub",
-   "domain": "life",
+   "domain": "d-life",
    "topics": [
-    "t-biology"
+    "t-evo"
    ]
   },
   {
-   "id": "epidemics-population",
+   "id": "n-epidemic",
    "kind": "concept",
    "name": "传染病与人口",
-   "summary": "人畜共患病、瘟疫与人口规模之间的相互作用。",
+   "summary": "人畜共患病、瘟疫沿交换网络传播，深刻改变人口与历史。",
    "status": "stub",
-   "domain": "life",
+   "domain": "d-life",
    "topics": [
-    "t-medicine"
+    "t-med"
    ]
   },
   {
-   "id": "scientific-method",
+   "id": "n-axiom",
    "kind": "concept",
-   "name": "科学方法",
-   "summary": "假设、实验、数学化、公开发表与纠错。",
+   "name": "公理化方法",
+   "summary": "从少数公理推出全部定理——《几何原本》的范式。",
    "status": "stub",
-   "domain": "math",
+   "domain": "d-math",
+   "topics": [
+    "t-geom"
+   ]
+  },
+  {
+   "id": "n-computability",
+   "kind": "concept",
+   "name": "可计算性",
+   "summary": "图灵机：什么问题原则上能被机械地算出来。",
+   "status": "stub",
+   "domain": "d-math",
    "topics": [
     "t-logic"
    ]
   },
   {
-   "id": "fossil-energy",
+   "id": "n-prob",
+   "kind": "concept",
+   "name": "概率思维",
+   "summary": "用分布而不是单一答案描述不确定性。",
+   "status": "stub",
+   "domain": "d-math",
+   "topics": [
+    "t-stat"
+   ]
+  },
+  {
+   "id": "n-fossil",
    "kind": "concept",
    "name": "化石能源",
-   "summary": "煤、石油、天然气：把亿万年的太阳能一次性释放。",
+   "summary": "煤、石油、天然气：开采亿万年储存的太阳能。",
    "status": "stub",
-   "domain": "tech",
+   "domain": "d-eng",
    "topics": [
     "t-energy"
    ]
   },
   {
-   "id": "computer",
+   "id": "n-grid",
    "kind": "concept",
-   "name": "计算机",
-   "summary": "可编程的通用信息处理机器：从晶体管到互联网。",
+   "name": "电力与电网",
+   "summary": "发电、输电与电气化。",
    "status": "stub",
-   "domain": "tech",
+   "domain": "d-eng",
    "topics": [
-    "t-computing"
+    "t-energy"
    ]
   },
   {
-   "id": "printing-media",
+   "id": "n-computer",
+   "kind": "concept",
+   "name": "计算机与互联网",
+   "summary": "晶体管 → 集成电路 → 互联网：信息成为生产资料。",
+   "status": "stub",
+   "domain": "d-eng",
+   "topics": [
+    "t-cs"
+   ]
+  },
+  {
+   "id": "n-print",
    "kind": "concept",
    "name": "印刷与信息媒介",
-   "summary": "雕版、活字、古登堡：信息复制成本骤降带来的连锁反应。",
+   "summary": "纸、雕版、活字、古登堡：复制成本下降如何改变知识传播。",
    "status": "stub",
-   "domain": "tech",
+   "domain": "d-eng",
    "topics": [
-    "t-computing"
+    "t-media"
    ]
   },
   {
-   "id": "money-markets",
+   "id": "n-metal",
+   "kind": "concept",
+   "name": "冶金：青铜到钢铁",
+   "summary": "冶炼技术如何决定工具、武器与农业规模。",
+   "status": "stub",
+   "domain": "d-eng",
+   "topics": [
+    "t-mat"
+   ]
+  },
+  {
+   "id": "n-money",
    "kind": "concept",
    "name": "市场与货币",
-   "summary": "交换、价格、货币与信用如何协调陌生人的分工。",
+   "summary": "铸币、纸币与市场：交换如何扩展合作。",
    "status": "stub",
-   "domain": "social",
+   "domain": "d-soc",
    "topics": [
-    "t-economics"
+    "t-econ"
    ]
   },
   {
-   "id": "nation-state",
+   "id": "n-growth",
+   "kind": "concept",
+   "name": "经济增长",
+   "summary": "为什么人均收入长期停滞，又在近代开始持续增长。",
+   "status": "stub",
+   "domain": "d-soc",
+   "topics": [
+    "t-econ"
+   ]
+  },
+  {
+   "id": "n-state",
+   "kind": "concept",
+   "name": "国家的起源",
+   "summary": "强制、再分配与合法性：国家是什么。",
+   "status": "stub",
+   "domain": "d-soc",
+   "topics": [
+    "t-pol"
+   ]
+  },
+  {
+   "id": "n-nation",
    "kind": "concept",
    "name": "民族国家理论",
-   "summary": "主权、民族与「想象的共同体」。",
+   "summary": "主权、人民与边界；「想象的共同体」。",
    "status": "stub",
-   "domain": "social",
+   "domain": "d-soc",
    "topics": [
-    "t-politics"
+    "t-pol"
    ]
   },
   {
-   "id": "axial-philosophies",
+   "id": "n-bureau",
+   "kind": "concept",
+   "name": "官僚与科层",
+   "summary": "怎样用规则和职位组织大量陌生人。",
+   "status": "stub",
+   "domain": "d-soc",
+   "topics": [
+    "t-sociology"
+   ]
+  },
+  {
+   "id": "n-cogn",
+   "kind": "concept",
+   "name": "认知与语言能力",
+   "summary": "人类认知的独特性：共享意图、符号与累积文化。",
+   "status": "stub",
+   "domain": "d-soc",
+   "topics": [
+    "t-psy"
+   ]
+  },
+  {
+   "id": "n-keju",
+   "kind": "concept",
+   "name": "科举与士大夫",
+   "summary": "隋唐起逐步成形的选官制度，1905 年废除。",
+   "status": "stub",
+   "domain": "d-hist",
+   "topics": [
+    "t-china"
+   ]
+  },
+  {
+   "id": "n-needham",
+   "kind": "concept",
+   "name": "李约瑟问题",
+   "summary": "为何近代科学没有在中国产生？以及这个问题本身的预设。",
+   "status": "stub",
+   "domain": "d-hist",
+   "topics": [
+    "t-scihist"
+   ]
+  },
+  {
+   "id": "n-axial-schools",
    "kind": "concept",
    "name": "轴心哲学流派",
-   "summary": "儒、道、佛、希腊哲学、希伯来先知：各自在回答什么问题。",
+   "summary": "儒、道、墨、法；希腊哲学；印度诸派。",
    "status": "stub",
-   "domain": "philosophy",
+   "domain": "d-phil",
    "topics": [
-    "t-axial"
+    "t-axialphil"
    ]
   },
   {
-   "id": "world-religions",
+   "id": "n-world-religions",
    "kind": "concept",
    "name": "世界宗教起源",
-   "summary": "佛教、基督教、伊斯兰教如何从地方信仰变成普世宗教。",
+   "summary": "佛教、基督教、伊斯兰教如何从思想变成跨地域秩序。",
    "status": "stub",
-   "domain": "philosophy",
+   "domain": "d-phil",
    "topics": [
-    "t-axial"
+    "t-religion"
    ]
   },
   {
-   "id": "seeing-construction",
+   "id": "n-sci-method",
    "kind": "concept",
-   "name": "看见是一种建构",
-   "summary": "眼睛与大脑如何「建构」我们看到的图像。",
+   "name": "科学方法",
+   "summary": "实验、数学化、公开发表与同行纠错。",
    "status": "stub",
-   "domain": "arts",
+   "domain": "d-phil",
    "topics": [
-    "t-visual-arts"
+    "t-epist"
    ]
   },
   {
-   "id": "writing-systems",
+   "id": "n-rights",
+   "kind": "concept",
+   "name": "权利与社会契约",
+   "summary": "用理性重新论证政治正当性。",
+   "status": "stub",
+   "domain": "d-phil",
+   "topics": [
+    "t-ethics"
+   ]
+  },
+  {
+   "id": "n-cave-art",
+   "kind": "concept",
+   "name": "史前艺术",
+   "summary": "装饰品、颜料与洞穴岩画：符号能力的证据。",
+   "status": "stub",
+   "domain": "d-arts",
+   "topics": [
+    "t-visual"
+   ]
+  },
+  {
+   "id": "n-epic",
+   "kind": "concept",
+   "name": "史诗与叙事",
+   "summary": "《吉尔伽美什》等：文字让叙事被固定下来。",
+   "status": "stub",
+   "domain": "d-arts",
+   "topics": [
+    "t-lit"
+   ]
+  },
+  {
+   "id": "n-early-music",
+   "kind": "concept",
+   "name": "早期乐器",
+   "summary": "贾湖骨笛等：音乐的久远起源。",
+   "status": "stub",
+   "domain": "d-arts",
+   "topics": [
+    "t-music"
+   ]
+  },
+  {
+   "id": "n-lang-origin",
+   "kind": "concept",
+   "name": "语言起源",
+   "summary": "语言何时、如何出现——至今无定论。",
+   "status": "stub",
+   "domain": "d-lang",
+   "topics": [
+    "t-linguistics"
+   ]
+  },
+  {
+   "id": "n-writing",
    "kind": "concept",
    "name": "文字系统",
-   "summary": "从记账符号到楔形文字、甲骨文、字母：文字如何改变记忆与管理。",
+   "summary": "楔形文字、圣书字、甲骨文与字母：记录信息的技术。",
    "status": "stub",
-   "domain": "language",
+   "domain": "d-lang",
    "topics": [
     "t-writing"
    ]
   },
   {
-   "id": "deep-learning",
+   "id": "n-deeplearning",
    "kind": "concept",
    "name": "深度学习",
-   "summary": "用多层神经网络从数据中学习表示。",
+   "summary": "从 2012 年 AlexNet 起，用多层神经网络从数据中学表示。",
    "status": "stub",
-   "domain": "ai",
+   "domain": "d-ai",
    "topics": [
     "t-ml"
    ]
   },
   {
-   "id": "transformer",
+   "id": "n-transformer",
    "kind": "concept",
    "name": "Transformer",
-   "summary": "基于注意力机制的模型结构，大模型的底座（2017）。",
+   "summary": "2017 年《Attention Is All You Need》：大模型的基础架构。",
    "status": "stub",
-   "domain": "ai",
+   "domain": "d-ai",
    "topics": [
     "t-ml"
    ]
   },
   {
-   "id": "ai-governance",
+   "id": "n-agents",
+   "kind": "concept",
+   "name": "智能体与人机协作",
+   "summary": "模型调用工具、拆解任务，与人分工。",
+   "status": "stub",
+   "domain": "d-ai",
+   "topics": [
+    "t-agents"
+   ]
+  },
+  {
+   "id": "n-aigov",
    "kind": "concept",
    "name": "AI 治理",
-   "summary": "安全、责任、版权与就业：社会如何为 AI 立规则。",
+   "summary": "欧盟《人工智能法》、中国生成式 AI 办法等规则体系。",
    "status": "stub",
-   "domain": "ai",
+   "domain": "d-ai",
    "topics": [
-    "t-ai-governance"
+    "t-aigov"
    ]
   },
   {
@@ -472,7 +844,7 @@
    "name": "人属、语言与认知革命",
    "summary": "人从会用石器的灵长类，变成能用语言共享想象、并把技能代代累积的物种。",
    "status": "ready",
-   "domain": "history",
+   "domain": "d-hist",
    "topics": [
     "t-civ"
    ],
@@ -504,7 +876,7 @@
      ]
     ],
     "abc": {
-     "A": "符号与艺术出现：装饰品、颜料、洞穴/岩画（如法国肖维洞穴约 3.6 万年前）。",
+     "A": "符号与艺术出现：装饰品、颜料、洞穴/岩画（如法国肖维洞穴约 3.7–3.35 万年前）。",
      "B": "没有国家与成文规则，秩序靠亲缘、习俗与声誉；信仰形态只能从葬俗等间接推测。",
      "C": "石器技术、用火、狩猎采集；人类扩散到除南极外的各大洲。"
     },
@@ -518,7 +890,7 @@
     "interp": [
      [
       "赫拉利《人类简史》",
-      "「认知革命」：约 7 万年前语言能力突变，让人能相信共同的「虚构故事」，从而大规模协作——<b>科普叙事</b>。"
+      "「认知革命」：约 7 万年前语言能力突变，让人能相信共同的「虚构故事」，从而大规模协作——科普叙事。"
      ],
      [
       "McBrearty & Brooks（2000）",
@@ -563,37 +935,57 @@
    },
    "quiz": [
     {
-     "q": "人属（Homo）大约在什么时候出现？",
+     "q": "目前已知最早的智人化石大约距今多久？",
      "options": [
-      "约 280–250 万年前",
-      "约 30 万年前",
-      "约 7 万年前",
-      "约 1.2 万年前"
-     ],
-     "answer": 0,
-     "explain": "埃塞俄比亚 Ledi-Geraru 下颌骨约 280 万年前；约 30 万年前是最早的智人化石。"
-    },
-    {
-     "q": "目前最早的智人化石距今大约多少年？",
-     "options": [
-      "约 280 万年",
+      "约 3 万年",
       "约 30 万年",
-      "约 4 万年",
-      "约 1.17 万年"
+      "约 280 万年",
+      "约 1.2 万年"
      ],
      "answer": 1,
-     "explain": "摩洛哥 Jebel Irhoud 化石约 30 万年前。"
+     "explain": "摩洛哥 Jebel Irhoud 化石约 30 万年前；280 万年前是人属出现。"
     },
     {
-     "q": "「约 7 万年前语言能力突变引发认知革命」属于哪一类说法？",
+     "q": "「约 7 万年前语言能力突变，引发认知革命」属于哪一类说法？",
      "options": [
-      "考古学界的确定事实",
-      "赫拉利的科普叙事，有反方（McBrearty & Brooks 认为是逐步出现）",
-      "基因测序直接证明的结论",
-      "联合国教科文组织的官方定义"
+      "考古事实",
+      "学界共识",
+      "科普叙事 / 解释框架",
+      "官方定论"
+     ],
+     "answer": 2,
+     "explain": "这是赫拉利的科普叙事；McBrearty & Brooks 认为现代行为是逐步出现的。"
+    },
+    {
+     "q": "哪个条件让「把植物和动物留在身边」第一次变得划算？",
+     "options": [
+      "铁器",
+      "全新世稳定气候",
+      "文字",
+      "铸币"
      ],
      "answer": 1,
-     "explain": "页面把它标为解释框架；McBrearty & Brooks（2000）认为现代行为在非洲数十万年里逐步出现。"
+     "explain": "全新世约 11,700 年前开始，气候转暖且稳定。"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Villmoare et al. 2015, Early Homo at 2.8 Ma from Ledi-Geraru, Science",
+     "url": "https://www.science.org/doi/10.1126/science.aaa1343"
+    },
+    {
+     "title": "Richter et al. 2017, The age of the hominin fossils from Jebel Irhoud, Nature",
+     "url": "https://www.nature.com/articles/nature22335",
+     "note": "315±34 千年"
+    },
+    {
+     "title": "Quiles et al. 2016, Chauvet-Pont d’Arc chronological model, PNAS",
+     "url": "https://www.pnas.org/doi/10.1073/pnas.1523158113",
+     "note": "两期：3.7–3.35 万年前、3.1–2.8 万年前"
+    },
+    {
+     "title": "Fu et al. 2013, DNA analysis of an early modern human from Tianyuan Cave, PNAS",
+     "url": "https://www.pnas.org/doi/10.1073/pnas.1221359110"
     }
    ]
   },
@@ -603,7 +995,7 @@
    "name": "农业革命（新石器革命）",
    "summary": "从「找食物」变成「生产食物」：人定居下来，同一块地能养活多得多的人。",
    "status": "ready",
-   "domain": "history",
+   "domain": "d-hist",
    "topics": [
     "t-civ"
    ],
@@ -649,15 +1041,15 @@
     "interp": [
      [
       "戴蒙德《枪炮、病菌与钢铁》",
-      "欧亚大陆东西轴向、可驯化物种多，所以农业与技术更易传播——<b>地理解释，被批评为过度决定论</b>。"
+      "欧亚大陆东西轴向、可驯化物种多，所以农业与技术更易传播——地理解释，被批评为过度决定论。"
      ],
      [
       "赫拉利",
-      "「史上最大的骗局」：个体生活变差、物种数量变多——<b>修辞化的解释</b>。"
+      "「史上最大的骗局」：个体生活变差、物种数量变多——修辞化的解释。"
      ],
      [
       "詹姆斯·斯科特《反谷》",
-      "谷物易计量、易征税，所以和早期国家绑在一起——<b>政治人类学解释</b>。"
+      "谷物易计量、易征税，所以和早期国家绑在一起——政治人类学解释。"
      ]
     ],
     "next": "稳定的剩余能养活不种地的人（祭司、工匠、武士、管理者），城市与国家的底座有了。",
@@ -694,37 +1086,51 @@
    },
    "quiz": [
     {
-     "q": "关于农业起源，下面哪个说法是事实层面的共识？",
+     "q": "关于农业起源，哪项是本页列出的事实？",
      "options": [
-      "它是一次发生在新月沃地、再传遍全球的单一事件",
-      "它是多中心、渐进发生的",
-      "它最早发生在美洲",
-      "它在 5000 年前才开始"
+      "只在新月沃地发生一次",
+      "多中心、渐进发生",
+      "先有文字后有农业",
+      "由一位发明家完成"
      ],
      "answer": 1,
-     "explain": "农业在多个中心各自独立、渐进发生。"
+     "explain": "农业起源是多中心、渐进的，不是一次事件。"
     },
     {
-     "q": "中国的早期农业是什么格局？",
+     "q": "中国北方与南方的早期农业传统分别是？",
      "options": [
-      "从新月沃地传入的小麦农业",
-      "北方粟作、南方稻作两个独立传统",
-      "只有长江稻作一个中心",
-      "只有黄河粟作一个中心"
+      "小麦 / 玉米",
+      "粟黍 / 稻作",
+      "稻作 / 粟黍",
+      "大麦 / 马铃薯"
      ],
      "answer": 1,
-     "explain": "华北粟、黍与长江流域稻作是两个独立传统。"
+     "explain": "华北粟、黍，长江流域稻作，是两个独立传统。"
     },
     {
-     "q": "「欧亚大陆东西轴向让农业更易传播」是谁的解释，应当怎样看？",
+     "q": "「农业是史上最大的骗局」是谁的说法、性质如何？",
      "options": [
-      "戴蒙德的地理解释，被批评为过度决定论",
-      "斯科特的结论，已成定论",
-      "赫拉利的考古发现",
-      "教科书上的事实"
+      "戴蒙德，考古事实",
+      "赫拉利，修辞化的解释",
+      "斯科特，学界共识",
+      "柴尔德，测年数据"
      ],
-     "answer": 0,
-     "explain": "出自《枪炮、病菌与钢铁》，是解释框架而非事实。"
+     "answer": 1,
+     "explain": "赫拉利的修辞化解释，不是事实陈述。"
+    }
+   ],
+   "sources": [
+    {
+     "title": "UNESCO 世界遗产：Göbekli Tepe（前 9600–前 8200）",
+     "url": "https://whc.unesco.org/en/list/1572/"
+    },
+    {
+     "title": "Zhang et al. 1999, Oldest playable musical instruments found at Jiahu, Nature",
+     "url": "https://doi.org/10.1038/43865"
+    },
+    {
+     "title": "Richerson, Boyd & Bettinger 2001, Was Agriculture Impossible during the Pleistocene but Mandatory during the Holocene?, American Antiquity",
+     "url": "https://doi.org/10.2307/2694241"
     }
    ]
   },
@@ -734,7 +1140,7 @@
    "name": "城市、国家与文字",
    "summary": "人类第一次学会管理成千上万的陌生人：靠城市、王权、官僚，以及把信息写下来。",
    "status": "ready",
-   "domain": "history",
+   "domain": "d-hist",
    "topics": [
     "t-civ"
    ],
@@ -780,11 +1186,11 @@
     "interp": [
      [
       "对照观察",
-      "西方早期文字以记账为主，中国现存最早的文字以占卜为主——但竹木简易腐，⚠ <b>可能有材料保存造成的幸存者偏差</b>。"
+      "西方早期文字以记账为主，中国现存最早的文字以占卜为主——但竹木简易腐，⚠ 可能有材料保存造成的幸存者偏差。"
      ],
      [
-      "斯科特 / 柴尔德「城市革命」",
-      "城市、国家、文字是一揽子出现的——<b>经典框架，细节各地差异很大</b>。"
+      "柴尔德「城市革命」（1950）",
+      "城市、剩余集中、纪念性建筑、文字等 10 条考古判据作为一揽子特征出现——经典框架，细节各地差异很大；斯科特《反谷》等则质疑「文明即进步」的叙事。"
      ]
     ],
     "next": "书写阶层与跨国竞争积累到一定程度后，有人开始反思「人该怎么活、什么是对的」，这就是轴心时代。",
@@ -824,35 +1230,53 @@
     {
      "q": "两河流域最早的原始楔形文字泥板，内容以什么为主？",
      "options": [
-      "史诗与诗歌",
-      "行政、经济记录",
-      "宗教占卜",
-      "法律判例"
-     ],
-     "answer": 1,
-     "explain": "早期楔形文字泥板大多是行政记账。"
-    },
-    {
-     "q": "甲骨文的主要内容是什么？",
-     "options": [
-      "商代晚期王室的占卜记录",
-      "周代的法律条文",
-      "秦代的行政公文",
-      "汉代的史书"
-     ],
-     "answer": 0,
-     "explain": "殷墟甲骨文是商代晚期王室占卜记录，约前 1250–前 1050 年。"
-    },
-    {
-     "q": "东地中海青铜时代晚期体系大约何时崩溃？",
-     "options": [
-      "约前 3100 年",
-      "约前 1754 年",
-      "约前 1200–前 1150 年",
-      "约前 221 年"
+      "史诗",
+      "王室占卜",
+      "行政与经济记录",
+      "宗教经典"
      ],
      "answer": 2,
-     "explain": "约前 1200–前 1150 年崩溃。"
+     "explain": "以行政、经济记录为主；甲骨文才以占卜为主。"
+    },
+    {
+     "q": "《汉穆拉比法典》大约在什么时候？",
+     "options": [
+      "约前 3200 年",
+      "约前 1754 年",
+      "约前 508 年",
+      "约公元 313 年"
+     ],
+     "answer": 1,
+     "explain": "约前 1754 年。"
+    },
+    {
+     "q": "目前公认最早的成体系汉字是？",
+     "options": [
+      "良渚刻符",
+      "二里头陶文",
+      "殷墟甲骨文",
+      "秦小篆"
+     ],
+     "answer": 2,
+     "explain": "殷墟甲骨文，约前 1250–前 1050。"
+    }
+   ],
+   "sources": [
+    {
+     "title": "UNESCO 世界遗产：良渚古城遗址（约前 3300–前 2300）",
+     "url": "https://whc.unesco.org/en/list/1592/"
+    },
+    {
+     "title": "河南省文物局：科技考古揭示二里头遗址（测年约前 1750–前 1530）",
+     "url": "https://wwj.henan.gov.cn/2023/04-09/2721663.html"
+    },
+    {
+     "title": "Childe 1950, The Urban Revolution, Town Planning Review 21(1)",
+     "url": "https://doi.org/10.3828/tpr.21.1.k853061t614q42qh"
+    },
+    {
+     "title": "Britannica: urban revolution",
+     "url": "https://www.britannica.com/topic/urban-revolution"
     }
    ]
   },
@@ -862,7 +1286,7 @@
    "name": "轴心时代：思想的突破",
    "summary": "几个文明几乎同时出现超越王权与部落的普遍伦理、哲学和反思传统。",
    "status": "ready",
-   "domain": "history",
+   "domain": "d-hist",
    "topics": [
     "t-civ"
    ],
@@ -907,11 +1331,11 @@
     "interp": [
      [
       "雅斯贝尔斯",
-      "轴心时代是人类精神的共同突破——<b>解释框架</b>，被批评过于整齐、以欧洲为中心。"
+      "轴心时代是人类精神的共同突破——解释框架，被批评过于整齐、以欧洲为中心。"
      ],
      [
       "Baumard 等（2015）「富足假说」",
-      "生活水平跨过某个门槛之后，人开始重视长期与节制——<b>有争议的量化解释</b>。"
+      "生活水平跨过某个门槛之后，人开始重视长期与节制——有争议的量化解释。"
      ]
     ],
     "next": "这些思想随后被帝国吸收为治理意识形态或国教（儒学、佛教、基督教），从思想变成了秩序。",
@@ -948,37 +1372,46 @@
    },
    "quiz": [
     {
-     "q": "「轴心时代」这个说法出自谁？",
+     "q": "「轴心时代」这个词出自谁？",
      "options": [
       "黑格尔",
-      "雅斯贝尔斯《历史的起源与目标》（1949）",
+      "雅斯贝尔斯",
       "汤因比",
-      "马克斯·韦伯"
+      "韦伯"
      ],
      "answer": 1,
-     "explain": "雅斯贝尔斯 1949 年提出。"
+     "explain": "雅斯贝尔斯《历史的起源与目标》（1949）。"
     },
     {
-     "q": "雅斯贝尔斯划分的轴心时代大约是哪段时间？",
+     "q": "孔子的生卒年是？",
      "options": [
-      "约前 3000–前 2000",
-      "约前 800–前 200",
-      "约公元 1–500",
-      "约 600–1450"
+      "前 551–前 479",
+      "前 469–前 399",
+      "前 384–前 322",
+      "前 770–前 221"
      ],
-     "answer": 1,
-     "explain": "约前 800–前 200。"
+     "answer": 0,
+     "explain": "前 469–前 399 是苏格拉底，前 384–前 322 是亚里士多德。"
     },
     {
-     "q": "孔子、佛陀（约）、苏格拉底的生活年代关系是？",
+     "q": "「轴心时代是人类精神的共同突破」应当怎样标注？",
      "options": [
-      "相差两千年",
-      "大致处在同一个公元前千年的中段",
-      "都在公元后",
-      "孔子比苏格拉底晚一千年"
+      "事实",
+      "解释框架，被批评过于整齐",
+      "测年数据",
+      "已被证伪"
      ],
      "answer": 1,
-     "explain": "三人大致处在公元前千年的中段。"
+     "explain": "它是解释框架，被批评过于整齐、以欧洲为中心。"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Jaspers 1949, Vom Ursprung und Ziel der Geschichte（《历史的起源与目标》）"
+    },
+    {
+     "title": "Baumard et al. 2015, Increased affluence explains the emergence of ascetic wisdoms and moralizing religions, Current Biology",
+     "url": "https://doi.org/10.1016/j.cub.2014.10.063"
     }
    ]
   },
@@ -988,7 +1421,7 @@
    "name": "帝国与丝路网络",
    "summary": "大帝国学会用官僚、法律、道路、文字和共同信仰，长期统治数千万陌生人；横贯欧亚的交换网络连通。",
    "status": "ready",
-   "domain": "history",
+   "domain": "d-hist",
    "topics": [
     "t-civ"
    ],
@@ -1032,12 +1465,12 @@
     ],
     "interp": [
      [
-      "库马尔《千年帝国史》",
-      "帝国是一套「统治多样性」的工具箱，跟民族国家的逻辑不同——<b>比较史框架</b>。"
+      "库马尔《千年帝国史》（Visions of Empire，2017）",
+      "帝国是一套「统治多样性」的工具箱，跟民族国家的逻辑不同——比较史框架。"
      ],
      [
       "沙伊德尔《逃离罗马》",
-      "欧洲长期碎片化、彼此竞争，是它后来崛起的前提——<b>解释，争议大</b>。"
+      "欧洲长期碎片化、彼此竞争，是它后来崛起的前提——解释，争议大。"
      ]
     ],
     "next": "西方走向碎片化，教会成为跨国机构；东方维持统一的官僚帝国；伊斯兰世界在两者之间崛起。三条路径分开了。",
@@ -1075,37 +1508,47 @@
    },
    "quiz": [
     {
-     "q": "「丝绸之路」这个词是什么时候提出的？",
+     "q": "「丝绸之路」一词何时由谁提出？",
      "options": [
-      "汉代张骞出使时",
-      "唐代",
-      "李希霍芬 1877 年才提出",
-      "马可·波罗游记里"
-     ],
-     "answer": 2,
-     "explain": "李希霍芬 1877 年提出，是近代学术命名。"
-    },
-    {
-     "q": "西罗马分裂后与中国长期分裂后，结局有什么不同？",
-     "options": [
-      "两者都很快重新统一",
-      "西罗马再也没有重新统一；中国于 589 年重新统一",
-      "西罗马 589 年重新统一",
-      "两者都从未统一"
+      "张骞，前 138 年",
+      "李希霍芬，1877 年",
+      "马可·波罗，13 世纪",
+      "司马迁，汉代"
      ],
      "answer": 1,
-     "explain": "中国 589 年（隋）重新统一。"
+     "explain": "李希霍芬 1877 年才提出这个词。"
     },
     {
-     "q": "本阶段大致的时间范围是？",
+     "q": "基督教何时成为罗马国教？",
      "options": [
-      "约前 550–公元 600",
-      "约前 4000–前 1000",
-      "约 600–1450",
-      "约 1400–1650"
+      "313 年",
+      "380 年",
+      "476 年",
+      "1453 年"
      ],
-     "answer": 0,
-     "explain": "约前 550–公元 600。"
+     "answer": 1,
+     "explain": "313 年获合法地位，380 年成为国教。"
+    },
+    {
+     "q": "中国在长期分裂后于哪一年重新统一？",
+     "options": [
+      "前 221 年",
+      "220 年",
+      "589 年",
+      "960 年"
+     ],
+     "answer": 2,
+     "explain": "隋 581 年建立，589 年统一。"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Princeton UP: Kumar, Visions of Empire (2017)",
+     "url": "https://press.princeton.edu/books/ebook/9781400884919/visions-of-empire"
+    },
+    {
+     "title": "豆瓣：《千年帝国史》中信出版 2019",
+     "url": "https://book.douban.com/subject/33436176/"
     }
    ]
   },
@@ -1115,7 +1558,7 @@
    "name": "中世纪、伊斯兰世界与宋代商业革命",
    "summary": "世界宗教塑造了各大文明的秩序；同期宋代中国出现了前所未有的商业化、货币化和印刷文化。",
    "status": "ready",
-   "domain": "history",
+   "domain": "d-hist",
    "topics": [
     "t-civ"
    ],
@@ -1149,10 +1592,10 @@
     "abc": {
      "A": "经院哲学、伊斯兰世界的翻译运动（8–10 世纪）、宋明理学（朱熹 1130–1200）。",
      "B": "伊斯兰教兴起（622 年迁徙）；1054 年东西教会分裂；叙任权之争（1075–1122）；《大宪章》1215 年；科举制自隋唐起逐步成形。",
-     "C": "宋代商业革命：官方交子（1020 年代）、市镇、海外贸易；欧洲：农业扩张、商业复兴、香槟集市。"
+     "C": "宋代商业革命：官交子（1023 年设益州交子务，1024 年首发）、市镇、海外贸易；欧洲：农业扩张、商业复兴、香槟集市。"
     },
     "east": "唐（618–907）、宋（960–1279）：火药配方见于《武经总要》（1044），指南针用于航海见于《萍洲可谈》（12 世纪初）；蒙古帝国（1206 年起）与元（1271–1368）打通欧亚。",
-    "west": "查理曼加冕（800）；封建制（这个概念本身被史学界反复检讨）；大学（博洛尼亚，传统定为 1088 年）；黑死病（1347–1351）造成欧洲约 30%–60% 人口死亡（估计区间）。",
+    "west": "查理曼加冕（800）；封建制（这个概念本身被史学界反复检讨）；大学（博洛尼亚，传统定为 1088 年）；黑死病（1347–1351）造成欧洲大量人口死亡：常见估计约三分之一，高估计达 50%–60%，地区差异很大（⚠ 估计区间）。",
     "facts": [
      "交子是世界上最早由政府发行的纸币之一",
      "黑死病沿着蒙古时代的欧亚网络传播"
@@ -1160,11 +1603,11 @@
     "interp": [
      [
       "内藤湖南「唐宋变革论」",
-      "宋代是中国「近世」的开端——<b>日本京都学派的解释</b>，影响很大，也有人质疑。"
+      "宋代是中国「近世」的开端——日本京都学派的解释，影响很大，也有人质疑。"
      ],
      [
-      "李筠《中世纪》",
-      "教会与王权的长期张力孕育了法治、代议和个人权利——<b>制度史解释</b>。"
+      "李筠《中世纪：权力、信仰和现代世界的孕育》（2023）",
+      "教会与王权的长期张力孕育了法治、代议和个人权利——制度史解释。"
      ]
     ],
     "next": "蒙古网络把火药、罗盘和瘟疫带向西方；葡萄牙 15 世纪初就开始沿非洲西岸南下，伊比利亚人带着新式帆船寻找通往亚洲的海路（1453 年君士坦丁堡陷落常被说成「逼出」大航海，⚠ 这是简化说法）。",
@@ -1202,37 +1645,55 @@
    },
    "quiz": [
     {
-     "q": "交子在货币史上的地位是？",
+     "q": "交子是什么？",
      "options": [
-      "世界上最早由政府发行的纸币之一",
-      "世界上第一枚金币",
-      "欧洲最早的银行票据",
-      "蒙古帝国的统一货币"
+      "宋代官方发行的纸币之一",
+      "唐代铜钱",
+      "蒙古驿站",
+      "欧洲汇票"
      ],
      "answer": 0,
-     "explain": "交子是世界上最早由政府发行的纸币之一。"
+     "explain": "交子是世界上最早由政府发行的纸币之一（1023 年设益州交子务，1024 年首发官交子）。"
     },
     {
-     "q": "黑死病是沿着什么传播的？",
+     "q": "黑死病大约造成欧洲多少人口死亡（估计区间）？",
      "options": [
-      "大航海的海路",
-      "蒙古时代的欧亚网络",
-      "罗马的道路",
-      "丝路开通之前的游牧迁徙"
+      "约 5%",
+      "约三分之一或更多（估计区间）",
+      "约 90%",
+      "几乎没有影响"
      ],
      "answer": 1,
-     "explain": "沿蒙古时代的欧亚网络传播。"
+     "explain": "1347–1351，常见估计约三分之一，高估计达 50%–60%，地区差异很大。"
     },
     {
-     "q": "「唐宋变革论」属于哪一类？",
+     "q": "内藤湖南「唐宋变革论」的性质是？",
      "options": [
-      "内藤湖南提出的解释框架",
-      "宋代官方文献的记载",
-      "考古测年结果",
-      "没有争议的事实"
+      "史料原文",
+      "日本京都学派的解释",
+      "考古发现",
+      "法律条文"
      ],
-     "answer": 0,
-     "explain": "内藤湖南提出，是解释框架。"
+     "answer": 1,
+     "explain": "影响很大的解释，也有人质疑。"
+    }
+   ],
+   "sources": [
+    {
+     "title": "全国哲学社会科学工作办公室：何平，成都「交子」与官方交子",
+     "url": "http://www.nopss.gov.cn/n1/2023/0911/c219544-40075019.html"
+    },
+    {
+     "title": "Britannica: Black Death（死亡率地区差异 1/8–2/3，约三分之一）",
+     "url": "https://www.britannica.com/event/Black-Death"
+    },
+    {
+     "title": "维基百科：占城稻（大中祥符五年 1012 年遣使取种）",
+     "url": "https://zh.wikipedia.org/wiki/%E5%8D%A0%E5%9F%8E%E7%A8%BB"
+    },
+    {
+     "title": "读书网：李筠《中世纪：权力、信仰和现代世界的孕育》岳麓书社 2023",
+     "url": "https://www.dushu.com/book/13990978/"
     }
    ]
   },
@@ -1242,7 +1703,7 @@
    "name": "大航海与第一次全球化",
    "summary": "海路第一次把各大洲连成一个交换网络，白银、作物、病菌和人口开始在全球流动。",
    "status": "ready",
-   "domain": "history",
+   "domain": "d-hist",
    "topics": [
     "t-civ"
    ],
@@ -1278,7 +1739,7 @@
      "B": "宗教改革（1517 年路德）→「教随国定」（1555 年奥格斯堡和约）→ 1648 年威斯特伐利亚和约；殖民帝国建立。",
      "C": "哥伦布交换（克罗斯比 1972 年提出的概念）：美洲作物传到亚非欧，旧大陆病菌造成美洲原住民人口大规模崩溃（⚠ 规模估计差异很大）；跨大西洋奴隶贸易约 1250 万人被运上船（跨大西洋奴隶贸易数据库的估计）。"
     },
-    "east": "郑和七下西洋（1405–1433）后，明朝转向收缩；一条鞭法（张居正 1581 年推广至全国）以白银征税，美洲和日本白银大量流入中国；玉米、番薯在 16 世纪传入中国。",
+    "east": "郑和七下西洋（1405–1433）后，明朝转向收缩；一条鞭法（嘉靖起各地试行，1581 年张居正下令通行全国）以白银征税，美洲和日本白银大量流入中国；玉米、番薯在 16 世纪传入中国。",
     "west": "1492 年哥伦布到达美洲；1498 年达伽马抵达印度；1519–1522 年麦哲伦–埃尔卡诺船队完成环球航行；1521 年特诺奇蒂特兰陷落；1571 年西班牙建马尼拉，大帆船贸易把美洲和亚洲接了起来。",
     "facts": [
      "大量美洲白银最终流入中国",
@@ -1287,11 +1748,11 @@
     "interp": [
      [
       "Flynn & Giráldez",
-      "以 1571 年马尼拉建城为全球化「诞生」——<b>解释性定年</b>。"
+      "以 1571 年马尼拉建城为全球化「诞生」——解释性定年。"
      ],
      [
       "为何明停航而欧洲出海",
-      "财政与边防优先 vs 欧洲多国竞争——<b>多种解释并存</b>。"
+      "财政与边防优先 vs 欧洲多国竞争——多种解释并存。"
      ]
     ],
     "next": "新的数据、新的仪器、印刷网络和海外财富汇在一起，为科学革命提供了土壤。",
@@ -1329,37 +1790,53 @@
    },
    "quiz": [
     {
-     "q": "大航海时代大量美洲白银最终流向了哪里？",
+     "q": "郑和下西洋与哥伦布到达美洲，哪个更早？",
      "options": [
-      "西班牙并留在那里",
-      "中国",
+      "哥伦布（1492）",
+      "郑和（1405–1433）",
+      "同一年",
+      "史料无法判断"
+     ],
+     "answer": 1,
+     "explain": "郑和船队早于哥伦布，但没有后续扩张。"
+    },
+    {
+     "q": "大量美洲白银最终主要流向哪里？",
+     "options": [
+      "西班牙",
       "英国",
-      "奥斯曼帝国"
+      "中国",
+      "印度"
      ],
-     "answer": 1,
-     "explain": "大量美洲白银最终流入中国。"
+     "answer": 2,
+     "explain": "一条鞭法以白银征税，美洲和日本白银大量流入中国。"
     },
     {
-     "q": "郑和船队与哥伦布相比？",
+     "q": "「以 1571 年马尼拉建城为全球化诞生」属于？",
      "options": [
-      "郑和晚于哥伦布",
-      "郑和早于哥伦布，但没有后续扩张",
-      "两者同年出航",
-      "郑和船队开辟了跨太平洋航线并持续殖民"
+      "事实",
+      "解释性定年（Flynn & Giráldez）",
+      "法律文件",
+      "考古测年"
      ],
      "answer": 1,
-     "explain": "郑和更早，但明朝没有后续扩张。"
+     "explain": "解释性定年。"
+    }
+   ],
+   "sources": [
+    {
+     "title": "SlaveVoyages：跨大西洋奴隶贸易估计（约 1250 万人被运上船）",
+     "url": "https://www.slavevoyages.org/assessment/estimates"
     },
     {
-     "q": "本阶段大致的时间范围是？",
-     "options": [
-      "约 1400–1650",
-      "约 1760–1914",
-      "约 600–1450",
-      "约 1543–1800"
-     ],
-     "answer": 0,
-     "explain": "约 1400–1650。"
+     "title": "北京大学人文社会科学研究院：一条鞭法的推行",
+     "url": "http://www.ihss.pku.edu.cn/wyjz1/articles/1373713217829867520.html"
+    },
+    {
+     "title": "Crosby 1972, The Columbian Exchange: Biological and Cultural Consequences of 1492"
+    },
+    {
+     "title": "Flynn & Giráldez 1995, Born with a “Silver Spoon”: The Origin of World Trade in 1571, Journal of World History"
     }
    ]
   },
@@ -1369,7 +1846,7 @@
    "name": "科学革命与启蒙",
    "summary": "人类发明了一套能系统纠错的求知方法（实验、数学、公开发表），并开始用理性重新论证政治的正当性。",
    "status": "ready",
-   "domain": "history",
+   "domain": "d-hist",
    "topics": [
     "t-civ"
    ],
@@ -1401,7 +1878,7 @@
      ]
     ],
     "abc": {
-     "A": "哥白尼（1543）、伽利略、牛顿《原理》（1687）；《百科全书》（1751–1772）；「进步」成为主导叙事（课程 W3 会讨论它是不是一种发明）。",
+     "A": "哥白尼（1543）、伽利略、牛顿《原理》（1687）；《百科全书》（1751–1772）；「进步」成为主导叙事（它本身也是被建构的观念 ⚠）。",
      "B": "洛克《政府论》（1689）、社会契约、权利、宪政；美国独立（1776）、法国大革命（1789）；斯密《国富论》（1776）。",
      "C": "为工业革命准备了「有用知识」；农业改良运动。"
     },
@@ -1414,15 +1891,15 @@
     "interp": [
      [
       "李约瑟问题",
-      "为何近代科学没有在中国产生？——<b>问题本身的预设也受到批评</b>。"
+      "为何近代科学没有在中国产生？——问题本身的预设也受到批评。"
      ],
      [
       "彭慕兰《大分流》（2000）",
-      "约 1800 年前江南与英格兰发展水平相当，是煤和殖民地造成了分流——<b>加州学派的解释，有对立观点</b>。"
+      "约 1800 年前江南与英格兰发展水平相当，是煤和殖民地造成了分流——加州学派的解释，有对立观点。"
      ],
      [
       "Mokyr「工业启蒙」",
-      "把知识当作可以公开交流的公共品，这一观念推动了工业革命——<b>解释</b>。"
+      "把知识当作可以公开交流的公共品，这一观念推动了工业革命——解释。"
      ]
     ],
     "next": "有用知识遇上廉价煤炭，加上革命塑造的「人民」，就是工业革命和民族国家。",
@@ -1467,29 +1944,41 @@
       "1776"
      ],
      "answer": 2,
-     "explain": "1687 年。"
+     "explain": "1687 年；1543 是哥白尼，1607 是《几何原本》中译。"
     },
     {
-     "q": "《几何原本》前六卷中译本何时刊行？",
+     "q": "徐光启与利玛窦合译《几何原本》前六卷刊行于？",
      "options": [
-      "1607 年",
-      "1687 年",
-      "1840 年",
-      "1905 年"
+      "1601",
+      "1607",
+      "1660",
+      "1773"
      ],
-     "answer": 0,
-     "explain": "1607 年刊行。"
+     "answer": 1,
+     "explain": "1607 年。"
     },
     {
-     "q": "彭慕兰《大分流》（2000）属于哪一类？",
+     "q": "彭慕兰《大分流》的观点应当标作？",
      "options": [
-      "关于东西方为何分岔的解释框架",
-      "科学革命的原始文献",
-      "统计年鉴",
-      "教科书事实"
+      "事实",
+      "加州学派的解释，有对立观点",
+      "官方统计",
+      "已成定论"
      ],
-     "answer": 0,
-     "explain": "是解释框架，非定论。"
+     "answer": 1,
+     "explain": "约 1800 年前江南与英格兰相当、煤和殖民地造成分流——一种解释。"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Britannica: Principia（1687）",
+     "url": "https://www.britannica.com/topic/Principia"
+    },
+    {
+     "title": "Mokyr 2009, The Enlightened Economy"
+    },
+    {
+     "title": "Pomeranz 2000, The Great Divergence"
     }
    ]
   },
@@ -1499,7 +1988,7 @@
    "name": "工业革命与民族国家",
    "summary": "化石能源让人类第一次挣脱了「有机经济」的能量天花板；民族国家成为组织大众的默认方式。",
    "status": "ready",
-   "domain": "history",
+   "domain": "d-hist",
    "topics": [
     "t-civ"
    ],
@@ -1544,15 +2033,15 @@
     "interp": [
      [
       "Robert Allen",
-      "英国工资高、煤便宜，用机器替代人工最划算——<b>经济史解释</b>。"
+      "英国工资高、煤便宜，用机器替代人工最划算——经济史解释。"
      ],
      [
       "Wrigley「有机经济」",
-      "工业化之前的增长受土地光合作用的上限约束——<b>框架</b>。"
+      "工业化之前的增长受土地光合作用的上限约束——框架。"
      ],
      [
       "安德森《想象的共同体》/ 盖尔纳",
-      "民族是印刷资本主义和工业社会的产物——<b>解释</b>。"
+      "民族是印刷资本主义和工业社会的产物——解释。"
      ]
     ],
     "next": "科学开始直接驱动产业（化学、电力），列强在全球竞争，最后撞上了总体战。",
@@ -1590,37 +2079,46 @@
    },
    "quiz": [
     {
-     "q": "第一个工业化的国家是？",
+     "q": "工业革命在能量上的本质变化是？",
      "options": [
-      "法国",
-      "美国",
-      "英国",
-      "德国"
+      "更多使用风力",
+      "从每年的光合作用转向开采储存的化石能源",
+      "发明电网",
+      "大规模使用核能"
      ],
-     "answer": 2,
-     "explain": "英国是第一个工业化国家。"
+     "answer": 1,
+     "explain": "从依赖每年的光合作用，转向开采亿万年储存下来的太阳能。"
     },
     {
-     "q": "中国哪一年废除科举？",
+     "q": "中国在哪一年废除科举？",
      "options": [
       "1840",
-      "1895",
+      "1868",
       "1905",
-      "1911"
+      "1912"
      ],
      "answer": 2,
      "explain": "1905 年。"
     },
     {
-     "q": "「化石能源让人挣脱有机经济的能量天花板」这一框架与谁相关？",
+     "q": "「民族是印刷资本主义和工业社会的产物」出自谁、什么性质？",
      "options": [
-      "Wrigley「有机经济」",
-      "雅斯贝尔斯",
-      "内藤湖南",
-      "李希霍芬"
+      "马克思，事实",
+      "安德森 / 盖尔纳，解释",
+      "斯密，统计",
+      "瓦特，专利"
      ],
-     "answer": 0,
-     "explain": "Wrigley 的「有机经济」概念，是解释框架。"
+     "answer": 1,
+     "explain": "《想象的共同体》/ 盖尔纳的解释。"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Wrigley 2010, Energy and the English Industrial Revolution, Cambridge UP",
+     "url": "https://doi.org/10.1017/CBO9780511779619"
+    },
+    {
+     "title": "Allen 2009, The British Industrial Revolution in Global Perspective"
     }
    ]
   },
@@ -1630,7 +2128,7 @@
    "name": "电气化、世界大战与信息革命",
    "summary": "电力、石油和大公司把生产推到全球规模；两次世界大战重塑了国际秩序；计算机和互联网把信息变成主要的生产资料。",
    "status": "ready",
-   "domain": "history",
+   "domain": "d-hist",
    "topics": [
     "t-civ"
    ],
@@ -1654,7 +2152,7 @@
      ],
      [
       "信息",
-      "电话、广播、电视 → 晶体管（1947）→ 集成电路（1958–1959）→ ARPANET（1969）→ 万维网（1989 年提出）→ 智能手机（2007）。"
+      "电话、广播、电视 → 晶体管（1947）→ 集成电路（1958–1959）→ ARPANET（1969）→ 万维网（1989 年提出）→ iPhone（2007）让触屏智能手机普及（首款智能手机 IBM Simon 1994 年上市）。"
      ],
      [
       "组织",
@@ -1675,11 +2173,11 @@
     "interp": [
      [
       "Robert Gordon",
-      "1870–1970 年的「一次大浪潮」比信息革命更深刻——<b>有争议的经济史判断</b>。"
+      "1870–1970 年的「一次大浪潮」比信息革命更深刻——有争议的经济史判断。"
      ],
      [
       "霍布斯鲍姆「短 20 世纪」",
-      "1914–1991 构成一个整体——<b>史学分期解释</b>。"
+      "1914–1991 构成一个整体——史学分期解释。"
      ]
     ],
     "next": "万物数字化留下了海量数据，加上算力增长，机器开始做「认知工作」。",
@@ -1717,37 +2215,51 @@
    },
    "quiz": [
     {
-     "q": "晶体管是哪一年、在哪里发明的？",
+     "q": "晶体管发明于哪一年、在哪里？",
      "options": [
-      "1947 年，贝尔实验室",
-      "1969 年，阿帕网",
-      "1937 年，剑桥",
-      "1958 年，IBM"
-     ],
-     "answer": 0,
-     "explain": "1947 年贝尔实验室。"
-    },
-    {
-     "q": "第二次世界大战的起止年份是？",
-     "options": [
-      "1914–1918",
-      "1939–1945",
-      "1937–1949",
-      "1941–1945"
+      "1913，福特工厂",
+      "1947，贝尔实验室",
+      "1969，ARPANET",
+      "1989，CERN"
      ],
      "answer": 1,
-     "explain": "1939–1945。"
+     "explain": "1947 年在贝尔实验室。"
     },
     {
-     "q": "「短 20 世纪」这一说法来自？",
+     "q": "哈伯–博施合成氨工业化的意义是？",
      "options": [
-      "霍布斯鲍姆",
-      "Robert Gordon",
-      "安德森",
-      "盖尔纳"
+      "支撑人口增长的化肥",
+      "发明电报",
+      "推动大航海",
+      "建立联合国"
      ],
      "answer": 0,
-     "explain": "霍布斯鲍姆，是解释框架。"
+     "explain": "1913 年工业化，支撑了人口增长。"
+    },
+    {
+     "q": "Robert Gordon「1870–1970 的大浪潮比信息革命更深刻」是？",
+     "options": [
+      "事实",
+      "有争议的经济史判断",
+      "联合国决议",
+      "专利数据"
+     ],
+     "answer": 1,
+     "explain": "有争议的判断。"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Britannica: smartphone（首款为 IBM Simon）",
+     "url": "https://www.britannica.com/technology/smartphone"
+    },
+    {
+     "title": "BBC 2014: World’s first “smartphone” celebrates 20 years",
+     "url": "https://www.bbc.com/news/technology-28802053"
+    },
+    {
+     "title": "Erisman et al. 2008, How a century of ammonia synthesis changed the world, Nature Geoscience",
+     "url": "https://www.nature.com/articles/ngeo325"
     }
    ]
   },
@@ -1757,7 +2269,7 @@
    "name": "AI 时代（进行中）",
    "summary": "继能量（体力）之后，认知劳动开始被机器大规模替代和放大；模型成了一种新的信息载体。",
    "status": "ready",
-   "domain": "history",
+   "domain": "d-hist",
    "topics": [
     "t-civ"
    ],
@@ -1802,7 +2314,7 @@
     "interp": [
      [
       "开放问题",
-      "AI 是第 N 次产业革命，还是信息革命的加速？——课程 W9 的核心问题，<b>本页不下结论</b>。"
+      "AI 是第 N 次产业革命，还是信息革命的加速？——开放问题，本页不下结论。"
      ]
     ],
     "next": "还没写完：能量（电力和算力）、信息（模型）、协作（人加智能体）、观念（什么是「懂」和「作者」）四条线同时在变。",
@@ -1840,44 +2352,58 @@
    },
    "quiz": [
     {
-     "q": "Transformer 论文《Attention Is All You Need》发表于哪一年？",
+     "q": "Transformer 论文发表于哪一年？",
      "options": [
       "2012",
       "2017",
-      "2020",
-      "2022"
+      "2022",
+      "2024"
      ],
      "answer": 1,
-     "explain": "2017 年。"
+     "explain": "2017 年；2012 是 AlexNet，2022 年 11 月是 ChatGPT。"
     },
     {
-     "q": "ChatGPT 何时发布？",
+     "q": "本页把「算力」的能量本质描述为？",
      "options": [
-      "2017 年 6 月",
-      "2020 年 5 月",
-      "2022 年 11 月",
-      "2023 年 3 月"
+      "电力换智能",
+      "免费的",
+      "煤换蒸汽",
+      "人力换粮食"
+     ],
+     "answer": 0,
+     "explain": "数据中心用电成为新约束，算力本质上就是电力换智能。"
+    },
+    {
+     "q": "「AI 是第 N 次产业革命还是信息革命的加速」本页怎么处理？",
+     "options": [
+      "已定论是新革命",
+      "已定论是加速",
+      "作为开放问题，不下结论",
+      "认为无关"
      ],
      "answer": 2,
-     "explain": "2022 年 11 月。"
+     "explain": "开放问题，本页不下结论。"
+    }
+   ],
+   "sources": [
+    {
+     "title": "Vaswani et al. 2017, Attention Is All You Need",
+     "url": "https://arxiv.org/abs/1706.03762"
     },
     {
-     "q": "「AI 时代是一个独立的历史阶段」目前应怎样看待？",
-     "options": [
-      "学界定论",
-      "尚无定论的开放问题",
-      "已被否定",
-      "联合国官方划分"
-     ],
-     "answer": 1,
-     "explain": "页面标注 ⚠ 尚无定论。"
+     "title": "欧盟理事会 2024-05-21：AI Act 最终通过",
+     "url": "https://www.consilium.europa.eu/en/press/press-releases/2024/05/21/artificial-intelligence-ai-act-council-gives-final-green-light-to-the-first-worldwide-rules-on-ai/"
+    },
+    {
+     "title": "中国政府网：《生成式人工智能服务管理暂行办法》（2023-08-15 施行）",
+     "url": "https://www.gov.cn/zhengce/zhengceku/202307/content_6891752.htm"
     }
    ]
   }
  ],
  "edges": [
   {
-   "id": "e-s1-s2",
+   "id": "e-next-s1",
    "src": "s1",
    "dst": "s2",
    "kind": "leads_to",
@@ -1885,7 +2411,7 @@
    "claim_type": "主流解释"
   },
   {
-   "id": "e-s2-s3",
+   "id": "e-next-s2",
    "src": "s2",
    "dst": "s3",
    "kind": "leads_to",
@@ -1893,7 +2419,7 @@
    "claim_type": "主流解释"
   },
   {
-   "id": "e-s3-s4",
+   "id": "e-next-s3",
    "src": "s3",
    "dst": "s4",
    "kind": "leads_to",
@@ -1901,7 +2427,7 @@
    "claim_type": "主流解释"
   },
   {
-   "id": "e-s4-s5",
+   "id": "e-next-s4",
    "src": "s4",
    "dst": "s5",
    "kind": "leads_to",
@@ -1909,7 +2435,7 @@
    "claim_type": "主流解释"
   },
   {
-   "id": "e-s5-s6",
+   "id": "e-next-s5",
    "src": "s5",
    "dst": "s6",
    "kind": "leads_to",
@@ -1917,7 +2443,7 @@
    "claim_type": "主流解释"
   },
   {
-   "id": "e-s6-s7",
+   "id": "e-next-s6",
    "src": "s6",
    "dst": "s7",
    "kind": "leads_to",
@@ -1925,7 +2451,7 @@
    "claim_type": "主流解释"
   },
   {
-   "id": "e-s7-s8",
+   "id": "e-next-s7",
    "src": "s7",
    "dst": "s8",
    "kind": "leads_to",
@@ -1933,7 +2459,7 @@
    "claim_type": "主流解释"
   },
   {
-   "id": "e-s8-s9",
+   "id": "e-next-s8",
    "src": "s8",
    "dst": "s9",
    "kind": "leads_to",
@@ -1941,7 +2467,7 @@
    "claim_type": "主流解释"
   },
   {
-   "id": "e-s9-s10",
+   "id": "e-next-s9",
    "src": "s9",
    "dst": "s10",
    "kind": "leads_to",
@@ -1949,7 +2475,7 @@
    "claim_type": "主流解释"
   },
   {
-   "id": "e-s10-s11",
+   "id": "e-next-s10",
    "src": "s10",
    "dst": "s11",
    "kind": "leads_to",
@@ -1957,188 +2483,469 @@
    "claim_type": "主流解释"
   },
   {
-   "id": "e-evolution-prereq-domestication-genetics",
-   "src": "evolution",
-   "dst": "domestication-genetics",
-   "kind": "prereq",
-   "note": "先懂自然选择，才能理解人工选择（驯化）。",
-   "claim_type": "AI推断"
-  },
-  {
-   "id": "e-deep-learning-prereq-transformer",
-   "src": "deep-learning",
-   "dst": "transformer",
-   "kind": "prereq",
-   "note": "Transformer 是一种深度学习结构。",
-   "claim_type": "AI推断"
-  },
-  {
-   "id": "e-computer-prereq-deep-learning",
-   "src": "computer",
-   "dst": "deep-learning",
-   "kind": "prereq",
-   "note": "深度学习依赖算力与数据。",
-   "claim_type": "AI推断"
-  },
-  {
-   "id": "e-s2-related-domestication-genetics",
-   "src": "s2",
-   "dst": "domestication-genetics",
+   "id": "e-x0",
+   "src": "s1",
+   "dst": "n-human-evo",
    "kind": "related",
-   "note": "农业革命的生物学本质是驯化。",
+   "note": "人属与智人的演化是认知革命的生物学底座。",
    "claim_type": "AI推断"
   },
   {
-   "id": "e-s2-causes-epidemics-population",
-   "src": "s2",
-   "dst": "epidemics-population",
-   "kind": "causes",
-   "note": "定居与家畜让人畜共患病增加。",
-   "claim_type": "学界共识"
+   "id": "e-x1",
+   "src": "s1",
+   "dst": "n-lang-origin",
+   "kind": "related",
+   "note": "语言起源时间无定论，是认知革命叙事的核心争议。",
+   "claim_type": "AI推断"
   },
   {
-   "id": "e-climate-geography-causes-s2",
-   "src": "climate-geography",
+   "id": "e-x2",
+   "src": "s1",
+   "dst": "n-cave-art",
+   "kind": "related",
+   "note": "符号与艺术是现代认知的考古证据。",
+   "claim_type": "AI推断"
+  },
+  {
+   "id": "e-x3",
+   "src": "s1",
+   "dst": "n-cogn",
+   "kind": "related",
+   "note": "共享意图与累积文化。",
+   "claim_type": "AI推断"
+  },
+  {
+   "id": "e-x4",
+   "src": "n-climate",
    "dst": "s2",
    "kind": "causes",
-   "note": "全新世约 11,700 年前转暖且稳定，让农业变得划算。",
-   "claim_type": "主流解释"
+   "note": "全新世稳定气候让农业变得划算。",
+   "claim_type": "主流解释",
+   "sources": [
+    {
+     "title": "Richerson, Boyd & Bettinger 2001, American Antiquity 66(3)",
+     "url": "https://doi.org/10.2307/2694241"
+    }
+   ]
   },
   {
-   "id": "e-s1-related-evolution",
-   "src": "s1",
-   "dst": "evolution",
+   "id": "e-x5",
+   "src": "s2",
+   "dst": "n-domestic",
    "kind": "related",
-   "note": "人属与智人的出现是进化史的一段。",
+   "note": "农业革命 = 大规模人工选择与驯化。",
    "claim_type": "AI推断"
   },
   {
-   "id": "e-s3-related-writing-systems",
+   "id": "e-x6",
+   "src": "s2",
+   "dst": "n-epidemic",
+   "kind": "causes",
+   "note": "定居与家畜带来人畜共患病。",
+   "claim_type": "主流解释",
+   "sources": [
+    {
+     "title": "Wolfe, Dunavan & Diamond 2007, Origins of major human infectious diseases, Nature",
+     "url": "https://www.nature.com/articles/nature05775"
+    }
+   ]
+  },
+  {
+   "id": "e-x7",
+   "src": "s2",
+   "dst": "n-early-music",
+   "kind": "related",
+   "note": "贾湖骨笛约 9000 年前。",
+   "claim_type": "事实",
+   "sources": [
+    {
+     "title": "Zhang et al. 1999, Oldest playable musical instruments found at Jiahu, Nature",
+     "url": "https://doi.org/10.1038/43865"
+    }
+   ]
+  },
+  {
+   "id": "e-x8",
    "src": "s3",
-   "dst": "writing-systems",
+   "dst": "n-writing",
    "kind": "related",
-   "note": "楔形文字、圣书字、甲骨文都出现在这一阶段。",
+   "note": "楔形文字、圣书字、甲骨文、腓尼基字母。",
    "claim_type": "AI推断"
   },
   {
-   "id": "e-s4-related-axial-philosophies",
-   "src": "s4",
-   "dst": "axial-philosophies",
+   "id": "e-x9",
+   "src": "s3",
+   "dst": "n-state",
    "kind": "related",
-   "note": "轴心时代就是这些哲学流派诞生的时代。",
+   "note": "国家作为专业化的强制与再分配机器出现。",
    "claim_type": "AI推断"
   },
   {
-   "id": "e-s4-leads_to-world-religions",
+   "id": "e-x10",
+   "src": "s3",
+   "dst": "n-metal",
+   "kind": "related",
+   "note": "青铜冶炼。",
+   "claim_type": "AI推断"
+  },
+  {
+   "id": "e-x11",
+   "src": "s3",
+   "dst": "n-epic",
+   "kind": "related",
+   "note": "《吉尔伽美什》：文字固定叙事。",
+   "claim_type": "AI推断"
+  },
+  {
+   "id": "e-x12",
    "src": "s4",
-   "dst": "world-religions",
+   "dst": "n-axial-schools",
+   "kind": "related",
+   "note": "百家争鸣与希腊哲学。",
+   "claim_type": "AI推断"
+  },
+  {
+   "id": "e-x13",
+   "src": "s4",
+   "dst": "n-world-religions",
    "kind": "leads_to",
-   "note": "轴心思想为后来的普世宗教铺了路。",
+   "note": "轴心思想后来被帝国吸收为国教。",
    "claim_type": "AI推断"
   },
   {
-   "id": "e-s5-related-money-markets",
+   "id": "e-x14",
+   "src": "s4",
+   "dst": "n-money",
+   "kind": "related",
+   "note": "铸币促进市场与流动。",
+   "claim_type": "AI推断"
+  },
+  {
+   "id": "e-x15",
    "src": "s5",
-   "dst": "money-markets",
+   "dst": "n-money",
    "kind": "related",
-   "note": "帝国与丝路网络扩大了交换与货币的范围。",
+   "note": "货币经济与丝路贸易。",
    "claim_type": "AI推断"
   },
   {
-   "id": "e-s6-related-printing-media",
+   "id": "e-x16",
+   "src": "s5",
+   "dst": "n-bureau",
+   "kind": "related",
+   "note": "职业官僚统治数千万陌生人。",
+   "claim_type": "AI推断"
+  },
+  {
+   "id": "e-x17",
+   "src": "s5",
+   "dst": "n-epidemic",
+   "kind": "related",
+   "note": "安东尼瘟疫、查士丁尼瘟疫沿网络传播。",
+   "claim_type": "AI推断"
+  },
+  {
+   "id": "e-x18",
+   "src": "s5",
+   "dst": "n-world-religions",
+   "kind": "related",
+   "note": "帝国采纳普世宗教。",
+   "claim_type": "AI推断"
+  },
+  {
+   "id": "e-x19",
    "src": "s6",
-   "dst": "printing-media",
+   "dst": "n-print",
    "kind": "related",
-   "note": "宋代雕版与活字印刷。",
+   "note": "造纸、雕版与活字。",
    "claim_type": "AI推断"
   },
   {
-   "id": "e-s6-related-money-markets",
+   "id": "e-x20",
    "src": "s6",
-   "dst": "money-markets",
+   "dst": "n-keju",
    "kind": "related",
-   "note": "宋代商业革命与交子。",
+   "note": "科举官僚加士大夫。",
    "claim_type": "AI推断"
   },
   {
-   "id": "e-s7-causes-epidemics-population",
+   "id": "e-x21",
+   "src": "s6",
+   "dst": "n-money",
+   "kind": "related",
+   "note": "交子：1023 年设益州交子务，最早由政府发行的纸币之一。",
+   "claim_type": "事实",
+   "sources": [
+    {
+     "title": "全国哲学社会科学工作办公室：何平，官方交子的发行",
+     "url": "http://www.nopss.gov.cn/n1/2023/0911/c219544-40075019.html"
+    }
+   ]
+  },
+  {
+   "id": "e-x22",
+   "src": "s6",
+   "dst": "n-epidemic",
+   "kind": "related",
+   "note": "黑死病沿蒙古时代网络传播。",
+   "claim_type": "AI推断"
+  },
+  {
+   "id": "e-x23",
    "src": "s7",
-   "dst": "epidemics-population",
+   "dst": "n-epidemic",
    "kind": "causes",
-   "note": "哥伦布交换把旧大陆病菌带到美洲。",
-   "claim_type": "学界共识"
+   "note": "哥伦布交换：旧大陆病菌造成美洲人口崩溃（规模有争议）。",
+   "claim_type": "主流解释",
+   "sources": [
+    {
+     "title": "Crosby 1972, The Columbian Exchange"
+    }
+   ]
   },
   {
-   "id": "e-printing-media-causes-s8",
-   "src": "printing-media",
-   "dst": "s8",
-   "kind": "causes",
-   "note": "印刷让科学成果可以公开发表、复核。",
-   "claim_type": "主流解释"
+   "id": "e-x24",
+   "src": "s7",
+   "dst": "n-print",
+   "kind": "related",
+   "note": "古登堡印刷带来书籍和地图爆发。",
+   "claim_type": "AI推断"
   },
   {
-   "id": "e-s8-related-scientific-method",
+   "id": "e-x25",
+   "src": "s7",
+   "dst": "n-domestic",
+   "kind": "related",
+   "note": "美洲作物传入亚非欧。",
+   "claim_type": "AI推断"
+  },
+  {
+   "id": "e-x26",
    "src": "s8",
-   "dst": "scientific-method",
+   "dst": "n-sci-method",
    "kind": "related",
-   "note": "科学革命确立了系统纠错的求知方法。",
+   "note": "实验、数学、公开发表：可纠错的求知方法。",
    "claim_type": "AI推断"
   },
   {
-   "id": "e-s9-related-thermodynamics",
-   "src": "s9",
-   "dst": "thermodynamics",
+   "id": "e-x27",
+   "src": "s8",
+   "dst": "n-cosmos",
    "kind": "related",
-   "note": "蒸汽机推动了热力学的建立。",
+   "note": "哥白尼到牛顿。",
    "claim_type": "AI推断"
   },
   {
-   "id": "e-s9-related-fossil-energy",
-   "src": "s9",
-   "dst": "fossil-energy",
+   "id": "e-x28",
+   "src": "s8",
+   "dst": "n-axiom",
    "kind": "related",
-   "note": "工业革命的本质是转向化石能源。",
+   "note": "《几何原本》1607 年中译。",
+   "claim_type": "事实",
+   "sources": [
+    {
+     "title": "徐光启、利玛窦译《几何原本》前六卷，1607 年刊行"
+    }
+   ]
+  },
+  {
+   "id": "e-x29",
+   "src": "s8",
+   "dst": "n-rights",
+   "kind": "related",
+   "note": "洛克、社会契约与革命。",
    "claim_type": "AI推断"
   },
   {
-   "id": "e-s9-related-nation-state",
+   "id": "e-x30",
+   "src": "s8",
+   "dst": "n-needham",
+   "kind": "contrast",
+   "note": "李约瑟问题：为何不在中国？",
+   "claim_type": "AI推断"
+  },
+  {
+   "id": "e-x31",
    "src": "s9",
-   "dst": "nation-state",
+   "dst": "n-thermo",
+   "kind": "related",
+   "note": "蒸汽机：热变成功。",
+   "claim_type": "AI推断"
+  },
+  {
+   "id": "e-x32",
+   "src": "s9",
+   "dst": "n-fossil",
+   "kind": "causes",
+   "note": "化石能源打破有机经济天花板。",
+   "claim_type": "主流解释",
+   "sources": [
+    {
+     "title": "Wrigley 2010, Energy and the English Industrial Revolution",
+     "url": "https://doi.org/10.1017/CBO9780511779619"
+    }
+   ]
+  },
+  {
+   "id": "e-x33",
+   "src": "s9",
+   "dst": "n-nation",
    "kind": "related",
    "note": "民族国家成为组织大众的默认方式。",
    "claim_type": "AI推断"
   },
   {
-   "id": "e-s10-related-computer",
+   "id": "e-x34",
+   "src": "s9",
+   "dst": "n-growth",
+   "kind": "causes",
+   "note": "人均收入开始持续增长（起点有争议）。",
+   "claim_type": "AI推断"
+  },
+  {
+   "id": "e-x35",
+   "src": "s9",
+   "dst": "n-keju",
+   "kind": "related",
+   "note": "1905 年废科举。",
+   "claim_type": "事实",
+   "sources": [
+    {
+     "title": "清廷 1905 年诏停科举（光绪三十一年）"
+    }
+   ]
+  },
+  {
+   "id": "e-x36",
    "src": "s10",
-   "dst": "computer",
+   "dst": "n-computer",
    "kind": "related",
-   "note": "晶体管（1947）与计算机、互联网。",
+   "note": "晶体管 → 集成电路 → 互联网。",
    "claim_type": "AI推断"
   },
   {
-   "id": "e-s11-related-transformer",
-   "src": "s11",
-   "dst": "transformer",
+   "id": "e-x37",
+   "src": "s10",
+   "dst": "n-grid",
    "kind": "related",
-   "note": "Transformer（2017）是本轮 AI 的技术底座。",
+   "note": "电网与电气化。",
    "claim_type": "AI推断"
   },
   {
-   "id": "e-s11-leads_to-ai-governance",
+   "id": "e-x38",
+   "src": "s10",
+   "dst": "n-nitrogen",
+   "kind": "causes",
+   "note": "合成氨化肥支撑了世界约 40%–48% 人口的粮食（估计）。",
+   "claim_type": "主流解释",
+   "sources": [
+    {
+     "title": "Erisman et al. 2008, Nature Geoscience",
+     "url": "https://www.nature.com/articles/ngeo325"
+    },
+    {
+     "title": "Smil 1999, Detonator of the population explosion, Nature",
+     "url": "https://doi.org/10.1038/22672"
+    }
+   ]
+  },
+  {
+   "id": "e-x39",
+   "src": "n-computability",
+   "dst": "n-computer",
+   "kind": "prereq",
+   "note": "可计算性是计算机的理论基础。",
+   "claim_type": "AI推断"
+  },
+  {
+   "id": "e-x40",
    "src": "s11",
-   "dst": "ai-governance",
+   "dst": "n-deeplearning",
+   "kind": "related",
+   "note": "2012 年 AlexNet。",
+   "claim_type": "事实",
+   "sources": [
+    {
+     "title": "Krizhevsky, Sutskever & Hinton 2012, ImageNet Classification with Deep Convolutional Neural Networks, NeurIPS",
+     "url": "https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks"
+    }
+   ]
+  },
+  {
+   "id": "e-x41",
+   "src": "s11",
+   "dst": "n-transformer",
+   "kind": "related",
+   "note": "2017 年 Transformer。",
+   "claim_type": "事实",
+   "sources": [
+    {
+     "title": "Vaswani et al. 2017, Attention Is All You Need",
+     "url": "https://arxiv.org/abs/1706.03762"
+    }
+   ]
+  },
+  {
+   "id": "e-x42",
+   "src": "s11",
+   "dst": "n-agents",
+   "kind": "related",
+   "note": "人与 AI 智能体协作。",
+   "claim_type": "AI推断"
+  },
+  {
+   "id": "e-x43",
+   "src": "s11",
+   "dst": "n-aigov",
+   "kind": "related",
+   "note": "AI 治理规则。",
+   "claim_type": "AI推断"
+  },
+  {
+   "id": "e-x44",
+   "src": "n-deeplearning",
+   "dst": "n-transformer",
+   "kind": "prereq",
+   "note": "先懂深度学习再看 Transformer。",
+   "claim_type": "AI推断"
+  },
+  {
+   "id": "e-x45",
+   "src": "n-transformer",
+   "dst": "n-agents",
    "kind": "leads_to",
-   "note": "AI 普及迫使社会重新立规则。",
+   "note": "大模型是智能体的底座。",
    "claim_type": "AI推断"
   },
   {
-   "id": "e-s3-related-seeing-construction",
-   "src": "s3",
-   "dst": "seeing-construction",
+   "id": "e-x46",
+   "src": "n-human-evo",
+   "dst": "n-domestic",
    "kind": "related",
-   "note": "早期纪念性艺术与图像功能。",
+   "note": "演化与人工选择是同一套遗传机制。",
    "claim_type": "AI推断"
+  },
+  {
+   "id": "e-x47",
+   "src": "s5",
+   "dst": "s6",
+   "kind": "contrast",
+   "note": "东西三条路径分开：碎片化欧洲、统一中国、伊斯兰世界。",
+   "claim_type": "AI推断"
+  },
+  {
+   "id": "e-x48",
+   "src": "n-prob",
+   "dst": "s8",
+   "kind": "related",
+   "note": "1654 年帕斯卡与费马通信讨论「分赌注问题」，奠定概率论——科学革命时期的数学化。",
+   "claim_type": "事实",
+   "sources": [
+    {
+     "title": "Britannica: probability and statistics — history",
+     "url": "https://www.britannica.com/science/probability"
+    }
+   ]
   }
  ]
 }

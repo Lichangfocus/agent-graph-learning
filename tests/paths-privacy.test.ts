@@ -19,3 +19,8 @@ test("privacy: personal data paths are rejected outside examples/demo-pack and å
     "examples/demo-pack/profile/learner-profile.yaml", "engine/lib/atlas.ts", "atlas/world-map.json", ".env", ".env.example",
   ]), ["profile/learner-profile.yaml", "log/mac.jsonl", "units-private/u01/source.md", "course-q4-2026.md", ".env"]);
 });
+
+test("privacy rule: the dev write-back API route lives at api/events (a tracked `log/` dir would be flagged as personal data)", () => {
+  assert.deepEqual(privacyViolations(["apps/web/app/api/events/route.dev.ts"]), []);
+  assert.deepEqual(privacyViolations(["apps/web/app/api/log/route.dev.ts"]), ["apps/web/app/api/log/route.dev.ts"]);
+});

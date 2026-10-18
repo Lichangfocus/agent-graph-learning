@@ -5,11 +5,15 @@ const Id = z.string().trim().regex(/^[a-z0-9][a-z0-9_-]*$/i, "id 只能是字母
 const Text = z.string().trim().min(1);
 
 export const EDGE_KINDS = ["prereq", "belongs", "causes", "leads_to", "contrast", "related", "parallel"] as const;
-export const CLAIM_TYPES = ["事实", "学界共识", "主流解释", "有争议", "AI推断"] as const;
+/** 个人判断：用户自建连线（只出现在覆盖层），不代表事实。 */
+export const CLAIM_TYPES = ["事实", "学界共识", "主流解释", "有争议", "AI推断", "个人判断"] as const;
 export const NODE_KINDS = ["concept", "event", "era"] as const;
 export const NODE_STATUS = ["stub", "draft", "ready"] as const;
 export const MASTERY_LEVELS = ["locked", "seen", "learning", "lit", "mastered"] as const;
 export const LOG_ACTIONS = ["open", "play", "quiz", "lit", "review", "note", "ask", "topic_create", "link_create"] as const;
+
+/** 事实核查来源（TASK-005）：标题必填，url 可选（书籍可只写出处）。 */
+export const SourceSchema = z.object({ title: Text, url: z.url().optional(), note: z.string().optional() }).strict();
 
 export const DomainSchema = z.object({
   id: Id, name: Text, icon: Text.optional(), color: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(), desc: z.string().optional(),
@@ -40,6 +44,7 @@ export const NodeSchema = z.object({
   content: z.string().optional(),
   data: z.record(z.string(), z.unknown()).optional(),
   quiz: z.array(QuizSchema).optional(),
+  sources: z.array(SourceSchema).optional(),
 }).strict();
 
 export const EdgeSchema = z.object({
@@ -49,6 +54,7 @@ export const EdgeSchema = z.object({
   kind: z.enum(EDGE_KINDS),
   note: Text,
   claim_type: z.enum(CLAIM_TYPES),
+  sources: z.array(SourceSchema).optional(),
 }).strict();
 
 export const AtlasSchema = z.object({
@@ -84,6 +90,7 @@ export const PackMetaSchema = z.object({
   engine_version: z.string(),
 }).passthrough();
 
+export type Source = z.infer<typeof SourceSchema>;
 export type Atlas = z.infer<typeof AtlasSchema>;
 export type AtlasNode = z.infer<typeof NodeSchema>;
 export type AtlasEdge = z.infer<typeof EdgeSchema>;

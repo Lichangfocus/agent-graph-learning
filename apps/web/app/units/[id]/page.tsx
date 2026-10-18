@@ -52,7 +52,7 @@ export default async function UnitPage(props: { params: Promise<Params> }) {
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900">
       <div className="mx-auto max-w-4xl px-4 py-8">
-        <Link href="/" className="mb-4 inline-block text-sm text-emerald-800 hover:underline">← 课程知识地图</Link>
+        <Link href="/units/" className="mb-4 inline-block text-sm text-emerald-800 hover:underline">← 课程知识地图</Link>
         <h1 className="text-3xl font-bold mb-2">{unit.frontmatter.title}</h1>
         <p className="text-sm text-zinc-600 mb-6">
           模块：{unit.frontmatter.module} · 预计用时 {unit.frontmatter.estTimeMinutes} 分钟
