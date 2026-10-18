@@ -70,7 +70,7 @@ test("user pack log: append-only per-device JSONL, merged across devices, bad li
     assert.deepEqual(log.map((e) => `${e.device}:${e.node}:${e.action}`), ["box:s1:quiz", "mac:s1:open", "mac:s2:open", "phone:s3:open"]);
     assert.equal(problems.length, 1);
     mkdirSync(join(dir, "topics"));
-    writeFileSync(join(dir, "topics", "bad.json"), '{"id":"no-prefix","domain":"history","name":"x","members":[]}');
+    writeFileSync(join(dir, "topics", "bad.json"), '{"id":"no-prefix","domain":"d-hist","name":"x","members":[]}');
     const pack = loadUserPack(dir);
     assert.equal(pack.topics.length, 0);
     assert.ok(pack.problems.some((p) => p.startsWith("topics/bad.json")));

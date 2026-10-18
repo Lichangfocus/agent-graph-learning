@@ -44,7 +44,7 @@ test("schema: rejects bad ids, unknown edge kinds, missing claim_type and out-of
 });
 
 test("schema: overlay ids must start with u- and log events need ISO timestamps with offset", () => {
-  const node = { id: "steam", kind: "concept", name: "x", summary: "y", domain: "tech", topics: ["t-energy"] };
+  const node = { id: "steam", kind: "concept", name: "x", summary: "y", domain: "d-eng", topics: ["t-energy"] };
   assert.equal(OverlayNodeSchema.safeParse(node).success, false);
   assert.equal(OverlayNodeSchema.safeParse({ ...node, id: "u-steam" }).success, true);
   assert.equal(OverlayEdgeSchema.safeParse({ id: "e1", src: "a", dst: "b", kind: "related", note: "n" }).success, false);
@@ -64,11 +64,21 @@ test("graph: detects duplicate ids, dangling refs, topic/member mismatch and pre
   g.nodes.push({ ...g.nodes[0] });
   g.edges.push({ id: "e-dangling", src: "s1", dst: "nope", kind: "related", note: "x", claim_type: "AI推断" });
   g.topics[0].members.push({ id: "ghost" });
-  g.edges.push({ id: "e-c1", src: "transformer", dst: "deep-learning", kind: "prereq", note: "cycle", claim_type: "AI推断" });
+  g.edges.push({ id: "e-c1", src: "n-transformer", dst: "n-deeplearning", kind: "prereq", note: "cycle", claim_type: "AI推断" });
   const { errors } = validateAtlasGraph(g);
   assert.ok(errors.some((e) => e.includes("重复的 id")));
   assert.ok(errors.some((e) => e.includes("e-dangling")));
   assert.ok(errors.some((e) => e.includes("ghost")));
   assert.ok(errors.some((e) => e.startsWith("prereq 边有环")));
   assert.throws(() => parseAtlas(g), /语义校验失败/);
+});
+
+test("fact-check (TASK-005): every history node and every 事实 edge carries sources; no personal course weeks in public Atlas", () => {
+  const atlas = loadAtlas();
+  for (const n of atlas.nodes.filter((x) => x.topics.includes("t-civ"))) assert.ok(n.sources && n.sources.length >= 2, `${n.id} 缺来源`);
+  for (const e of atlas.edges.filter((x) => x.claim_type === "事实" || (x.claim_type === "主流解释" && !x.id.startsWith("e-next-")))) {
+    assert.ok(e.sources && e.sources.length >= 1, `${e.id}（${e.claim_type}）缺来源`);
+  }
+  const text = JSON.stringify(atlas);
+  assert.doesNotMatch(text, /课程\s*W\d|"weeks"/);
 });

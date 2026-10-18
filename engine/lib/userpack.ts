@@ -1,5 +1,7 @@
 import { appendFileSync, existsSync, mkdirSync, readdirSync, readFileSync } from "node:fs";
+import { hostname } from "node:os";
 import { join } from "node:path";
+import { renameRefs, renameTable } from "./migrate";
 import { dataDir } from "./paths";
 import {
   LogEventSchema, OverlayEdgeSchema, OverlayNodeSchema, PackMetaSchema, UserTopicSchema,
@@ -59,12 +61,24 @@ export function loadUserPack(dir = dataDir()): UserPack {
       }
     }
   }
+  // 数据包按旧版 Atlas 写的 → 在内存里按 atlas/migrations 改写引用（文件不改，日志仍只追加）
+  const table = renameTable(meta?.atlas_version);
   return {
-    dir, meta, topics, problems,
-    nodes: readJsonl(join(dir, "overlay", "nodes.jsonl"), parseWith(OverlayNodeSchema), problems),
-    edges: readJsonl(join(dir, "overlay", "edges.jsonl"), parseWith(OverlayEdgeSchema), problems),
-    log: readLog(dir, problems),
+    dir, meta, problems,
+    topics: renameRefs(topics, table),
+    nodes: renameRefs(readJsonl(join(dir, "overlay", "nodes.jsonl"), parseWith(OverlayNodeSchema), problems), table),
+    edges: renameRefs(readJsonl(join(dir, "overlay", "edges.jsonl"), parseWith(OverlayEdgeSchema), problems), table),
+    log: renameRefs(readLog(dir, problems), table),
   };
+}
+
+/** 设备名：LEARN_DEVICE 或主机名，规整为 [a-z0-9_-]。 */
+export function deviceName(env: Record<string, string | undefined> = process.env): string {
+  return sanitizeDevice(env.LEARN_DEVICE ?? hostname().split(".")[0]);
+}
+
+export function sanitizeDevice(raw: string): string {
+  return raw.toLowerCase().replace(/[^a-z0-9_-]/g, "-") || "local";
 }
 
 /** 只追加写日志：log/<device>.jsonl。多设备各写各的文件，git 合并不冲突。 */

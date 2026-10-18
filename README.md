@@ -23,14 +23,15 @@ gh repo clone Lichangfocus/agent-graph-learning
 gh repo clone Lichangfocus/learn-data          # 你的私有数据包（别人用自己的）
 cd agent-graph-learning
 npm i
-LEARN_DATA_DIR=../learn-data npm run dev        # 本地调试：http://localhost:43123
+LEARN_DATA_DIR=../learn-data npm run dev        # 本地调试：http://localhost:43123（星图主视图；打开 / 自测 / 点亮直接写 ../learn-data/log/<设备>.jsonl）
 npm test                                        # 单元测试（加 LEARN_DATA_DIR 跑含私人数据的全量）
 npm run demo                                    # 离线 demo → demo/index.html（加 LEARN_DATA_DIR → ../learn-data/builds/）
+LEARN_DATA_DIR=../learn-data npm run log:import -- ~/Downloads/browser-*.jsonl   # 把离线 HTML 导出的记录并进数据包（自动去重）
 ```
 
-学完同步：`git -C ../learn-data pull --rebase && git -C ../learn-data add -A && git -C ../learn-data commit -m "log: …" && git -C ../learn-data push`。
+设备名默认是主机名，可用 `LEARN_DEVICE=mac` 指定。学完同步：`git -C ../learn-data pull --rebase && git -C ../learn-data add -A && git -C ../learn-data commit -m "log: …" && git -C ../learn-data push`。
 
-**先看 demo**：双击 [`demo/index.html`](demo/index.html) → 知识星图（10 个领域、29 个节点、对数时间轴、人类文明 11 次大变革的节点短片与 3 题自测点亮）。
+**先看 demo**：双击 [`demo/index.html`](demo/index.html) → 电影感知识星图（10 个领域、33 个 topic、47 个节点、对数时间轴、人类文明 11 次大变革的短片与 3 题自测点亮；事实附来源，解释标「非定论」，见 [`atlas/src/fact-check.md`](atlas/src/fact-check.md)）。离线点亮存浏览器本地，「导出」后用 `log:import` 并进数据包。
 
 ## 目录
 

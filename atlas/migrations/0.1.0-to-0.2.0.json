@@ -1,0 +1,22 @@
+{
+ "from": "0.1.0",
+ "to": "0.2.0",
+ "date": "2026-10-18",
+ "why": "TASK-002：Atlas 真源改为 scholar-engine world-map v3 的 id 体系（47 节点、33 topic），让电影感星图直接读 Atlas。",
+ "rename": {
+  "natural": "d-nat", "life": "d-life", "math": "d-math", "tech": "d-eng", "social": "d-soc", "history": "d-hist",
+  "philosophy": "d-phil", "arts": "d-arts", "language": "d-lang", "ai": "d-ai",
+  "t-physics": "t-phys", "t-earth": "t-earth", "t-biology": "t-evo", "t-medicine": "t-med", "t-logic": "t-logic",
+  "t-energy": "t-energy", "t-computing": "t-cs", "t-economics": "t-econ", "t-politics": "t-pol", "t-civ": "t-civ",
+  "t-history-of-science": "t-scihist", "t-axial": "t-axialphil", "t-visual-arts": "t-visual", "t-writing": "t-writing",
+  "t-ml": "t-ml", "t-ai-governance": "t-aigov",
+  "thermodynamics": "n-thermo", "climate-geography": "n-climate", "domestication-genetics": "n-domestic",
+  "evolution": "n-human-evo", "epidemics-population": "n-epidemic", "scientific-method": "n-sci-method",
+  "fossil-energy": "n-fossil", "computer": "n-computer", "printing-media": "n-print", "money-markets": "n-money",
+  "nation-state": "n-nation", "axial-philosophies": "n-axial-schools", "world-religions": "n-world-religions",
+  "seeing-construction": "n-cave-art", "writing-systems": "n-writing", "deep-learning": "n-deeplearning",
+  "transformer": "n-transformer", "ai-governance": "n-aigov"
+ },
+ "edge_ids": "v0.1 的 e-sN-sN+1 → e-next-sN；其余 v0.1 边 id 不再存在（v0.2 的边来自 v3，id 为 e-xN）。覆盖层只引用节点 id，不引用 Atlas 边 id。",
+ "notes": "seeing-construction（观看与构图）在 v3 没有对应节点，就近映射到 n-cave-art（同属艺术领域）；evolution → n-human-evo。"
+}
