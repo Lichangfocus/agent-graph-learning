@@ -52,5 +52,5 @@ ffmpeg：`preview:build` 压缩图片、`video:render` 需要；Mac 用 `brew in
 ## 技术现状（2026-10-18）
 
 - 执行优先级：OpenCode → Codex → Grok Bot。本次 TASK-001 中 box 上 OpenCode 启动后无响应、Codex 未登录（401），由 Grok Bot 完成。
-- 已知：电影感星图 v0.2 已是主视图（地图动画 + 东西对照 + 粒子点亮）；配音 / Remotion 在 M2。`npm run dev` 下打开、播放、自测、点亮直接写进 `learn-data/log/<设备>.jsonl`（TASK-003）。
+- 已知：电影感星图 v0.2 已是主视图（地图动画 + 东西对照 + 粒子点亮）；配音 / Remotion 在 M2。`npm run dev` 下打开、播放、自测、点亮直接写进 `learn-data/log/<设备>.jsonl`（TASK-006）。
 - TASK-002/003/005：OpenCode（`aiyunrouter/claude-sonnet-5-5`，`< /dev/null`）可用，完成星图模板改造（Task A）和 dev 写回 / 导入 / 主视图（Task B）；Grok Bot 做 Atlas 映射、视图、迁移、事实核查、联调与修 bug。
