@@ -1,10 +1,70 @@
 # Agent 图谱学习法
 
-**Agent Graph Learning** —— 重构学习方式
+**Agent Graph Learning** —— 每个人的知识地图学习框架
 
-> 用 agent 重构学生的学习方式：让任何知识跨学科、跨语言地被重新组织，让人真正理解，像多邻国一样愉快地学习。
+> 框架自带一张可公开的「全人类知识地图（Atlas）」；每个人按自己的需求在上面建图、学习、点亮节点。人类知识是同一张图，每个人的进度、反馈和演化出来的理解结构各不相同。
 
-## 初衷
+## 两部分：框架 + 你的数据
+
+| 部分 | 仓库 | 放什么 |
+|---|---|---|
+| **框架**（本仓库，公开） | `Lichangfocus/agent-graph-learning` | 引擎（schema、校验、转译管线、渲染模板）、Next.js 应用、Atlas（CC BY-SA 4.0）、示例数据包、方法论与 skill |
+| **个人数据**（私有） | 例如 `Lichangfocus/learn-data` | 学习者画像、学习日志（按设备只追加）、自建节点 / 连线 / topic、批注、私人单元、课表、用个人数据构建的离线页面 |
+
+框架没有数据包也能跑（加载 `examples/demo-pack`）；数据包只放数据、不放代码，用 `LEARN_DATA_DIR` 指过去。
+
+## 快速开始（Mac / Linux）
+
+需要 Node ≥ 20（`.nvmrc`）、git、[gh](https://cli.github.com/)；生成预览和视频需要 ffmpeg（`brew install ffmpeg`）。
+
+```bash
+mkdir -p ~/code/learn && cd ~/code/learn
+gh repo clone Lichangfocus/agent-graph-learning
+gh repo clone Lichangfocus/learn-data          # 你的私有数据包（别人用自己的）
+cd agent-graph-learning
+npm i
+LEARN_DATA_DIR=../learn-data npm run dev        # 本地调试：http://localhost:43123
+npm test                                        # 单元测试（加 LEARN_DATA_DIR 跑含私人数据的全量）
+npm run demo                                    # 离线 demo → demo/index.html（加 LEARN_DATA_DIR → ../learn-data/builds/）
+```
+
+学完同步：`git -C ../learn-data pull --rebase && git -C ../learn-data add -A && git -C ../learn-data commit -m "log: …" && git -C ../learn-data push`。
+
+**先看 demo**：双击 [`demo/index.html`](demo/index.html) → 知识星图（10 个领域、29 个节点、对数时间轴、人类文明 11 次大变革的节点短片与 3 题自测点亮）。
+
+## 目录
+
+| 目录 | 放什么 |
+|---|---|
+| `00-变更单/` | 每个修改点从登记到完成的唯一进度台账（`CR-YYYYMMDD-NN`） |
+| `01-产品方案/` | 产品设计 v0.3（权威）、ADR、调研 |
+| `02-功能清单/` | 最细的产品逻辑：功能编号、规则、异常、边界、实现状态 |
+| `03-spec/` | 整体 spec + 每张变更单的设计稿（需求 → 验收 → 设计 → 测试 → 任务） |
+| `04-开发/` | 代码权威位置、开发与交付说明、CI 模板 |
+| `05-测试/` | 单元测试说明（命令、用例、人工验证 MV-、运行记录）、体验验证、真实数据测试 |
+| `06-迭代管理/` | 迭代计划 M0–M3、版本简介 |
+| `历史/` | 旧稿，只读 |
+| `apps/web/` | Next.js 应用（单元页、课程图） |
+| `engine/` | 引擎：`lib/`（schema、Atlas、覆盖层、日志、掌握度）、`pipeline/`（CLI）、`templates/`（单文件 HTML 模板） |
+| `atlas/` | 全人类知识地图（`world-map.json` + `src/` 真源 + `migrations/`） |
+| `units/` `units-explain/` | 公开示例单元 |
+| `examples/demo-pack/` | 示例数据包 |
+| `tests/` | 单元测试 |
+| `demo/` | 离线 demo（`npm run demo` 生成） |
+| `maps/` `my/` `.claude/skills/` `prompts/` `docs/` | 方法论 v1：零依赖单 HTML 地图、学习中心、learn-map skill（原路径保留，在线地址不变） |
+| `AGENTS.md` | Agent 工作约定 |
+
+<a id="flow"></a>
+## 修改流程
+
+```text
+① 登记（00） → ② 产品（02，focus 确认） → ③ spec（03） → ④ 开发（分支 local/… 或 cloud/<worker>/…）
+  → ⑤ 单元测试（npm test + npm run check） → ⑤.5 体验验证（界面类） → ⑥ focus review（PR） → ⑦ 归档（06）
+```
+
+`main` 只经 PR、只由 focus 合入（Squash）。数据仓库允许直接推 `main`。
+
+## 初衷（方法论 v1）
 
 教科书有两个天生的局限：
 
@@ -29,27 +89,7 @@ Agent 图谱学习法，就是让 agent 做两件教科书做不到的事：
 
 想学别的主题？把 skill 的一句话指令（见下）发给任何 agent，现生成一张新地图。
 
-## 这个仓库里有什么
-
-```
-.claude/skills/learn-map/     核心 skill：主题 → 知识地图站点的完整生成管线
-  ├── SKILL.md                六步管线（采材→构图→校验→内容→组装）+ 双层知识 + 易学性规范
-  ├── scripts/validate_graph.py   图谱校验器（环/方向/冗余/quiz/canon/sources 完整性）
-  ├── references/source-registry.md  权威材料源目录（按领域累积，长期资产）
-  └── assets/
-       ├── template.html      地图站点模板（自动布局/解锁/本地+云端进度/账户）
-       └── hub-template.html  多章教材总入口模板（跨章进度汇总）
-maps/                         已生成的知识地图（每张是一个自包含的单文件站点）
-  ├── ai-training/            旗舰教材：AI 大模型训练全链路（5 章 60 个知识点 + 总入口，论文级出处）
-  └── sound-journey/          示例：声音之旅（双层知识：NGSS/UK NC/CCSS 真实课标出处 + 通俗重构）
-my/                           学习中心：登录后管理所有课程与进度
-account-config.json           账户配置（Supabase）；本仓库已启用登录与云同步
-docs/account-setup.md         账户自建指南（fork 本项目时用，约 5 分钟）
-docs/feasibility.md           可行性实验：AI 构图 vs 专家标注的盲测结果
-prompts/workbuddy.md          给任何 Claude Code / agent 环境的使用指令
-```
-
-## 怎么用：一句话开始
+## 方法论 v1：一句话生成一张地图
 
 把下面这行发给你的 AI agent（Claude Code、workbuddy 或任何能联网执行的 agent），剩下的交给它——它会自动安装 skill，然后引导你选主题、生成你的第一张知识地图：
 
@@ -84,5 +124,5 @@ prompts/workbuddy.md          给任何 Claude Code / agent 环境的使用指�
 
 ## 致谢与许可
 
-- 本仓库代码采用 [MIT License](LICENSE)。
+- 本仓库代码采用 [MIT License](LICENSE)；`atlas/` 下的知识地图内容采用 [CC BY-SA 4.0](atlas/LICENSE)。
 - 示例地图的知识结构改编自 [Marble os-taxonomy](https://github.com/withmarbleapp/os-taxonomy)（数据库 ODbL 1.0 / 内容 CC BY-SA 4.0），在此致谢。凡复用其数据生成的地图，请保留此致谢。

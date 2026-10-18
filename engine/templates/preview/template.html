@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>人文艺术 · 学习预览</title>
+<style>/*__PREVIEW_CSS__*/</style>
+</head>
+<body>
+<header class="site-header">
+  <a href="#/map" class="brand"><span class="brand-mark">学</span><span>人生 · 学者<small>PERSONAL LEARNING OS</small></span></a>
+  <nav aria-label="预览工具">
+    <a href="#/map" class="map-link">知识地图</a>
+    <button id="notes-open">批注 <span id="notes-count" class="count">0</span></button>
+    <button id="brief-export">导出修订简报</button>
+    <details class="progress-menu"><summary>学习记录</summary><div>
+      <button id="progress-export">导出进度 JSON</button>
+      <button id="progress-import">导入进度 JSON</button>
+    </div></details>
+    <input id="progress-file" type="file" accept="application/json,.json" hidden>
+  </nav>
+</header>
+<main id="app"></main>
+<footer class="site-footer">知识从理解开始 · 按自己的问题探索</footer>
+<div id="status" class="toast" role="status" hidden></div>
+<dialog id="notes-dialog" aria-labelledby="notes-title">
+  <div class="dialog-head"><h2 id="notes-title">源文批注</h2><button id="notes-close" aria-label="关闭批注">关闭</button></div>
+  <p id="note-anchor" class="muted"></p>
+  <form id="note-form">
+    <label for="note-intent">这条反馈的意图</label>
+    <select id="note-intent"><option value="change">要改</option><option value="question">有疑问</option><option value="confirm">认可</option><option value="resource">补资料</option></select>
+    <label for="note-text">写下你的想法</label>
+    <textarea id="note-text" rows="5" required placeholder="哪里需要调整？有什么问题或补充资料？"></textarea>
+    <button class="primary" type="submit">保存批注</button>
+  </form>
+  <div id="notes-list"></div>
+</dialog>
+<dialog id="ai-dialog" aria-labelledby="ai-title">
+  <div class="dialog-head"><h2 id="ai-title">问 AI</h2><button id="ai-close">关闭</button></div>
+  <p>请选中提示词并复制，粘贴到你使用的 AI 中。</p>
+  <textarea id="ai-prompt" aria-label="问 AI 提示词" rows="12" readonly></textarea>
+</dialog>
+<script id="preview-data" type="application/json">/*__PREVIEW_DATA__*/null</script>
+<script>/*__PREVIEW_APP__*/</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+# 体验验证配置（机制：独立开发者《体验验证机制 v1》）
+platforms:
+  web:
+    runner: playwright        # 场景放 05-测试/自动化/scenarios/web/
+    base: file://demo/atlas-map.html
+judge:
+  provider: none              # 未配置判定模型时只跑代码断言
+  samples: 3
+budget:
+  judge_usd_per_run: 1
+  explore_steps: 50
+  explore_usd: 3
+forbidden_extra: []           # 只能追加，不能删减默认禁点清单（确认发出/支付/删除/发布/对外发送…）

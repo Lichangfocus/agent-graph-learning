@@ -1,1 +1,28 @@
 .DS_Store
+
+# ---- framework (Node / Next) ----
+node_modules/
+.next/
+apps/web/.next/
+apps/web/out/
+apps/web/next-env.d.ts
+*.tsbuildinfo
+.cache/
+coverage/
+.env*
+!.env.example
+
+# 生成的导出（可能含个人数据，dev 时由 LEARN_DATA_DIR 决定内容）
+apps/web/public/course.json
+apps/web/public/graph.json
+apps/web/public/units.json
+apps/web/public/units-md/
+apps/web/public/llms.txt
+
+# 体验验证全量产物不入 Git（见 05-测试/README.md）
+05-测试/自动化/runs/
+
+# 防误提交个人数据包（真实数据只放私有 learn-data）
+/learn-data/
+demo/**/.cache/
+__pycache__/
