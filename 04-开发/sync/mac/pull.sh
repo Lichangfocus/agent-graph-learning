@@ -6,7 +6,9 @@
 set -uo pipefail
 export PATH="$HOME/.local/share/node-v24.19.0/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 export GIT_TERMINAL_PROMPT=0
-SCHOLAR_HOME="${SCHOLAR_HOME:-$HOME/Desktop/学者}"
+# 真实目录在 ~/Scholar（launchd 下的 /bin/bash 受 macOS 隐私保护无法访问 ~/Desktop），
+# ~/Desktop/学者 与 ~/code/learn 都是指向它的软链接。
+SCHOLAR_HOME="${SCHOLAR_HOME:-$HOME/Scholar}"
 SYNC_DIR="$SCHOLAR_HOME/.sync"
 LOG="$SYNC_DIR/sync.log"
 mkdir -p "$SYNC_DIR"

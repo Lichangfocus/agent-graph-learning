@@ -25,8 +25,9 @@ git push origin <你的工作分支>
 
 ## Mac 端
 
-- 目录：`~/Desktop/学者/`（`agent-graph-learning/` 与 `learn-data/` 并列）；`~/code/learn` 是指向它的软链接。
-- 脚本：`~/Desktop/学者/.sync/pull.sh`（源文件 `04-开发/sync/mac/pull.sh`，每轮自动自更新）。
+- 目录：真实位置 `~/Scholar/`（`agent-graph-learning/` 与 `learn-data/` 并列）；桌面上的 `~/Desktop/学者` 和旧路径 `~/code/learn` 都是指向它的软链接，日常从桌面进入即可。
+  - 为什么不直接放桌面：macOS 隐私保护（TCC）禁止 launchd 启动的 `/bin/bash` 访问 `~/Desktop`（实测 `Operation not permitted`，exit 126）。放在家目录 + 桌面软链接，无需给 bash 开「完全磁盘访问权限」。
+- 脚本：`~/Scholar/.sync/pull.sh`（源文件 `04-开发/sync/mac/pull.sh`，每轮自动自更新）。
 - launchd：`com.lichang.scholar-sync`，`StartInterval=600` + `RunAtLoad`，安装用 `04-开发/sync/mac/install.sh`。
 - 每轮：对框架仓库（`dev/latest`）和 `learn-data`（`main`）分别 `fetch` →
   - 有未提交的本地改动 → **跳过**，写日志和 `.sync/NOTICE-<仓库>.txt`；

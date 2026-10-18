@@ -2,7 +2,7 @@
 # 在 focus 的 Mac 上安装/重装同步 launchd agent。幂等。
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
-HOME_DIR="$HOME/Desktop/学者"
+HOME_DIR="$HOME/Scholar"   # 真实目录；~/Desktop/学者 是软链接
 mkdir -p "$HOME_DIR/.sync"
 cp "$HERE/pull.sh" "$HOME_DIR/.sync/pull.sh"; chmod +x "$HOME_DIR/.sync/pull.sh"
 PL="$HOME/Library/LaunchAgents/com.lichang.scholar-sync.plist"
