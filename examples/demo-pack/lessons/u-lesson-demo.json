@@ -1,0 +1,205 @@
+{
+ "schema": "learn.lesson.v1",
+ "id": "u-lesson-demo",
+ "no": 1,
+ "title": "示例课：时间的尺度",
+ "short": "示例课",
+ "icon": "📖",
+ "summary": "演示「课」的格式：两段短片、一个猜测、一个分类、三道自测、一段感想和「完成」。",
+ "topic": "t-civ",
+ "domain": "d-hist",
+ "minutes": 6,
+ "links": [
+  {
+   "node": "s1",
+   "kind": "related",
+   "note": "演示：课与历史节点的连线"
+  }
+ ],
+ "prep": {
+  "minutes": "约 6 分钟",
+  "prepare": [
+   "电脑或手机打开即可。"
+  ],
+  "reading": [
+   {
+    "title": "A Little History of the World",
+    "author": "E. H. Gombrich",
+    "part": "Ch. 1–2",
+    "required": false
+   }
+  ]
+ },
+ "chapters": [
+  {
+   "id": "c1",
+   "part": "示例",
+   "title": "把时间放进一条线",
+   "minutes": 2,
+   "scenes": [
+    {
+     "type": "title",
+     "sec": 8,
+     "kicker": "示例课",
+     "heading": "时间的尺度",
+     "text": "这是公开示例包里的演示课；真实课程放在你自己的数据包 lessons/ 里。"
+    },
+    {
+     "type": "scale",
+     "sec": 14,
+     "kicker": "TIME",
+     "heading": "对数时间轴",
+     "marks": [
+      {
+       "label": "人属",
+       "ya": 2800000.0,
+       "claim": "事实",
+       "src": [
+        "villmoare-2015"
+       ]
+      },
+      {
+       "label": "文字",
+       "ya": 5200,
+       "claim": "事实",
+       "src": [
+        "englund-1995"
+       ]
+      }
+     ],
+     "caption": "每往左一格，时间长十倍。"
+    }
+   ],
+   "interaction": {
+    "type": "guess",
+    "id": "i-clock",
+    "prompt": "把人属 280 万年压成一天，文字出现在几点？",
+    "unit": "clock24",
+    "min": 0,
+    "max": 1440,
+    "step": 1,
+    "answer": 1437,
+    "tolerance": 3,
+    "reveal": "约 23:57。",
+    "claim": "事实",
+    "src": [
+     "villmoare-2015",
+     "englund-1995"
+    ]
+   }
+  },
+  {
+   "id": "c2",
+   "part": "示例",
+   "title": "事实还是解释",
+   "minutes": 2,
+   "scenes": [
+    {
+     "type": "points",
+     "sec": 14,
+     "kicker": "标签",
+     "heading": "每条说法都带标签",
+     "items": [
+      {
+       "text": "有记载的历史只占宇宙年历最后约 10 秒。",
+       "claim": "事实",
+       "src": [
+        "sagan-1977"
+       ]
+      },
+      {
+       "text": "四条驱动力是本课程的提问清单。",
+       "claim": "框架"
+      }
+     ]
+    }
+   ],
+   "interaction": {
+    "type": "sort",
+    "id": "i-claims",
+    "prompt": "分一分",
+    "buckets": [
+     {
+      "id": "fact",
+      "label": "事实"
+     },
+     {
+      "id": "dispute",
+      "label": "有争议"
+     }
+    ],
+    "items": [
+     {
+      "text": "乌鲁克 IV 期泥板几乎全是账目。",
+      "bucket": "fact",
+      "why": "CDLI 统计。",
+      "src": [
+       "englund-1995"
+      ]
+     },
+     {
+      "text": "农业是史上最大的骗局。",
+      "bucket": "dispute",
+      "why": "修辞化的价值判断。"
+     },
+     {
+      "text": "有了文字，思维方式就整体改变了。",
+      "bucket": "dispute",
+      "why": "「大分野」说被批评为技术决定论。"
+     }
+    ]
+   }
+  }
+ ],
+ "quiz": [
+  {
+   "q": "人属 280 万年压成一天，文字大约在？",
+   "options": [
+    "约 12:00",
+    "约 23:57"
+   ],
+   "answer": 1
+  },
+  {
+   "q": "「农业是史上最大的骗局」属于？",
+   "options": [
+    "事实",
+    "有争议的解释"
+   ],
+   "answer": 1
+  },
+  {
+   "q": "对数轴上每往左一格，时间？",
+   "options": [
+    "多 1 万年",
+    "长十倍"
+   ],
+   "answer": 1
+  }
+ ],
+ "takeaway": {
+  "prompt": "写一句你今天的收获。",
+  "min": 5,
+  "max": 400
+ },
+ "close": {
+  "phrase": "完成",
+  "hint": "自测全对后输入「完成」结束本课。"
+ },
+ "sources": [
+  {
+   "id": "villmoare-2015",
+   "title": "Villmoare et al. 2015, Early Homo at 2.8 Ma from Ledi-Geraru, Science",
+   "url": "https://doi.org/10.1126/science.aaa1343"
+  },
+  {
+   "id": "englund-1995",
+   "title": "Englund 1995（CDLI）：Uruk IV 约前 3200–前 3100",
+   "url": "https://cdli.earth/files-up/publications/englund1995b.pdf"
+  },
+  {
+   "id": "sagan-1977",
+   "title": "Carl Sagan 1977, The Dragons of Eden"
+  }
+ ]
+}

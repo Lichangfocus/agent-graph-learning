@@ -1,0 +1,28 @@
+# 挪到 .github/workflows/pages.yml 后生效（需要 workflow 权限，在 Mac 上提交），
+# 并在 Settings → Pages 把 Source 改为 "GitHub Actions"（或：gh api -X PUT repos/Lichangfocus/agent-graph-learning/pages -f build_type=workflow）。
+# 之后每次 push dev/latest 自动构建并部署；不再需要 publish-pages.sh。
+name: pages
+on:
+  push: { branches: [dev/latest] }
+  workflow_dispatch:
+permissions: { contents: read, pages: write, id-token: write }
+concurrency: { group: pages, cancel-in-progress: true }
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: npm }
+      - run: npm ci
+      - run: npm test
+      - run: npm run site:build
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: site-dist }
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: { name: github-pages, url: "${{ steps.d.outputs.page_url }}" }
+    steps:
+      - id: d
+        uses: actions/deploy-pages@v4

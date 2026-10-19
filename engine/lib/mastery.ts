@@ -2,7 +2,7 @@ import type { AtlasEdge, LogEvent, MasteryLevel } from "./schemas/atlas";
 
 /**
  * 掌握度完全由日志推算（03-spec §2.5）：
- * - seen：有 open / play / quiz / note / ask 任一事件
+ * - seen：有 open / play / quiz / note / ask / done 任一事件（done = 课由学习者回复「完成」结束，见 lesson.ts）
  * - learning：play 进度 ≥ 0.5，或答过题但未全对
  * - lit：有 lit 事件，或一次 quiz 事件 payload.correct === payload.total 且 total ≥ 3
  * - mastered：lit 之后，至少隔 minReviewDays 天有一次 review 且 payload.passed === true
@@ -30,7 +30,7 @@ export function masteryFromLog(
     s.lastEvent = e.ts;
     const p = (e.payload ?? {}) as Record<string, unknown>;
     switch (e.action) {
-      case "open": case "note": case "ask": raise(s, "seen"); break;
+      case "open": case "note": case "ask": case "done": raise(s, "seen"); break;
       case "play": raise(s, typeof p.progress === "number" && p.progress >= 0.5 ? "learning" : "seen"); break;
       case "quiz": {
         const total = Number(p.total ?? 0), correct = Number(p.correct ?? 0);

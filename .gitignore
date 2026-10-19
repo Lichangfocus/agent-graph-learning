@@ -26,3 +26,6 @@ apps/web/public/llms.txt
 /learn-data/
 demo/**/.cache/
 __pycache__/
+
+# GitHub Pages 站点产物（npm run site:build）
+/site-dist/

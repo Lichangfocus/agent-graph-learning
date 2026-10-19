@@ -1,6 +1,7 @@
 import { appendFileSync, existsSync, mkdirSync, readdirSync, readFileSync } from "node:fs";
 import { hostname } from "node:os";
 import { join } from "node:path";
+import { lessonToOverlay, readLessons } from "./lesson";
 import { renameRefs, renameTable } from "./migrate";
 import { dataDir } from "./paths";
 import {
@@ -16,6 +17,8 @@ export type UserPack = {
   edges: OverlayEdge[];
   topics: UserTopic[];
   log: LogEvent[];
+  /** lessons/*.json 的 id（内容已经变成 nodes / edges 里的 kind=lesson 节点） */
+  lessons: string[];
   problems: string[];
 };
 
@@ -63,12 +66,15 @@ export function loadUserPack(dir = dataDir()): UserPack {
   }
   // 数据包按旧版 Atlas 写的 → 在内存里按 atlas/migrations 改写引用（文件不改，日志仍只追加）
   const table = renameTable(meta?.atlas_version);
+  // 课按当前 Atlas 版本写（不走迁移），转成 kind=lesson 的自建节点 + 边
+  const lessons = readLessons(dir, problems).map(lessonToOverlay);
   return {
     dir, meta, problems,
     topics: renameRefs(topics, table),
-    nodes: renameRefs(readJsonl(join(dir, "overlay", "nodes.jsonl"), parseWith(OverlayNodeSchema), problems), table),
-    edges: renameRefs(readJsonl(join(dir, "overlay", "edges.jsonl"), parseWith(OverlayEdgeSchema), problems), table),
+    nodes: [...renameRefs(readJsonl(join(dir, "overlay", "nodes.jsonl"), parseWith(OverlayNodeSchema), problems), table), ...lessons.map((l) => l.node)],
+    edges: [...renameRefs(readJsonl(join(dir, "overlay", "edges.jsonl"), parseWith(OverlayEdgeSchema), problems), table), ...lessons.flatMap((l) => l.edges)],
     log: renameRefs(readLog(dir, problems), table),
+    lessons: lessons.map((l) => l.node.id),
   };
 }
 

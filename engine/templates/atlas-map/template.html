@@ -3,7 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>学者 · 知识地图 v0.2</title>
+<title>学者 · 人类知识星图</title>
+<meta name="description" content="学者：一张持续点亮的人类知识星图（开源框架 + 公共 Atlas）。进度只存在你的浏览器里。">
+<meta name="theme-color" content="#04060f">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Cdefs%3E%3CradialGradient%20id%3D%22g%22%3E%3Cstop%20offset%3D%220%22%20stop-color%3D%22%23fde68a%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23fbbf24%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2232%22%20fill%3D%22%2304060f%22%2F%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%2222%22%20fill%3D%22url(%23g)%22%20opacity%3D%22.55%22%2F%3E%3Cpath%20d%3D%22M32%209L36.5%2027.5L55%2032L36.5%2036.5L32%2055L27.5%2036.5L9%2032L27.5%2027.5Z%22%20fill%3D%22%23fbbf24%22%2F%3E%3C%2Fsvg%3E">
 <style>
 :root{--bg:#04060f;--ink:#e6edf7;--mut:#8b9ab3;--line:rgba(148,163,184,.18);--amber:#fbbf24;--cyan:#67e8f9;--gold:#fde68a;--panel:rgba(10,16,32,.82);
 font-family:"PingFang SC","Hiragino Sans GB","Noto Sans CJK SC","Microsoft YaHei",system-ui,sans-serif}
@@ -188,6 +193,85 @@ body.cine #map,body.cine #stars,body.cine .hud{visibility:hidden}
  #scrub .chl{display:none}#ctime{display:none}#cbar{gap:6px;padding:0 8px}
  .scene{overflow-y:auto}
 }
+.nd.lsn .core{opacity:.25}
+.nd .lr{fill:rgba(4,6,15,.55);stroke:#94a3b8;stroke-width:2;opacity:.8}
+.nd .lic{font-size:15px;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.nd .lck{font-size:11px;fill:#fde68a;font-weight:700;text-anchor:middle;pointer-events:none;display:none}
+.ls-progress .lr{stroke:var(--amber)}.ls-lit .lr{stroke:var(--cyan);stroke-width:2.6}
+.ls-done .lr{stroke:#fbbf24;stroke-width:3.4;fill:rgba(251,191,36,.18)}.ls-done .lck{display:block}
+#lessonPill{font-size:12.5px;padding:4px 12px}
+#lesson{position:fixed;inset:0;z-index:35;display:none;background:radial-gradient(ellipse at 50% 110%,#0b1a3a 0%,#02030a 62%);overflow:hidden}
+#lesson.on{display:block;animation:fadein .35s}
+#lhead{position:absolute;left:0;right:0;top:0;height:48px;padding:0 18px;z-index:4;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--mut);gap:8px}
+#lcrumb{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;min-width:0}#lcrumb b{color:var(--ink)}
+#lbody{position:absolute;left:0;right:0;top:48px;bottom:78px;display:flex}
+#lrail{width:236px;flex:0 0 236px;overflow-y:auto;padding:6px 8px 16px 14px;font-size:13px;border-right:1px solid var(--line)}
+#lrail .rp{color:var(--mut);font-size:11.5px;letter-spacing:.12em;margin:12px 0 4px 4px}
+#lrail .ri{padding:6px 8px;border-radius:9px;cursor:pointer;display:flex;gap:6px;align-items:baseline;line-height:1.4;border:1px solid transparent}
+#lrail .ri:hover{background:rgba(103,232,249,.07)}
+#lrail .ri.cur{background:rgba(103,232,249,.14);border-color:rgba(103,232,249,.45)}
+#lrail .ri .mk{width:14px;flex:0 0 14px;color:#6ee7b7}#lrail .ri .mn{margin-left:auto;color:var(--mut);font-size:11.5px;white-space:nowrap}
+#lrail .ri span.t{flex:1}
+#lstage{flex:1;min-width:0;position:relative;overflow-y:auto;overflow-x:hidden;padding:2vh 4vw 4vh}
+.lsc{max-width:1060px;margin:0 auto;min-height:100%}
+.lsc.c{display:flex;flex-direction:column;justify-content:center}
+.lsc .an{opacity:0;transform:translateY(24px);transition:opacity .6s ease-out,transform .6s ease-out}
+.lsc .anf{opacity:0;transition:opacity .7s ease-out}
+.lsc.in .an{opacity:1;transform:none}.lsc.in .anf{opacity:1}
+.lsc .big{font-size:clamp(28px,5vw,64px);font-weight:800;letter-spacing:.05em;margin:0 0 2vh;line-height:1.2}
+.lsc .lead{font-size:clamp(15px,1.9vw,24px);line-height:1.7;color:#cbd5e1;max-width:900px}
+.lsc .mut{color:var(--mut);font-size:13px}
+.lsc ul.pts{list-style:none;padding:0;margin:2vh 0}
+.lsc ul.pts li{font-size:clamp(15px,1.9vw,25px);line-height:1.6;margin:1.8vh 0;padding-left:1em;border-left:3px solid rgba(103,232,249,.4)}
+.lsc .tl{position:relative;margin:2vh 0;padding-left:22px;border-left:2px solid rgba(251,191,36,.45)}
+.lsc .tl .it{margin:2.2vh 0;position:relative;font-size:clamp(14px,1.7vw,22px);line-height:1.6}
+.lsc .tl .it:before{content:"";position:absolute;left:-29px;top:.55em;width:10px;height:10px;border-radius:50%;background:var(--amber);box-shadow:0 0 10px var(--amber)}
+.lsc .tl .wh{font-weight:700;color:var(--gold);margin-right:8px}
+.lsc .quote{font-size:clamp(20px,3vw,40px);line-height:1.5;border-left:4px solid var(--amber);padding:1vh 0 1vh 1.4em;margin:3vh 0 1.4vh;font-style:italic}
+.lsc .who{font-size:clamp(14px,1.5vw,19px);color:var(--gold);margin:0 0 1vh 1.4em}
+.lsc .cmp{display:grid;grid-template-columns:1fr 1fr;gap:1.6vw;margin:2vh 0}
+.lsc .cmp>div{background:rgba(15,23,42,.6);border:1px solid var(--line);border-radius:16px;padding:2vh 1.4vw;font-size:clamp(14px,1.5vw,19px);line-height:1.7}
+.lsc .cmp h3{margin:0 0 1vh;font-size:clamp(17px,2vw,26px)}
+.lsc svg{width:100%;height:auto;display:block}
+.lsc .ml{display:flex;flex-direction:column;gap:6px;margin-top:1vh;font-size:clamp(13px,1.3vw,17px)}
+.lsc sup.rf{color:var(--cyan);font-size:.65em;margin-left:2px}
+.lsrc{margin-top:3vh;padding-top:1vh;border-top:1px dashed var(--line);font-size:12px;color:var(--mut);line-height:1.7}
+.lsrc a{color:var(--cyan)}.lsrc .sn{color:var(--cyan);margin-right:4px}
+.lab-c{background:rgba(45,212,191,.14);color:#5eead4;border:1px solid rgba(45,212,191,.4)}
+.lab-m{background:rgba(96,165,250,.14);color:#93c5fd;border:1px solid rgba(96,165,250,.4)}
+.lab-d{background:rgba(251,146,60,.14);color:#fdba74;border:1px solid rgba(251,146,60,.45)}
+.lab-a{background:rgba(148,163,184,.14);color:#cbd5e1;border:1px solid rgba(148,163,184,.4)}
+.lab-p{background:rgba(192,132,252,.14);color:#d8b4fe;border:1px solid rgba(192,132,252,.4)}
+.lsc .card{background:rgba(15,23,42,.6);border:1px solid var(--line);border-radius:14px;padding:1.6vh 1.4vw;margin:1.4vh 0;line-height:1.7}
+.lsc .card.ok{border-color:#34d399;background:rgba(52,211,153,.08)}.lsc .card.no{border-color:#fb7185;background:rgba(251,113,133,.08)}
+.lsc .g-read{font-size:clamp(40px,8vw,96px);font-weight:800;text-align:center;font-variant-numeric:tabular-nums;color:var(--gold);margin:2vh 0}
+.lsc input[type=range]{width:100%;accent-color:#67e8f9}
+.lsc .gbar{position:relative;height:46px;margin:34px 0 22px;border-radius:8px;background:rgba(148,163,184,.18)}
+.lsc .gbar i{position:absolute;top:-6px;bottom:-6px;width:3px;margin-left:-1px;border-radius:2px}
+.lsc .gbar i b{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:12px;white-space:nowrap;font-style:normal}
+.lsc .gbar span{position:absolute;bottom:-20px;font-size:11px;color:var(--mut)}
+.lsc .bk{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.lsc .bk .btn.sel{border-color:var(--cyan);background:rgba(103,232,249,.18)}
+.lsc .row2{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:2vh}
+.lsc textarea,.lsc input[type=text]{width:100%;background:#060b18;border:1px solid var(--line);border-radius:10px;padding:8px 11px;outline:none;font-size:15px}
+.lsc textarea{min-height:140px;resize:vertical;line-height:1.7}
+.lsc .btn:disabled{opacity:.4;cursor:not-allowed}
+.lsc .doneBig{font-size:clamp(30px,5vw,60px);font-weight:800;color:var(--gold);text-shadow:0 0 22px rgba(251,191,36,.5)}
+#lbar{position:absolute;left:0;right:0;bottom:0;height:78px;z-index:5;background:linear-gradient(0deg,rgba(2,3,10,.96),rgba(2,3,10,.4));display:flex;align-items:center;gap:10px;padding:0 18px}
+#lbar .cb{background:rgba(30,41,59,.7);border:1px solid var(--line);border-radius:99px;min-width:40px;height:40px;cursor:pointer;font-size:15px;padding:0 12px}
+#lbar .cb.play{min-width:52px;height:52px;font-size:18px;background:linear-gradient(135deg,#0e7490,#6d28d9);border:0}
+#lprog{flex:1;height:6px;border-radius:3px;background:rgba(148,163,184,.2);overflow:hidden}
+#lprog .fl{height:100%;width:0;background:linear-gradient(90deg,#67e8f9,#a78bfa);transition:width .25s linear}
+#ltime{font-size:12.5px;color:var(--mut);min-width:120px;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+@media (max-width:700px){
+ #lbody{flex-direction:column}
+ #lrail{width:auto;flex:0 0 auto;display:flex;flex-direction:row;overflow-x:auto;overflow-y:hidden;border-right:0;border-bottom:1px solid var(--line);padding:4px 8px;gap:4px;white-space:nowrap}
+ #lrail .rp{display:none}#lrail .ri{flex:0 0 auto}#lrail .ri .mn{display:none}
+ #lstage{padding:2vh 16px 4vh}
+ .lsc .cmp{grid-template-columns:1fr}
+ #lbar{gap:6px;padding:0 10px}#ltime{min-width:0;font-size:11px}
+ #lhead{padding:0 10px}
+}
 </style>
 </head>
 <body>
@@ -201,7 +285,7 @@ body.cine #map,body.cine #stars,body.cine .hud{visibility:hidden}
  <g id="cam"></g>
 </svg>
 <div class="hud" id="top">
- <div class="brand"><h1>学者 · 知识地图</h1><span class="cnt" id="cnt"></span><span id="sync" class="pill" hidden></span></div>
+ <div class="brand"><h1>学者 · 知识地图</h1><span class="cnt" id="cnt"></span><button class="btn" id="lessonPill" hidden></button><span id="sync" class="pill" hidden></span></div>
  <div class="tools">
    <span id="links"></span>
   <input id="search" list="names" placeholder="🔍 搜索节点 / topic"><datalist id="names"></datalist>
@@ -236,6 +320,17 @@ body.cine #map,body.cine #stars,body.cine .hud{visibility:hidden}
   <div id="scrub"><div class="tr"></div><div class="fl"></div><div class="kn"></div></div>
  </div>
 </div>
+<div id="lesson">
+ <div id="lhead"><div class="crumb" id="lcrumb"></div><div style="display:flex;gap:8px;align-items:center"><span class="badge" id="lstate"></span><button class="btn" id="lClose" title="关闭 (Esc)">✕</button></div></div>
+ <div id="lbody"><nav id="lrail"></nav><div id="lstage"></div></div>
+ <div id="lbar">
+  <button class="cb" id="lPrev" title="上一步 (←)">◀</button>
+  <button class="cb play" id="lPlay" title="播放 / 暂停 (空格)">▶</button>
+  <button class="cb" id="lNext" title="下一步 (→)">▶▶</button>
+  <div id="lprog"><div class="fl"></div></div>
+  <span id="ltime"></span>
+ </div>
+</div>
 <script id="atlas-data" type="application/json">/*__ATLAS_DATA__*/null</script>
 <script>
 (function(){
@@ -263,7 +358,7 @@ function masteryFromLog(events, ids, edges, minReviewDays){
   function raise(s,l){if(!s.level||rank[l]>rank[s.level])s.level=l;}
   events.slice().sort(function(a,b){return Date.parse(a.ts)-Date.parse(b.ts);}).forEach(function(e){
     if(!e.node||!st[e.node])return; var s=st[e.node], p=e.payload||{}; s.lastEvent=e.ts;
-    if(e.action==="open"||e.action==="note"||e.action==="ask")raise(s,"seen");
+    if(e.action==="open"||e.action==="note"||e.action==="ask"||e.action==="done")raise(s,"seen");
     else if(e.action==="play")raise(s,typeof p.progress==="number"&&p.progress>=0.5?"learning":"seen");
     else if(e.action==="quiz"){var t=Number(p.total||0),c=Number(p.correct||0);if(t>=3&&c===t){raise(s,"lit");if(!s.litAt)s.litAt=e.ts;}else raise(s,"learning");}
     else if(e.action==="lit"){raise(s,"lit");if(!s.litAt)s.litAt=e.ts;}
@@ -273,11 +368,36 @@ function masteryFromLog(events, ids, edges, minReviewDays){
   ids.forEach(function(id){if(st[id].level)return;var pre=edges.filter(function(e){return e.kind==="prereq"&&e.dst===id;}).map(function(e){return e.src;});if(pre.some(function(p){return !isLit(p);}))st[id].level="locked";});
   return st;
 }
+function lessonStatus(events, id) {
+  var out = { status: "new", chaptersDone: [], interactionsDone: [] };
+  var evs = events.filter(function(e){ return e.node === id; }).sort(function(a, b){ return Date.parse(a.ts) - Date.parse(b.ts); });
+  var any = false, lit = false, done = false;
+  for (var i = 0; i < evs.length; i++) {
+    var e = evs[i];
+    any = true;
+    var p = e.payload || {};
+    if (e.action === "play") {
+      if (typeof p.chapter === "string" && p.progress === 1 && out.chaptersDone.indexOf(p.chapter) < 0) out.chaptersDone.push(p.chapter);
+      if (typeof p.interaction === "string" && out.interactionsDone.indexOf(p.interaction) < 0) out.interactionsDone.push(p.interaction);
+    } else if (e.action === "quiz") {
+      var total = Number(p.total == null ? 0 : p.total), correct = Number(p.correct == null ? 0 : p.correct);
+      if (total >= 3 && correct === total && !lit) { lit = true; out.litAt = e.ts; }
+    } else if (e.action === "lit") {
+      if (!lit) { lit = true; out.litAt = e.ts; }
+    } else if (e.action === "note") {
+      if (p.kind === "takeaway" && typeof p.text === "string") out.takeaway = p.text;
+    } else if (e.action === "done") {
+      if (!done) { done = true; out.doneAt = e.ts; }
+    }
+  }
+  out.status = done ? "done" : lit ? "lit" : any ? "progress" : "new";
+  return out;
+}
 
 /* ---- user layer (localStorage) ---- */
 var KEY='agl.map.v2:'+(DATA.pack.owner||'local'), OLDKEY='scholar.map.v1';
 var LV=['unseen','seen','learning','lit','mastered'], LVN={unseen:'未学',seen:'看过',learning:'学习中',lit:'已点亮',mastered:'已掌握',locked:'前置未亮'};
-var ACTIONS={open:1,play:1,quiz:1,lit:1,review:1,note:1,ask:1,topic_create:1,link_create:1};
+var ACTIONS={open:1,play:1,quiz:1,lit:1,review:1,note:1,ask:1,done:1,topic_create:1,link_create:1};
 var U={schema:'agl.map.local.v2',log:[],topics:[],edges:[]};
 var memOnly=false;
 function evKey(e){return e.ts+'|'+(e.node||'')+'|'+e.action}
@@ -322,7 +442,7 @@ var MS={};
 function nodeIdList(){return W.nodes.map(function(n){return n.id})}
 function recomputeMS(){MS=masteryFromLog(allEvents(),nodeIdList(),allEdgesRaw())}
 function allEdgesRaw(){return W.edges.concat(U.edges)}
-function afterChange(){recomputeMS();if(typeof refreshAll==='function'){refreshAll();updateCount();if(cineOn)headState()}}
+function afterChange(){recomputeMS();if(typeof refreshAll==='function'){refreshAll();updateCount();if(cineOn)headState()}if(typeof LESSONS!=='undefined'&&LESSONS)lessonRefresh()}
 function logEv(node,action,payload){
   if(!ACTIONS[action])return;
   var ev={ts:new Date().toISOString(),device:DATA.pack.device||'browser',action:action};
@@ -343,7 +463,7 @@ W.topics.forEach(function(t){T[t.id]=t});
 W.nodes.forEach(function(n){N[n.id]=n});
 function allTopics(){return W.topics.concat(U.topics)}
 function allEdges(){return W.edges.concat(U.edges)}
-var STAGES=W.nodes.filter(function(n){return n.quiz}).sort(function(a,b){return a.no-b.no});
+var STAGES=W.nodes.filter(function(n){return n.quiz&&n.node_type!=='lesson'}).sort(function(a,b){return a.no-b.no});
 function stateOf(id){return lvl(id)}
 recomputeMS();
 
@@ -404,14 +524,15 @@ function renderMap(){
   var tt=el('title',{},pth);tt.textContent=(W.edge_kinds[e.kind]||e.kind)+'：'+(e.note||'');
  });
  W.nodes.forEach(function(n){
-  var p=P[n.id];if(!p)return;var stage=!!n.quiz;
+  var p=P[n.id];if(!p)return;var lsn=n.node_type==='lesson',stage=!!n.quiz&&!lsn;
   var g=el('g',{class:'nd',transform:'translate('+p.x.toFixed(1)+','+p.y.toFixed(1)+')','data-id':n.id},gS);
-  el('circle',{r:stage?34:22,fill:'url(#gLit)',class:'halo'},g);
+  if(lsn){el('circle',{r:32,fill:'url(#gLit)',class:'halo'},g);el('circle',{r:16,class:'lr'},g);el('circle',{r:3,class:'core'},g);var lic=el('text',{class:'lic'},g);lic.textContent=n.icon||'📖';var lck=el('text',{x:14,y:-12,class:'lck'},g);lck.textContent='✓';el('circle',{r:20,class:'hit'},g)}
+  else{el('circle',{r:stage?34:22,fill:'url(#gLit)',class:'halo'},g);
   el('circle',{r:stage?13:9,class:'ring'},g);
   el('circle',{r:stage?7.5:4.5,class:'core'},g);
-  el('circle',{r:stage?22:14,class:'hit'},g);
-  var lb=el('text',{x:0,y:stage?-20:-12,'text-anchor':'middle',class:'lbl-node'+(stage?' lbl-stage':'')},gL);
-  lb.textContent=stage?(n.no+' '+n.icon+' '+n.short):n.name;lb.setAttribute('transform','translate('+p.x.toFixed(1)+','+p.y.toFixed(1)+')');
+  el('circle',{r:stage?22:14,class:'hit'},g);}
+  var lb=el('text',{x:0,y:stage?-20:lsn?-24:-12,'text-anchor':'middle',class:'lbl-node'+(stage||lsn?' lbl-stage':'')},gL);
+  lb.textContent=stage?(n.no+' '+n.icon+' '+n.short):lsn?((n.icon||'📖')+' '+(n.short||n.name)):n.name;lb.setAttribute('transform','translate('+p.x.toFixed(1)+','+p.y.toFixed(1)+')');
   nodeEls[n.id]=g;refreshNode(n.id);
   g.addEventListener('pointerenter',function(ev){hoverNode(n.id,ev)});
   g.addEventListener('pointermove',function(ev){moveTip(ev)});
@@ -421,7 +542,7 @@ function renderMap(){
  var dl=$('names');dl.innerHTML='';W.nodes.concat(allTopics()).forEach(function(x){var o=document.createElement('option');o.value=x.name;dl.appendChild(o)});
  applyCam();updateCount();
 }
-function refreshNode(id){var g=nodeEls[id];if(!g)return;g.setAttribute('class','nd st-'+stateOf(id))}
+function refreshNode(id){var g=nodeEls[id];if(!g)return;var n=N[id];g.setAttribute('class','nd st-'+stateOf(id)+(n&&n.node_type==='lesson'?' lsn ls-'+lessonStatus(allEvents(),id).status:''))}
 function refreshAll(){Object.keys(nodeEls).forEach(refreshNode)}
 function updateCount(){var lit=W.nodes.filter(function(n){return LV.indexOf(lvl(n.id))>=3}).length;$('cnt').innerHTML='已点亮 <b>'+lit+'</b> / 共 '+W.nodes.length+' 个节点 · '+allTopics().length+' 个 topic'}
 var tip=$('tip');
@@ -487,7 +608,7 @@ function showTopic(id){var t=allTopics().find(function(x){return x.id===id});if(
 function showDomain(id){var d=D[id];var tps=allTopics().filter(function(t){return t.domain===id});
  panel.innerHTML='<button class="x">✕</button><h2>'+esc(d.icon+' '+d.name)+'</h2><ul>'+tps.map(function(t){return '<li data-topic="'+esc(t.id)+'"><span>'+(t.id.indexOf('u-')===0?'✦ ':'')+esc(t.name)+'</span><span class="badge">'+t.members.length+'</span></li>'}).join('')+'</ul>';
  panel.classList.add('on');bindPanel();panel.querySelectorAll('[data-topic]').forEach(function(li){li.onclick=function(){var tid=li.getAttribute('data-topic');var t=allTopics().find(function(x){return x.id===tid});flyToIds([tid].concat(t.members),{pad:1.4});showTopic(tid)}})}
-function openNode(id,quiet){var n=N[id];if(!n)return;if(n.quiz){openCine(id,0,false);return}
+function openNode(id,quiet){var n=N[id];if(!n)return;if(n.node_type==='lesson'){openLesson(id);return}if(n.quiz){openCine(id,0,false);return}
   if(!quiet)logEv(id,'open',{view:'panel'});
  var es=allEdges().filter(function(e){return e.kind!=='belongs'&&(e.src===id||e.dst===id)});
  panel.innerHTML='<button class="x">✕</button><h2>'+esc(n.name)+'</h2><div style="font-size:12.5px;color:#8b9ab3">'+esc((D[n.domain]||{}).name)+' › '+esc((T[n.home_topic]||{}).name)+' '+badge(stateOf(id))+'</div><p>'+esc(n.summary)+'</p><p style="color:#8b9ab3;font-size:12.5px">⏳ 待生成：讲解影片与自测（v0.2 由「通俗讲解」快速通道产出）。</p>'+(es.length?'<div style="font-size:12.5px;color:#8b9ab3">关联</div><ul>'+es.map(function(e){var o=e.src===id?e.dst:e.src;return N[o]?'<li data-go="'+esc(o)+'"><span>'+esc(W.edge_kinds[e.kind])+' · '+esc((N[o].icon?N[o].icon+' ':'')+N[o].name)+'</span><span class="badge">'+esc(e.claim_type||'')+'</span></li>':''}).join('')+'</ul>':'')+'<div id="pSrc"></div><div class="acts"><button class="btn pri" id="pLit">✓ 我已经懂了，点亮</button></div>';
@@ -768,6 +889,7 @@ $('cNextN').onclick=function(){var i=STAGES.indexOf(cur);if(i<STAGES.length-1)op
  sc.addEventListener('pointerdown',function(e){down=true;try{sc.setPointerCapture(e.pointerId)}catch(x){}at(e)});sc.addEventListener('pointermove',function(e){if(down)at(e)});sc.addEventListener('pointerup',function(){down=false})})();
 document.addEventListener('keydown',function(e){
  if(e.target&&/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;
+ if(lsOn){if(e.key===' '){e.preventDefault();lsPlaying?lsPause():lsPlay()}else if(e.key==='Escape')closeLesson();else if(e.key==='ArrowRight'){if(lsIdx<lsSteps.length-1)lsGo(lsIdx+1)}else if(e.key==='ArrowLeft'){if(lsIdx>0)lsGo(lsIdx-1)}return}
  if(cineOn){if(e.key===' '){e.preventDefault();playing?pause():play()}
   else if(e.key==='Escape')closeCine();
   else if(e.key==='ArrowRight'&&e.shiftKey)$('cNextN').click();
@@ -791,22 +913,168 @@ $('search').addEventListener('change',function(){var q=this.value.trim();if(!q)r
  if(x){var p=P[x.id];flyTo(p.x,p.y,1.7,1000);var g=nodeEls[x.id];g.classList.add('flash');setTimeout(function(){g.classList.remove('flash')},2600);return}
  var tp=allTopics().find(function(t){return t.name.indexOf(q)>=0});if(tp){flyToIds([tp.id].concat(tp.members),{pad:1.4});showTopic(tp.id)}else toast('没找到：'+q)});
 
+/* ---- lessons（课，CR-20261019-01） ---- */
+var LESSONS=W.nodes.filter(function(n){return n.node_type==='lesson'&&n.lesson}).sort(function(a,b){return (a.lesson.no||0)-(b.lesson.no||0)});
+var lsOn=false,LS=null,lsSteps=[],lsIdx=0,lsCur=null,lsPlaying=false,lsLast=0,lsElapsed=0,lsLoggedCh={};
+var CLAIMCLS={'事实':'lab-f','学界共识':'lab-c','主流解释':'lab-m','有争议':'lab-d','AI推断':'lab-a','个人判断':'lab-p','框架':'lab-i'};
+function claimPill(c){if(!c)return '';return '<span class="lab '+(CLAIMCLS[c]||'lab-a')+'">'+(c==='有争议'?'⚠ ':'')+esc(c)+'</span>'}
+function lsStat(id){return lessonStatus(allEvents(),id)}
+function lsStatusText(id,full){var s=lsStat(id),n=N[id].lesson.chapters.length;
+ if(s.status==='done'){var d=new Date(s.doneAt);return '✅ 已完成'+(full?'（'+(d.getMonth()+1)+'月'+d.getDate()+'日 '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')+'）':'')}
+ if(s.status==='lit')return full?'已点亮 · 待你回复「完成」':'已点亮 · 待回复「完成」';
+ if(s.status==='progress')return '进行中 · '+s.chaptersDone.length+'/'+n+' 章';
+ return '未开始'}
+function lessonPill(){var b=$('lessonPill');if(!b)return;if(!LESSONS.length){b.hidden=true;return}
+ var nd=LESSONS.find(function(n){return lsStat(n.id).status!=='done'}),n=nd||LESSONS[LESSONS.length-1];
+ b.hidden=false;b.textContent=nd?('📖 '+n.lesson.short+' · '+lsStatusText(n.id)):('✅ '+n.lesson.short+' 已完成');b.onclick=function(){openLesson(n.id)}}
+function lessonRefresh(){lessonPill();if(lsOn&&LS){lsHead();lsRail()}}
+function sceneSec(s){if(s.sec)return s.sec;var txt=JSON.stringify(s).replace(/"[a-z_]+":/g,'');return Math.max(8,txt.length/6)}
+function lsBuildSteps(L){var st=[{k:'prep',t:'prep'}];L.chapters.forEach(function(c){c.scenes.forEach(function(s,si){st.push({k:c.id+'.'+si,t:'scene',c:c,si:si,s:s})});if(c.interaction)st.push({k:c.id+'.i',t:'inter',c:c})});
+ st.push({k:'quiz',t:'quiz'},{k:'takeaway',t:'takeaway'},{k:'close',t:'close'});return st}
+function lsRefs(srcs,ctx){if(!srcs||!srcs.length)return '';return srcs.map(function(id){var i=ctx.indexOf(id);if(i<0){ctx.push(id);i=ctx.length-1}return '<sup class="rf">['+(i+1)+']</sup>'}).join('')}
+function lsSrcList(ctx,anim){if(!ctx.length)return '';var M={};(LS.lesson.sources||[]).forEach(function(s){M[s.id]=s});
+ return '<div class="lsrc'+(anim===false?'':' an')+'">'+ctx.map(function(id,i){var s=M[id]||{title:id};var u=s.url&&/^https?:\/\//.test(s.url);return '<div><span class="sn">['+(i+1)+']</span>'+(u?'<a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(s.title)+'</a>':esc(s.title))+(s.note?' · '+esc(s.note):'')+'</div>'}).join('')+'</div>'}
+function fmtYa(ya){if(ya>=1e8)return Math.round(ya/1e8)+' 亿年前';if(ya>=1e4)return (Math.round(ya/1e3)/10)+' 万年前';if(ya<=1)return '今天';return ya+' 年前'}
+function lsScaleSvg(s,ctx){var mx=Math.max.apply(0,s.marks.map(function(m){return m.ya}))*1.6,L0=Math.log10(mx);var X=function(ya){return 40+(L0-Math.log10(Math.max(ya,1)))/L0*920};
+ var o='<svg class="anf" viewBox="0 0 1000 300" preserveAspectRatio="xMidYMid meet"><line x1="20" y1="150" x2="985" y2="150" stroke="rgba(103,232,249,.4)" stroke-width="2"/>';
+ for(var k=0;k<=Math.floor(L0);k++){var x=X(Math.pow(10,k));o+='<line x1="'+x.toFixed(1)+'" y1="143" x2="'+x.toFixed(1)+'" y2="157" stroke="rgba(148,163,184,.45)"/>'}
+ o+='<text x="'+X(1).toFixed(1)+'" y="178" text-anchor="middle" class="ax-t">今天</text>';
+ s.marks.slice().sort(function(a,b){return b.ya-a.ya}).forEach(function(m,i){var x=X(m.ya),up=i%2===0,y=up?92:222;
+  o+='<g style="opacity:0;transition:opacity .7s '+(0.4+i*0.5).toFixed(2)+'s" class="mk"><line x1="'+x.toFixed(1)+'" y1="150" x2="'+x.toFixed(1)+'" y2="'+(up?104:200)+'" stroke="rgba(251,191,36,.55)"/><circle cx="'+x.toFixed(1)+'" cy="150" r="7" fill="#fde68a" style="filter:drop-shadow(0 0 8px #fbbf24)"/><text x="'+x.toFixed(1)+'" y="'+y+'" text-anchor="middle" class="ax-st" style="font-size:17px">'+esc(m.label)+'</text><text x="'+x.toFixed(1)+'" y="'+(y+20)+'" text-anchor="middle" class="ax-t" style="font-size:12px">'+esc(fmtYa(m.ya))+'</text></g>';
+  lsRefs(m.src,ctx)});
+ return o+'</svg><div class="ml an">'+s.marks.map(function(m){return '<span>'+claimPill(m.claim)+esc(m.label)+' · '+esc(fmtYa(m.ya))+lsRefs(m.src,ctx)+'</span>'}).join('')+'</div>'}
+function lsScene(s){var ctx=[],o='',k=s.kicker?'<div class="sc-k an">'+esc(s.kicker)+'</div>':'';
+ if(s.type==='title')o=k+'<div class="big an">'+esc(s.heading)+'</div>'+(s.text?'<div class="lead an">'+rich(s.text)+'</div>':'');
+ else if(s.type==='points')o=k+'<div class="sc-h an">'+esc(s.heading)+'</div><ul class="pts">'+s.items.map(function(it){return '<li class="an">'+claimPill(it.claim)+rich(it.text)+lsRefs(it.src,ctx)+'</li>'}).join('')+'</ul>';
+ else if(s.type==='timeline')o=k+'<div class="sc-h an">'+esc(s.heading)+'</div><div class="tl">'+s.items.map(function(it){return '<div class="it an"><span class="wh">'+esc(it.when)+'</span>'+claimPill(it.claim)+rich(it.text)+lsRefs(it.src,ctx)+'</div>'}).join('')+'</div>';
+ else if(s.type==='quote')o=k+'<div class="quote an">「'+esc(s.text)+'」</div><div class="who an">—— '+esc(s.who)+' '+claimPill(s.claim)+lsRefs(s.src,ctx)+'</div>'+(s.note?'<div class="lead an" style="font-size:clamp(14px,1.4vw,17px)">'+rich(s.note)+'</div>':'');
+ else if(s.type==='compare')o=k+'<div class="sc-h an">'+esc(s.heading)+'</div><div class="cmp">'+[s.left,s.right].map(function(x){return '<div class="an"><h3>'+esc(x.h)+'</h3>'+claimPill(x.claim)+rich(x.text)+lsRefs(x.src,ctx)+'</div>'}).join('')+'</div>';
+ else if(s.type==='scale')o=k+'<div class="sc-h an">'+esc(s.heading)+'</div>'+lsScaleSvg(s,ctx)+(s.caption?'<div class="lead an" style="font-size:clamp(14px,1.5vw,18px)">'+rich(s.caption)+'</div>':'');
+ return o+lsSrcList(ctx)}
+function lsChapterDone(cid){if(lsLoggedCh[cid])return;lsLoggedCh[cid]=1;if(lsStat(LS.id).chaptersDone.indexOf(cid)>=0)return;logEv(LS.id,'play',{chapter:cid,progress:1})}
+function lsDiff(d,unit){if(unit!=='clock24')return String(d);d=Math.round(d);return d>=60?Math.floor(d/60)+' 小时 '+(d%60)+' 分钟':d+' 分钟'}
+function lsGuess(it,root){var ch=lsCur.c.id;var fv=function(v){if(it.unit!=='clock24')return String(v);v=Math.round(v);return String(Math.floor(v/60)).padStart(2,'0')+':'+String(v%60).padStart(2,'0')};
+ var mid=Math.round((it.min+it.max)/2/it.step)*it.step;
+ root.innerHTML='<div class="sc-k an">🎯 互动 · 猜一猜</div><div class="sc-h an">'+rich(it.prompt)+'</div><div class="g-read an" id="gRead">'+fv(mid)+'</div><input class="an" type="range" id="gIn" min="'+it.min+'" max="'+it.max+'" step="'+it.step+'" value="'+mid+'"><div class="row2 an"><button class="btn pri" id="gGo">揭晓</button><span class="mut">拖动滑块，再点「揭晓」</span></div><div id="gRes"></div>';
+ var inp=root.querySelector('#gIn');inp.oninput=function(){root.querySelector('#gRead').textContent=fv(+inp.value)};
+ root.querySelector('#gGo').onclick=function(){var g=+inp.value,d=Math.abs(g-it.answer),ok=d<=it.tolerance,ctx=[];
+  var pct=function(v){return ((v-it.min)/(it.max-it.min)*100).toFixed(2)+'%'};
+  var ticks=it.unit==='clock24'?[0,6,12,18].map(function(hh){return '<span style="left:'+pct(hh*60)+';bottom:auto;top:14px;padding-left:4px">'+hh+':00</span>'}).join(''):'';
+  root.querySelector('#gRes').innerHTML='<div class="gbar">'+ticks+'<i style="left:'+pct(g)+';background:#a78bfa"><b style="color:#c4b5fd">你猜 '+fv(g)+'</b></i><i style="left:'+pct(it.answer)+';background:#fbbf24"><b style="color:#fde68a;top:auto;bottom:-24px">答案 '+fv(it.answer)+'</b></i></div><div class="card '+(ok?'ok':'no')+'"><b>'+(ok?'很接近！':'差了 '+lsDiff(d,it.unit))+'</b><br>'+claimPill(it.claim)+rich(it.reveal)+lsRefs(it.src,ctx)+'</div>'+lsSrcList(ctx,false);
+  root.querySelector('#gGo').textContent='再猜一次';
+  logEv(LS.id,'play',{chapter:ch,interaction:it.id,guess:g,ok:ok});lsChapterDone(ch)}}
+function lsSort(it,root){var ch=lsCur.c.id,pick={};
+ function draw(checked){var ctx=[],score=0;
+  var cards=it.items.map(function(x,i){var sel=pick[i],cls='card an',res='';
+   if(checked){var ok=sel===x.bucket;if(ok)score++;cls+=ok?' ok':' no';var bl=it.buckets.find(function(b){return b.id===x.bucket})||{label:x.bucket};res='<div style="margin-top:6px;font-size:14px">'+(ok?'✓ ':'✗ 应为「'+esc(bl.label)+'」 · ')+rich(x.why)+lsRefs(x.src,ctx)+'</div>'}
+   return '<div class="'+cls+'"><div>'+rich(x.text)+'</div><div class="bk">'+it.buckets.map(function(b){return '<button class="btn'+(sel===b.id?' sel':'')+'" data-i="'+i+'" data-b="'+esc(b.id)+'"'+(checked?' disabled':'')+' title="'+esc(b.hint||'')+'">'+esc(b.label)+'</button>'}).join('')+'</div>'+res+'</div>'}).join('');
+  var n=Object.keys(pick).length,all=n===it.items.length;
+  var foot=checked?'<div class="row2"><b>'+score+' / '+it.items.length+'</b><button class="btn" id="sRe">重来</button><button class="btn pri" id="sNx">继续 ▶</button></div>':'<div class="row2"><button class="btn pri" id="sGo"'+(all?'':' disabled')+'>核对</button><span class="mut">'+n+' / '+it.items.length+'</span></div>';
+  root.innerHTML='<div class="sc-k an">🧩 互动 · 分类</div><div class="sc-h an">'+rich(it.prompt)+'</div>'+cards+foot+lsSrcList(ctx,false);
+  if(drawn)root.classList.add('in');drawn=true;
+  root.querySelectorAll('[data-b]').forEach(function(b){b.onclick=function(){pick[b.getAttribute('data-i')]=b.getAttribute('data-b');draw(false)}});
+  var go=root.querySelector('#sGo');if(go)go.onclick=function(){draw(true)};
+  var re=root.querySelector('#sRe');if(re)re.onclick=function(){pick={};draw(false)};
+  var nx=root.querySelector('#sNx');if(nx)nx.onclick=function(){lsGo(lsIdx+1)};
+  if(checked){logEv(LS.id,'play',{chapter:ch,interaction:it.id,score:score,total:it.items.length});lsChapterDone(ch)}}
+ var drawn=false;draw(false)}
+function lsQuiz(root){var Q=LS.quiz||[],ans={},s0=lsStat(LS.id),wasLit=s0.status==='lit'||s0.status==='done',drawn=false;
+ function draw(checked){var k=0;
+  var html='<div class="sc-k an">✅ 自测</div><div class="sc-h an">'+Q.length+' 道题，全对点亮这颗星</div>'+(wasLit?'<div class="mut an"><span class="litmsg">✨ 这颗星已点亮</span>，也可以直接去写感想。</div>':'');
+  html+=Q.map(function(q,i){var ok=ans[i]===q.answer;if(checked&&ok)k++;
+   return '<div class="card an'+(checked?(ok?' ok':' no'):'')+'"><div><b>'+(i+1)+'.</b> '+rich(q.q)+'</div><div class="bk">'+q.options.map(function(o,j){return '<button class="btn'+(ans[i]===j?' sel':'')+'" data-q="'+i+'" data-o="'+j+'">'+esc(o)+'</button>'}).join('')+'</div>'+(checked&&q.explain?'<div class="mut" style="margin-top:6px">'+(ok?'✓ ':'✗ ')+rich(q.explain)+'</div>':'')+'</div>'}).join('');
+  var all=Q.every(function(q,i){return ans[i]!=null});
+  html+='<div class="row2"><button class="btn pri" id="qGo"'+(all?'':' disabled')+'>核对</button><span id="qRes"></span></div>';
+  root.innerHTML=html;if(drawn)root.classList.add('in');drawn=true;
+  root.querySelectorAll('[data-q]').forEach(function(b){b.onclick=function(){ans[b.getAttribute('data-q')]=+b.getAttribute('data-o');draw(false)}});
+  root.querySelector('#qGo').onclick=function(){draw(true)};
+  if(checked){var res=root.querySelector('#qRes');logEv(LS.id,'quiz',{correct:k,total:Q.length});
+   if(k===Q.length){res.innerHTML='<span class="litmsg">✨ 点亮了！</span> <button class="btn" id="qNext">写感想 →</button>';if(!wasLit){burst();toast('✨ 已点亮：'+LS.lesson.short);wasLit=true}root.querySelector('#qNext').onclick=function(){lsGo('takeaway')}}
+   else res.textContent=k+' / '+Q.length+'，改选错的再核对。'}}
+ draw(false)}
+function lsTake(root){var T0=LS.lesson.takeaway,s=lsStat(LS.id),mn=T0.min==null?10:T0.min,mx=T0.max||600;
+ root.innerHTML='<div class="sc-k an">✍️ 写感想</div><div class="sc-h an">'+rich(T0.prompt)+'</div><textarea class="an" id="tIn" maxlength="'+mx+'" placeholder="'+esc(T0.placeholder||'')+'"></textarea><div class="row2 an"><button class="btn pri" id="tGo">保存感想</button><span class="mut" id="tCnt"></span><span id="tMsg"></span></div>';
+ var ta=root.querySelector('#tIn');ta.value=s.takeaway||'';
+ function cnt(){var n=ta.value.trim().length;root.querySelector('#tCnt').textContent=n+' / '+mx+(n<mn?'（至少 '+mn+' 字）':'');root.querySelector('#tGo').disabled=n<mn}
+ ta.oninput=cnt;cnt();if(s.takeaway)root.querySelector('#tMsg').textContent='已保存过，改完可以再存。';
+ root.querySelector('#tGo').onclick=function(){logEv(LS.id,'note',{kind:'takeaway',text:ta.value.trim()});
+  root.querySelector('#tMsg').innerHTML='已保存。'+(sink&&!DATA.pack.demo?'已写入数据包日志。':'已存在本机浏览器，学完点「导出」发给学者。')+' <button class="btn" id="tNext">去完成 →</button>';root.querySelector('#tNext').onclick=function(){lsGo('close')}}}
+function lsClose(root){var s=lsStat(LS.id),C0=LS.lesson.close||{},ph=C0.phrase||'完成';
+ if(s.status==='done'){lsDoneView(root,s);return}
+ if(s.status!=='lit'){root.innerHTML='<div class="sc-k an">🏁 完成</div><div class="sc-h an">先完成自测（全对点亮），再回来输入「'+esc(ph)+'」</div><div class="row2 an"><button class="btn pri" id="cQ">去自测</button></div>';root.querySelector('#cQ').onclick=function(){lsGo('quiz')};return}
+ root.innerHTML='<div class="sc-k an">🏁 完成</div><div class="sc-h an">'+rich(C0.hint||('输入「'+ph+'」结束本课'))+'</div>'+(s.takeaway?'':'<div class="card an no">还没写感想——可以先去写，也可以直接结束。 <button class="btn" id="cT">去写感想</button></div>')+'<div class="row2 an"><input type="text" id="cIn" placeholder="输入「'+esc(ph)+'」" style="max-width:260px"><button class="btn pri" id="cGo" disabled>结束本课</button></div>';
+ var inp=root.querySelector('#cIn'),go=root.querySelector('#cGo'),ct=root.querySelector('#cT');if(ct)ct.onclick=function(){lsGo('takeaway')};
+ inp.oninput=function(){go.disabled=inp.value.trim()!==ph};inp.onkeydown=function(e){if(e.key==='Enter'&&!go.disabled)go.click()};
+ go.onclick=function(){if(inp.value.trim()!==ph)return;logEv(LS.id,'done',{reply:ph});burst();lsDoneView(root,lsStat(LS.id))}}
+function lsDoneView(root,s){var L=LS.lesson,d=new Date(s.doneAt),nI=L.chapters.filter(function(c){return c.interaction}).length;
+ root.innerHTML='<div class="doneBig an">✅ '+esc(L.short)+' 已完成</div><div class="lead an">'+esc(d.toLocaleString('zh-CN',{hour12:false}))+'</div><ul class="pts"><li class="an">章节 '+s.chaptersDone.length+' / '+L.chapters.length+'</li><li class="an">互动 '+s.interactionsDone.length+' / '+nI+'</li><li class="an">自测全对 ✓</li><li class="an">感想：'+(s.takeaway?esc(s.takeaway.slice(0,60))+(s.takeaway.length>60?'…':''):'（没写）')+'</li></ul><div class="row2 an"><button class="btn" id="dExp">导出记录</button><button class="btn pri" id="dMap">回到星图</button></div>';
+ root.querySelector('#dExp').onclick=function(){exportJSON()};root.querySelector('#dMap').onclick=closeLesson;root.classList.add('in')}
+function lsPrep(root){var L=LS.lesson,P0=L.prep||{prepare:[]},due='';
+ if(L.due){var dd=new Date(L.due+'T00:00:00');due='<div class="lead an">📅 截止：'+esc(L.due)+'（周'+'日一二三四五六'.charAt(dd.getDay())+'）</div>'}
+ root.innerHTML='<div class="sc-k an">课前说明</div><div class="big an">'+esc((LS.icon||'📖')+' '+L.title)+'</div><div class="lead an">'+rich(L.summary)+'</div>'+due+(P0.minutes?'<div class="lead an">⏱ '+rich(P0.minutes)+'</div>':'')+
+  '<div class="sc-h an" style="margin-top:3vh">准备</div><ul class="pts">'+P0.prepare.map(function(x){return '<li class="an">'+rich(x)+'</li>'}).join('')+'</ul>'+
+  (P0.reading&&P0.reading.length?'<div class="sc-h an">建议阅读</div>'+P0.reading.map(function(r){var u=r.url&&/^https?:\/\//.test(r.url);return '<div class="card an">《'+esc(r.title)+'》'+(r.author?' · '+esc(r.author):'')+(r.part?' · <b>'+esc(r.part)+'</b>':'')+' '+(r.required?'<span class="lab lab-d">必读</span>':'<span class="lab lab-a">可选</span>')+(r.note?'<div class="mut">'+rich(r.note)+'</div>':'')+(u?'<div><a href="'+esc(r.url)+'" target="_blank" rel="noopener" style="color:var(--cyan)">打开 ↗</a></div>':'')+'</div>'}).join(''):'')+
+  '<div class="row2 an"><button class="btn pri" id="pGo">开始第一章 ▶</button></div>';
+ root.querySelector('#pGo').onclick=function(){lsGo(1);lsPlay()}}
+function lsHead(){var s=lsStat(LS.id),b=$('lstate');b.textContent=lsStatusText(LS.id,true);b.className='badge '+(s.status==='done'?'b-mastered':s.status==='lit'?'b-lit':s.status==='progress'?'b-learning':'b-unseen');
+ $('lcrumb').innerHTML='学者 · '+esc((T[LS.home_topic]||{}).name||'')+' · <b>'+esc((LS.icon||'📖')+' '+LS.lesson.title)+'</b>'}
+function lsRail(){var L=LS.lesson,s=lsStat(LS.id),cur=lsCur,r=$('lrail'),html='',part=null;
+ function item(key,mark,text,mn){var on=cur&&(cur.k===key||(cur.c&&cur.c.id===key));return '<div class="ri'+(on?' cur':'')+'" data-k="'+esc(key)+'"><span class="mk">'+mark+'</span><span class="t">'+text+'</span>'+(mn?'<span class="mn">'+mn+'</span>':'')+'</div>'}
+ html+=item('prep','','课前说明');
+ L.chapters.forEach(function(c){if(c.part!==part){part=c.part;html+='<div class="rp">'+esc(part)+'</div>'}html+=item(c.id,s.chaptersDone.indexOf(c.id)>=0?'✓':'',esc(c.title)+(c.interaction?' 🎯':''),c.minutes+' 分钟')});
+ html+='<div class="rp">收尾</div>'+item('quiz',(s.status==='lit'||s.status==='done')?'✓':'','自测（'+(LS.quiz||[]).length+' 题）')+item('takeaway',s.takeaway?'✓':'','写感想')+item('close',s.status==='done'?'✅':'','完成');
+ r.innerHTML=html;r.querySelectorAll('.ri').forEach(function(x){x.onclick=function(){var k=x.getAttribute('data-k');lsGo(/^c\d+$/.test(k)?k+'.0':k)}});
+ var c2=r.querySelector('.ri.cur');if(c2&&c2.scrollIntoView)try{c2.scrollIntoView({block:'nearest',inline:'nearest'})}catch(e){}}
+function lsBar(){var st=lsCur,p=$('lprog').querySelector('.fl'),tm=$('ltime');if(!st)return;
+ if(st.c){var sc=st.c.scenes,tot=0,before=0;sc.forEach(function(x,i){var d=sceneSec(x);tot+=d;if(st.t!=='scene'||i<st.si)before+=d});var pos=before+(st.t==='scene'?Math.min(lsElapsed,sceneSec(st.s)):0);
+  p.style.width=(pos/tot*100).toFixed(1)+'%';tm.textContent=(st.t==='inter'?'互动 · ':'')+'本章 '+fmt(pos)+' / '+fmt(tot)}
+ else{p.style.width=(lsIdx/(lsSteps.length-1)*100).toFixed(1)+'%';tm.textContent={prep:'课前说明',quiz:'自测',takeaway:'写感想',close:'完成'}[st.t]}
+ $('lPlay').textContent=lsPlaying?'⏸':'▶';$('lPrev').disabled=lsIdx===0;$('lNext').disabled=lsIdx===lsSteps.length-1}
+function lsRender(){var st=lsSteps[lsIdx];lsCur=st;var stage=$('lstage');stage.innerHTML='';stage.scrollTop=0;var root=h('div','lsc',null,stage);
+ if(st.t==='prep')lsPrep(root);else if(st.t==='scene'){root.classList.add('c');root.innerHTML=lsScene(st.s)}
+ else if(st.t==='inter'){if(st.c.interaction.type==='guess')lsGuess(st.c.interaction,root);else lsSort(st.c.interaction,root)}
+ else if(st.t==='quiz')lsQuiz(root);else if(st.t==='takeaway')lsTake(root);else lsClose(root);
+ var an=root.querySelectorAll('.an,.anf'),gap=st.t==='scene'?Math.min(.9,sceneSec(st.s)*.5/(an.length+1)):.05;an.forEach(function(e,i){e.style.transitionDelay=(i*gap).toFixed(2)+'s'});
+ requestAnimationFrame(function(){requestAnimationFrame(function(){root.classList.add('in');root.querySelectorAll('g.mk').forEach(function(g){g.style.opacity=1})})});
+ lsHead();lsRail();lsBar();
+ try{history.replaceState(null,'','#/node/'+encodeURIComponent(LS.id)+'&step='+st.k)}catch(e){}}
+function lsGo(k,keep){var i=typeof k==='number'?k:lsSteps.findIndex(function(s){return s.k===k});if(i<0)i=0;if(i>lsSteps.length-1)i=lsSteps.length-1;
+ var prev=lsCur,nx=lsSteps[i];
+ if(prev&&prev.c&&i>lsIdx&&(nx.c!==prev.c||nx.t==='inter'))lsChapterDone(prev.c.id);
+ lsPlaying=(keep||lsPlaying)&&nx.t==='scene';lsIdx=i;lsElapsed=0;lsRender()}
+function lsPlay(){if(!lsOn||!lsCur)return;if(lsCur.t==='prep'){lsGo(1)}if(lsCur.t!=='scene')return;var was=lsPlaying;lsPlaying=true;lsLast=performance.now();lsBar();if(!was)requestAnimationFrame(lsTick)}
+function lsPause(){lsPlaying=false;if(lsCur)lsBar()}
+function lsTick(now){if(!lsPlaying||!lsOn)return;var dt=Math.min(.25,(now-lsLast)/1000);lsLast=now;var st=lsCur;if(st.t!=='scene'){lsPause();return}
+ lsElapsed+=dt;if(lsElapsed>=sceneSec(st.s)){if(lsIdx<lsSteps.length-1)lsGo(lsIdx+1,true);else lsPause()}else lsBar();
+ if(lsPlaying)requestAnimationFrame(lsTick)}
+function openLesson(id,step){var n=N[id];if(!n||!n.lesson)return;if(cineOn)closeCine();closeTimeline();panel.classList.remove('on');
+ LS=n;lsSteps=lsBuildSteps(n.lesson);lsLoggedCh={};lsIdx=0;lsCur=null;lsPlaying=false;lsOn=true;$('lesson').classList.add('on');document.body.classList.add('cine');
+ logEv(id,'open',{view:'lesson'});var i=-1;if(step){i=lsSteps.findIndex(function(s){return s.k===step});if(i<0&&/^c\d+$/.test(step))i=lsSteps.findIndex(function(s){return s.k===step+'.0'})}
+ lsGo(i>=0?i:0)}
+function closeLesson(){lsPause();lsOn=false;$('lesson').classList.remove('on');document.body.classList.remove('cine');$('lstage').innerHTML='';refreshAll();updateCount();lessonPill();try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}}
+$('lPrev').onclick=function(){if(lsIdx>0)lsGo(lsIdx-1)};$('lNext').onclick=function(){if(lsIdx<lsSteps.length-1)lsGo(lsIdx+1)};
+$('lPlay').onclick=function(){lsPlaying?lsPause():lsPlay()};$('lClose').onclick=closeLesson;
+
 /* ---- test hooks（无头截图用） ---- */
 window.__seek=function(id,s){if(!cur||cur.id!==id)openCine(id,s,true);pause();renderAt(s)};
 window.__openMap=function(){closeCine();closeTimeline()};
 window.__openTimeline=function(){openTimeline()};
 window.__state=function(){return {events: allEvents(), mastery: MS, local: U}};
+window.__lesson={open:function(id,step){openLesson(id,step)},step:function(){return lsCur&&lsCur.k},status:function(id){return lessonStatus(allEvents(),id)},go:function(step){lsGo(step)}};
 
 /* ---- boot ---- */
 renderMap();
 var f0=fitIds(W.domains.map(function(d){return d.id}),1.02);C.x=f0.x;C.y=f0.y;C.k=f0.k*.55;applyCam();
-var hp={};location.hash.replace(/^#/,'').split('&').forEach(function(kv){var a=kv.split('=');if(a[0])hp[a[0]]=decodeURIComponent(a[1]||'')});
+var hp={};(location.search+location.hash).replace(/^[?#]/,'').split(/[&#]/).forEach(function(kv){var a=kv.split('=');if(a[0])hp[a[0]]=decodeURIComponent(a[1]||'')});var m=location.hash.match(/^#\/node\/([^&?/]+)/);if(m)hp.node=decodeURIComponent(m[1]);
 if(hp.demo){save=function(){};var dn=Date.now();(hp.demo.split(',')).forEach(function(kv,i){var a=kv.split(':'),st=a[1]||'lit';if(!N[a[0]])return;var ts=new Date(dn-86400000*3+i).toISOString(),ev={ts:ts,device:'demo',node:a[0]};
   if(st==='seen'){ev.action='open'}else if(st==='learning'){ev.action='play';ev.payload={progress:0.6}}else{ev.action='lit';ev.payload={via:'manual'}}
   SESSION.push(ev);
   if(st==='mastered')SESSION.push({ts:new Date(dn-i).toISOString(),device:'demo',node:a[0],action:'review',payload:{passed:true}})});
   recomputeMS();refreshAll();updateCount()}
-if(hp.node&&N[hp.node]&&N[hp.node].quiz){C.k=f0.k;applyCam();openCine(hp.node,parseFloat(hp.t||0),hp.t!=null)}
+lessonPill();
+var lsId=(hp.lesson&&N[hp.lesson]&&N[hp.lesson].lesson)?hp.lesson:(hp.node&&N[hp.node]&&N[hp.node].lesson)?hp.node:null;
+if(lsId){C.k=f0.k;applyCam();openLesson(lsId,hp.step)}
+else if(hp.node&&N[hp.node]&&N[hp.node].quiz){C.k=f0.k;applyCam();openCine(hp.node,parseFloat(hp.t||0),hp.t!=null)}
 else if(hp.view==='timeline'){C.k=f0.k;applyCam();openTimeline()}
 else if(hp.view==='civ'){C.k=f0.k;applyCam();showCiv(10)}
 else home(1800);

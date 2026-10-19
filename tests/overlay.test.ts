@@ -16,7 +16,7 @@ test("overlay merge: demo pack merges cleanly and never mutates the atlas", () =
   const merged = mergeOverlay(atlas, loadUserPack(DEMO_PACK_DIR));
   assert.deepEqual(merged.diagnostics.errors, []);
   assert.equal(JSON.stringify(atlas), before);
-  assert.equal(merged.nodes.length, atlas.nodes.length + 1);
+  assert.equal(merged.nodes.length, atlas.nodes.length + 2); // 自建节点 u-steam-engine + 示例课 u-lesson-demo
   assert.equal(merged.nodes.find((n) => n.id === "u-steam-engine")?.source, "user");
 });
 

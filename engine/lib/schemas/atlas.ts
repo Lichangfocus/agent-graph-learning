@@ -7,10 +7,10 @@ const Text = z.string().trim().min(1);
 export const EDGE_KINDS = ["prereq", "belongs", "causes", "leads_to", "contrast", "related", "parallel"] as const;
 /** 个人判断：用户自建连线（只出现在覆盖层），不代表事实。 */
 export const CLAIM_TYPES = ["事实", "学界共识", "主流解释", "有争议", "AI推断", "个人判断"] as const;
-export const NODE_KINDS = ["concept", "event", "era"] as const;
+export const NODE_KINDS = ["concept", "event", "era", "lesson"] as const;
 export const NODE_STATUS = ["stub", "draft", "ready"] as const;
 export const MASTERY_LEVELS = ["locked", "seen", "learning", "lit", "mastered"] as const;
-export const LOG_ACTIONS = ["open", "play", "quiz", "lit", "review", "note", "ask", "topic_create", "link_create"] as const;
+export const LOG_ACTIONS = ["open", "play", "quiz", "lit", "review", "note", "ask", "topic_create", "link_create", "done"] as const;
 
 /** 事实核查来源（TASK-005）：标题必填，url 可选（书籍可只写出处）。 */
 export const SourceSchema = z.object({ title: Text, url: z.url().optional(), note: z.string().optional() }).strict();
