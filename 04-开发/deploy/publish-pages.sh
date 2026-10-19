@@ -19,5 +19,5 @@ git -C "$TMP" init -q -b gh-pages
 cp -a "$OUT"/. "$TMP"/
 git -C "$TMP" add -A
 git -C "$TMP" -c user.name="Grok Bot (学者)" -c user.email="lichangfocus@users.noreply.github.com" commit -q -m "pages: $(git log -1 --format='%h %s' "$SHA")"
-git -C "$TMP" push -q -f "$(git remote get-url origin)" gh-pages:gh-pages
+git -C "$TMP" -c http.version=HTTP/1.1 -c http.postBuffer=524288000 push -q -f "$(git remote get-url origin)" gh-pages:gh-pages
 echo "✓ gh-pages ← $SHA；约 1 分钟后生效：https://lichangfocus.github.io/agent-graph-learning/"
