@@ -68,6 +68,6 @@ writeFileSync(join(out, "more.html"), `<!doctype html><html lang="zh-CN"><meta c
 <li><a href="preview/index.html">单元预览</a>：单元页、批注与修订简报。</li>
 ${explained.map((s) => `<li><a href="explain/${esc(s)}.html">讲解页：${esc(s)}</a></li>`).join("\n")}
 </ul>
-<p class="m">全部文件离线可用，双击即可打开；进度存在浏览器本地，可在星图里「导出」后用 <code>npm run log:import</code> 追加到 learn-data/log/。</p></html>
+<p class="m">全部文件离线可用，双击即可打开；进度存在浏览器本地，可在星图里「导出」后用 <code>npm run log:import</code> 追加到私有数据包的 log/ 目录。</p></html>
 `);
 console.log(`✓ 目录：${join(out, "more.html")}`);

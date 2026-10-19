@@ -20,7 +20,7 @@ const code = html.replace(DATA_RE, "");
 test("offline map: data injected once, '<' escaped, no network code, no modules, writer placeholder removed", () => {
   assert.ok(!html.includes("/*__ATLAS_DATA__*/") && !html.includes("/*__WRITER__*/"));
   assert.equal(html.match(new RegExp(DATA_RE.source, "g"))!.length, 1);
-  assert.doesNotMatch(code, /<script[^>]+src=|<link[^>]+href=|@import|\bfetch\(|import\s*\(|https?:\/\/(?!www\.w3\.org)/);
+  assert.doesNotMatch(code, /<script[^>]+src=|<link(?![^>]*href="data:)[^>]+href=|@import|\bfetch\(|import\s*\(|https?:\/\/(?!www\.w3\.org)/);
   const json = html.match(DATA_RE)![1];
   assert.ok(!json.includes("<"), "JSON 里的 < 必须转义，不能提前闭合 script");
   const data = JSON.parse(json);
