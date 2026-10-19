@@ -19,6 +19,7 @@ test("site:build: example pack → static site with star map, legacy maps/my and
     delete env.LEARN_DATA_DIR;
     const r = runSite(env);
     assert.equal(r.status, 0, r.stderr || r.stdout);
+    assert.match(r.stdout, /节点 47，已点亮 0/, "在线版只含公共 Atlas（47 节点），不带示例包的点亮记录");
     const index = readFileSync(join(out, "index.html"), "utf-8");
     assert.ok(index.includes("学者 · 人类知识星图"));
     assert.ok(index.includes('rel="manifest"'));

@@ -12,11 +12,10 @@ import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { loadAtlas } from "../lib/atlas";
-import { renderMainMap } from "../lib/map-page";
+import { activePack, renderMainMap } from "../lib/map-page";
 import { countLit, masteryFromLog } from "../lib/mastery";
 import { mergeOverlay } from "../lib/overlay";
 import { REPO_ROOT, dataDir, dataPath, usingUserData } from "../lib/paths";
-import { loadUserPack } from "../lib/userpack";
 import { loadExplainUnit } from "../lib/utils/explain";
 import { renderExplainHtml } from "./explain-render";
 
@@ -24,7 +23,7 @@ const out = process.env.DEMO_OUT ?? (usingUserData() ? dataPath("builds") : join
 mkdirSync(out, { recursive: true });
 
 const atlas = loadAtlas();
-const pack = loadUserPack();
+const pack = activePack();
 const merged = mergeOverlay(atlas, pack);
 if (merged.diagnostics.errors.length || pack.problems.length) {
   console.error([...pack.problems, ...merged.diagnostics.errors].join("\n"));
@@ -62,7 +61,7 @@ writeFileSync(join(out, "more.html"), `<!doctype html><html lang="zh-CN"><meta c
 <title>Agent Graph Learning · Demo</title>
 <style>body{font-family:"PingFang SC","Noto Sans CJK SC",system-ui,sans-serif;background:#0b1020;color:#e5e7eb;max-width:760px;margin:40px auto;padding:0 18px;line-height:1.7}a{color:#7dd3fc}li{margin:6px 0}.m{color:#94a3b8;font-size:14px}</style>
 <h1>Agent Graph Learning · 离线 Demo</h1>
-<p class="m">数据包：${esc(usingUserData() ? dataDir() : "示例包 examples/demo-pack")} · Atlas v${esc(atlas.version)} · 生成于 ${new Date().toISOString().slice(0, 10)}</p>
+<p class="m">数据包：${esc(process.env.SITE_ATLAS_ONLY === "1" ? "无（在线版只含公共 Atlas，进度存在你的浏览器）" : usingUserData() ? dataDir() : "示例包 examples/demo-pack")} · Atlas v${esc(atlas.version)} · 生成于 ${new Date().toISOString().slice(0, 10)}</p>
 <ul>
 <li><a href="index.html">知识星图（主视图）</a>：${atlas.domains.length} 个领域、${merged.nodes.length} 个节点；时间轴视图；11 个历史节点可「播放」并做 3 题自测点亮（已点亮 ${lit} / 共 ${total}）。</li>
 <li><a href="preview/index.html">单元预览</a>：单元页、批注与修订简报。</li>

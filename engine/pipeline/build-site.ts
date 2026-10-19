@@ -29,7 +29,7 @@ rmSync(out, { recursive: true, force: true });
 mkdirSync(out, { recursive: true });
 
 // 1. 星图 + 预览 + 讲解 + 目录（示例包）
-const env: NodeJS.ProcessEnv = { ...process.env, DEMO_OUT: out };
+const env: NodeJS.ProcessEnv = { ...process.env, DEMO_OUT: out, SITE_ATLAS_ONLY: "1" };
 delete env.LEARN_DATA_DIR;
 const demo = spawnSync(process.execPath, ["--import", "tsx", join(REPO_ROOT, "engine/pipeline/build-demo.ts")], {
   cwd: REPO_ROOT, env, encoding: "utf-8",
