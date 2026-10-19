@@ -805,7 +805,7 @@ window.__state=function(){return {events: allEvents(), mastery: MS, local: U}};
 /* ---- boot ---- */
 renderMap();
 var f0=fitIds(W.domains.map(function(d){return d.id}),1.02);C.x=f0.x;C.y=f0.y;C.k=f0.k*.55;applyCam();
-var hp={};location.hash.replace(/^#/,'').split('&').forEach(function(kv){var a=kv.split('=');if(a[0])hp[a[0]]=decodeURIComponent(a[1]||'')});
+var hp={};(location.search+location.hash).replace(/^[?#]/,'').split(/[&#]/).forEach(function(kv){var a=kv.split('=');if(a[0])hp[a[0]]=decodeURIComponent(a[1]||'')});var m=location.hash.match(/^#\/node\/([^&?/]+)/);if(m)hp.node=decodeURIComponent(m[1]);
 if(hp.demo){save=function(){};var dn=Date.now();(hp.demo.split(',')).forEach(function(kv,i){var a=kv.split(':'),st=a[1]||'lit';if(!N[a[0]])return;var ts=new Date(dn-86400000*3+i).toISOString(),ev={ts:ts,device:'demo',node:a[0]};
   if(st==='seen'){ev.action='open'}else if(st==='learning'){ev.action='play';ev.payload={progress:0.6}}else{ev.action='lit';ev.payload={via:'manual'}}
   SESSION.push(ev);

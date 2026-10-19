@@ -68,3 +68,15 @@ test("in-browser mastery rules are identical to engine/lib/mastery.ts", () => {
   const strip = (x: unknown) => JSON.parse(JSON.stringify(x));
   assert.deepEqual(strip(browser(events, ids, merged.edges)), strip(masteryFromLog(events, ids, merged.edges)));
 });
+
+test("deep links: #node=, #/node/<id>, ?node= all resolve to the same node", () => {
+  const start = code.indexOf("var hp={};");
+  const end = code.indexOf("hp.node=decodeURIComponent(m[1]);", start) + "hp.node=decodeURIComponent(m[1]);".length;
+  assert.ok(start > 0 && end > start, "hash parser snippet not found");
+  const parse = (search: string, hash: string) => runInNewContext(code.slice(start, end) + ";hp", { location: { search, hash } });
+  assert.equal(parse("", "#node=s4&t=12").node, "s4");
+  assert.equal(parse("", "#node=s4&t=12").t, "12");
+  assert.equal(parse("", "#/node/s4").node, "s4");
+  assert.equal(parse("?node=s4", "").node, "s4");
+  assert.equal(parse("?node=s4&t=30", "").t, "30");
+});
