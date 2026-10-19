@@ -31,7 +31,7 @@ LEARN_DATA_DIR=../learn-data npm run log:import -- ~/Downloads/browser-*.jsonl  
 
 设备名默认是主机名，可用 `LEARN_DEVICE=mac` 指定。学完同步：`git -C ../learn-data pull --rebase && git -C ../learn-data add -A && git -C ../learn-data commit -m "log: …" && git -C ../learn-data push`。
 
-**先看 demo**：双击 [`demo/index.html`](demo/index.html) → 电影感知识星图（10 个领域、33 个 topic、47 个节点、对数时间轴、人类文明 11 次大变革的短片与 3 题自测点亮；事实附来源，解释标「非定论」，见 [`atlas/src/fact-check.md`](atlas/src/fact-check.md)）。离线点亮存浏览器本地，「导出」后用 `log:import` 并进数据包。
+**先看 demo**：双击 [`demo/index.html`](demo/index.html) → 电影感知识星图（10 个领域、33 个 topic、47 个节点、对数时间轴、人类文明 11 次大变革的短片与 3 题自测点亮；事实附来源，解释标「非定论」，见 [`atlas/src/fact-check.md`](atlas/src/fact-check.md)）。离线点亮存浏览器本地，「导出」后用 `log:import` 并进数据包。星图里的 📖 星是「课」：课前说明 → 分章短片 → 互动 → 自测点亮 → 写感想 → 输入「完成」结束（格式见 `engine/lib/schemas/lesson.ts`，示例 `examples/demo-pack/lessons/`，自己的课放数据包 `lessons/`）。
 
 ## 目录
 

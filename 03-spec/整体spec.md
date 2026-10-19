@@ -1,4 +1,4 @@
-# 03 · 整体 spec（v0.2，2026-10-18；v0.2 改动见 CR-20261018-02/03/04）
+# 03 · 整体 spec（v0.2，2026-10-18；v0.2 改动见 CR-20261018-02/03/04；课见 CR-20261019-01）
 
 > 依据：[产品设计 v0.3](../01-产品方案/产品设计-v0.3.md)、[功能清单](../02-功能清单/产品功能清单.md)。代码权威位置见 [04-开发/README.md](../04-开发/README.md)。
 
@@ -44,6 +44,7 @@
 | `log/<device>.jsonl` | 学习日志 `{ts(带时区), device?, node?, action, payload?}`，只追加；`npm run dev` 下星图经 `/api/events/` 直接写 `log/<LEARN_DEVICE 或主机名>.jsonl`；离线 HTML 导出后 `npm run log:import` 写 `log/browser.jsonl` | 框架 |
 | `overlay/nodes.jsonl` `overlay/edges.jsonl` | 自建节点 / 边，id 以 `u-` 开头 | 框架 / 手动 |
 | `topics/<id>.json` | 自建 topic（id 以 `u-` 开头） | 框架 / 手动 |
+| `lessons/<id>.json` | 课（`learn.lesson.v1`，`engine/lib/schemas/lesson.ts`）：课前说明、分章场景（每条带主张标签 + 来源引用）、章末互动、自测、感想、结束语；读包时变成 kind=lesson 的自建节点挂到 topic 上（CR-20261019-01）。同名 `.md` 是给人看的大纲与核查记录 | 学者 |
 | `annotations/<device>.jsonl` | 批注（要改 / 有疑问 / 认可 / 补资料） | 框架 |
 | `units-private/<id>/` | `source.md` + `public/`（作品图）+ `video/` | 学者 |
 | `curriculum/` | 课程图 `graph.yaml`、课表 `course*.md` | 学者 / focus |
@@ -61,6 +62,10 @@
 2. 用户 topic 是视角：成员必须存在；成员节点的 `topics` 追加该 topic，节点不复制。
 3. 用户节点：领域与 topic 必须存在，否则丢弃 + 报错；其声明的 topic 的 `members` 自动包含它。
 4. 用户边：两端必须存在（Atlas 或用户节点）；合并后整体再跑一遍语义校验（如用户 prereq 成环 → 报错）。
+
+### 2.4.1 课的状态（`engine/lib/lesson.ts::lessonStatus`，星图内同一实现）
+
+只由日志推算：有 `done` 事件 → 已完成；quiz 全对（≥3 题）或 lit → 已点亮·待完成；有任何事件 → 进行中（`play{chapter, progress:1}` 记已学完的章，`play{interaction}` 记做过的互动）；否则未开始。感想是 `note{kind:"takeaway", text}`。`done` 只在学习者输入「完成」时写（星图里要求先点亮）；在对话里回复「完成」时，由学者用 `npm run log -- <课 id> done '{"reply":"完成","via":"chat"}'` 记一条。
 
 ### 2.5 掌握度（`engine/lib/mastery.ts::masteryFromLog`，星图内同一实现）
 
@@ -101,7 +106,7 @@
 
 ## 4. 隐私
 
-- 框架仓库不得跟踪：`profile/ log/ units-private/ annotations/ overlay/ revisions/` 路径（`examples/demo-pack/`、`历史/` 例外）、`course-q4-2026.md` 等个人课表、`.env*`、任何符号链接 → `npm run check:privacy`（在 `npm run check` 里）。
+- 框架仓库不得跟踪：`profile/ log/ units-private/ annotations/ overlay/ revisions/ lessons/` 路径（`examples/demo-pack/`、`历史/` 例外）、`course-q4-2026.md` 等个人课表、`.env*`、任何符号链接 → `npm run check:privacy`（在 `npm run check` 里）。
 - 公开 CI 不读私人数据；依赖私人单元的测试在没有 `LEARN_DATA_DIR` 时自动跳过并写明原因。
 
 ## 5. 执行优先级（focus 2026-10-18 定）

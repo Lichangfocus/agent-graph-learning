@@ -1,6 +1,6 @@
 # 00 · 变更单
 
-> 当前：CR-20261018-01（PR #1）与 CR-20261018-02/03/04（分支 `cloud/grok/TASK-002-atlas-merge`，叠在 TASK-001 上）都在 ⑥ 待 focus review。
+> 当前：CR-20261018-01（PR #1）、CR-20261018-02/03/04（PR #2）、CR-20261019-01（第一课，叠在 PR #2 上）都在 ⑥ 待 focus review。
 
 你口述的每一个修改点都先在这里登记成一张变更单，然后按固定顺序推进。这里是**唯一的进度台账**。流程说明见 [README](../README.md#flow) 与 [AGENTS.md](../AGENTS.md)。
 
@@ -31,3 +31,4 @@
 | CR-20261018-02 | 「把 scholar-engine world-map v3（47 节点 / 138 边）映射进 Atlas 真源，0 警告合并；电影感星图 + 11 部历史短片读 Atlas，成为 demo / 应用主视图」 | cloud/grok | `atlas/` `engine/atlas/` `engine/lib/`（world-view、migrate、map-page、atlas-map）`engine/templates/atlas-map/` `engine/pipeline/atlas-build.ts` `build-demo.ts` `apps/web/app/` `demo/` `examples/demo-pack/` `tests/` | ⑥ 待人工 review | 迭代计划 TASK-002；功能清单 F-01、F-07、F-08、F-09 | [CR-02/03/04](../03-spec/变更/CR-20261018-02-03-04-M0星图主视图.md) | `cloud/grok/TASK-002-atlas-merge` | 单元测试 §6 2026-10-18 v0.2 | M0 |
 | CR-20261018-03 | 「dev 应用把打开、自测结果、点亮写进 $LEARN_DATA_DIR/log/<device>.jsonl；离线 HTML 保留 localStorage + 导出，可被日志导入」 | cloud/grok | `engine/lib/log-api.ts` `log-import.ts` `userpack.ts` `engine/pipeline/log-import.ts` `log-event.ts` `apps/web/app/api/` `apps/web/next.config.ts` `tests/log-*.test.ts` | ⑥ 待人工 review | 迭代计划 TASK-006（原 TASK-003，因与同步机制分支重名改号）；F-05、F-10 | 同上 | 同上 | 同上 | M0 |
 | CR-20261018-04 | 「用 WebSearch/WebFetch 对照可靠来源核查历史 11 节点与跨领域边，改错、记来源，查不到的保持 AI推断」 | cloud/grok | `atlas/src/` `engine/lib/schemas/atlas.ts`（sources） | ⑥ 待人工 review | 迭代计划 TASK-005；F-01 | [fact-check.md](../atlas/src/fact-check.md) | 同上 | 同上 | M0 |
+| CR-20261019-01 | 「第一课：怎样读通史 + 文化发展（一）……星图里的电影感课，20–30 分钟：短片 + 2–3 个互动 + 5–6 题点亮 + 写感想；事实带来源与标签；课前说明；回复「完成」才结束」 | cloud/grok | `engine/lib/schemas/lesson.ts` `engine/lib/lesson.ts` `userpack.ts` `mastery.ts` `privacy.ts` `engine/templates/atlas-map/template.html` `examples/demo-pack/lessons/` `tests/lesson.test.ts`；私人：`learn-data/lessons/u-lesson-01.json` | ⑥ 待人工 review | 迭代计划 TASK-007；F-15 | [CR-20261019-01](../03-spec/变更/CR-20261019-01-第一课.md) | `cloud/grok/TASK-007-lesson-01` | 单元测试 §6 2026-10-19 | M0 |
